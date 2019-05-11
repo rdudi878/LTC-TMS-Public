@@ -1,0 +1,12 @@
+<!--
+Author: LTC-TMS App Team (Peter Shively, Tyler Bartnick, Duong Doan, Ryen Shearn)            
+Last Modified:                                                               
+Course: CSC 355 Software Engineering                                                         
+Professor Name: Dr. Joo Tan                                                                  
+Filename: strings.xml                                                                                    
+Purpose: 
+
+-->
+<resources>
+    <string name="app_name">ltctms</string>
+</resources>

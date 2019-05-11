@@ -1,0 +1,23 @@
+<!--
+Author: LTC-TMS App Team (Peter Shively, Tyler Bartnick, Duong Doan, Ryen Shearn)            
+Last Modified:                                                               
+Course: CSC 355 Software Engineering                                                         
+Professor Name: Dr. Joo Tan                                                                  
+Filename: styles.xml                                                                                     
+Purpose: 
+Original Source: HandleBarLabs 
+URL: https://medium.com/handlebar-labs/how-to-add-a-splash-screen-to-a-react-native-app-ios-and-android-30a3cec835ae
+
+-->
+
+<resources>
+  <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        
+    </style>
+  <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <item name="android:windowBackground">@drawable/splash_background</item>
+  </style>
+
+</resources>

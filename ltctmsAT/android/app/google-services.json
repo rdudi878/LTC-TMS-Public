@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "917274264132",
+    "firebase_url": "https://browserteam.firebaseio.com",
+    "project_id": "browserteam",
+    "storage_bucket": "browserteam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917274264132:android:b728bd57327e7917",
+        "android_client_info": {
+          "package_name": "com.ku.ltctms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917274264132-k69mf5n2t64rii26lk3b77ugiig454uc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyIjPFpnDRwfwAt18LV_3GQDhqfcyBV84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917274264132-k69mf5n2t64rii26lk3b77ugiig454uc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "917274264132-qdi80ou2nt9gm1h2e9v4rdk7f7dq0mnt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ku.ltctms"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

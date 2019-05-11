@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Author: LTC-TMS App Team (Peter Shively, Tyler Bartnick, Duong Doan, Ryen Shearn)            
+Last Modified:                                                               
+Course: CSC 355 Software Engineering                                                         
+Professor Name: Dr. Joo Tan                                                                  
+Filename: splash_background.xml                                                                                    
+Purpose: 
+Original Source: HandleBarLabs 
+URL: https://medium.com/handlebar-labs/how-to-add-a-splash-screen-to-a-react-native-app-ios-and-android-30a3cec835ae
+
+
+-->
+  <!-- The android:opacity=”opaque” line — this is critical in preventing a flash of black as your theme transitions. -->
+  
+  <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+
+    <!-- The background color, preferably the same as your normal theme -->
+     <item android:drawable="@color/customblue"/>
+    <!-- Your splash image -->
+    <item>
+      <bitmap
+        android:src="@drawable/logofinal"
+        android:gravity="center"
+        />
+
+    </item>
+
+
+</layer-list>

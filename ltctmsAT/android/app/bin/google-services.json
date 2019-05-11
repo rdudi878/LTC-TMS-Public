@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "357358078384",
+    "firebase_url": "https://ltctms-3d2c1.firebaseio.com",
+    "project_id": "ltctms-3d2c1",
+    "storage_bucket": "ltctms-3d2c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357358078384:android:b728bd57327e7917",
+        "android_client_info": {
+          "package_name": "com.ku.ltctms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357358078384-7nna59pdk0p6vtnmsdtk3d486eq936v0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0tAc0Z68XAo3LEU6N2yGNUFWt0LWwKSM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
