@@ -6,20 +6,20 @@
  */
 
 var fbPatName = firebase.database().ref("Patient");
-	
+
 	//grab the Patient's name from database and put into the selected box
 	fbPatName.once("value")
     .then(function(snapshot){
         var array = [];
         var index = 0;
-        snapshot.forEach(function(childSnapshot){			
+        snapshot.forEach(function(childSnapshot){
           var childKey = childSnapshot.key;
-		  
+
 			var fbPatName = firebase.database().ref("Patient/"+childKey+"/Portfolio");
 		  	fbPatName.once("value")
 			.then(function(snapshot){
         var firstName = snapshot.child("/Name").val();
-				
+
 			 if(childSnapshot.key = "Portfolio/Name"){
               array.push(firstName); // add the childkey into array, push is add
               var x = document.getElementById("selectPatName");
@@ -32,8 +32,8 @@ var fbPatName = firebase.database().ref("Patient");
 	    });
        });
     });
-	
-    
+
+
    // Finds the PatientID based of choosen PatientName
    function selectPatientName(){
     var nameVal = document.getElementById("selectPatName").value;
@@ -43,8 +43,8 @@ var fbPatName = firebase.database().ref("Patient");
 
 
     nameRef.orderByChild('Portfolio/Name/').equalTo(nameVal).on("value", function(snapshot) {
-        snapshot.forEach((function(child) { document.getElementById("patientID").value = child.key; 
-        
+        snapshot.forEach((function(child) { document.getElementById("patientID").value = child.key;
+
         if(startD != "" &&  endD != ""){
         document.getElementById("generate_report_button").disabled = false;
         document.getElementById("generate_report_button").style.backgroundColor ='#F5F5F5';
@@ -75,9 +75,9 @@ function validate(){
   }
 }
 
-   
 
-	
+
+
 // clear box function
     function clearBox()
 {
@@ -131,33 +131,33 @@ function fastDay() {
 function fastWeek() {
         var startDate = new Date();
         startDate.setDate( startDate.getDate() - 7 );
-  
+
        var startDay = startDate.getDate();
        var startMonth= startDate.getMonth() + 1; //January is 0!
        var startYear = startDate.getFullYear();
-  
+
        if (startDay < 10) {
           startDay = '0' + startDay;
         }
         if (startMonth < 10) {
           startMonth = '0' + startMonth;
         }
-  
+
         var endDate = new Date();
         var endDay = endDate.getDate();
         var endMonth= endDate.getMonth() + 1; //January is 0!
         var endYear = endDate.getFullYear();
-  
+
         if (endDay < 10) {
           endDay = '0' + endDay;
         }
         if (endMonth < 10) {
           endMonth = '0' + endMonth;
         }
-  
+
         var completeStartDate = startYear+ '-' + startMonth + '-' + startDay;
         var completeEndDate = endYear+ '-' + endMonth + '-' + endDay;
-  
+
         document.getElementById("startDate").value = completeStartDate;  // today
         document.getElementById("endDate").value = completeEndDate;  // today
 
@@ -168,33 +168,33 @@ function fastWeek() {
 function fastMonth() {
         var startDate = new Date();
         startDate.setDate( startDate.getDate() - 30 );
-  
+
        var startDay = startDate.getDate();
        var startMonth= startDate.getMonth() + 1; //January is 0!
        var startYear = startDate.getFullYear();
-  
+
        if (startDay < 10) {
           startDay = '0' + startDay;
         }
         if (startMonth < 10) {
           startMonth = '0' + startMonth;
         }
-  
+
         var endDate = new Date();
         var endDay = endDate.getDate();
         var endMonth= endDate.getMonth() + 1; //January is 0!
         var endYear = endDate.getFullYear();
-  
+
         if (endDay < 10) {
           endDay = '0' + endDay;
         }
         if (endMonth < 10) {
           endMonth = '0' + endMonth;
         }
-  
+
         var completeStartDate = startYear+ '-' + startMonth + '-' + startDay;
         var completeEndDate = endYear+ '-' + endMonth + '-' + endDay;
-  
+
         document.getElementById("startDate").value = completeStartDate;  // today
         document.getElementById("endDate").value = completeEndDate;  // today
 
@@ -205,9 +205,9 @@ function fastMonth() {
 // generates the actual report and places it on the server.
 // Displays a URL link to where the report can be found.
 function generateReport(){
-var startDate = document.getElementById("startDate").value; 
+var startDate = document.getElementById("startDate").value;
 var endDate = document.getElementById("endDate").value;
-var patientID = document.getElementById("patientID").value; 
+var patientID = document.getElementById("patientID").value;
 var name = document.getElementById("selectPatName").value;
 var rURL = "http://acad.kutztown.edu/~nperu898/" + name + "_" + startDate + "_" + endDate + ".pdf";
 var Success = "false";
@@ -253,7 +253,7 @@ console.log(Success);
 window.onload=function(){
 // displaying the current date
     var today = new Date();
-    
+
     var dd = today.getDate();
     var mm_index = today.getMonth(); //January is 0!
     var year = today.getFullYear();
@@ -261,7 +261,7 @@ window.onload=function(){
     var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
      var wk_index = today.getDay();
 
-   
+
 
      if (dd<10){
          dd = "0"+dd;
