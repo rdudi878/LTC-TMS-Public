@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "CSC355-Browser-Team",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
