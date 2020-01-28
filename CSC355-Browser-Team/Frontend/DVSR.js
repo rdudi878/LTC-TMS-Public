@@ -648,6 +648,10 @@ function sortHRR(){
 
 
 function showdsr(){
+  document.getElementById("DsOptions").style.display = "block";
+  document.getElementById("VsOptions").style.display = "none";
+  document.getElementById("AiOptions").style.display = "none";
+  document.getElementById("ScOptions").style.display = "none";
   document.getElementById("data1").style.display = "block";
   document.getElementById("data2").style.display = "none";
   document.getElementById("data3").style.display = "none";
@@ -660,6 +664,10 @@ function showdsr(){
   document.getElementById("ecspan").style.opacity = ".8";
 }
 function showvsr(){
+  document.getElementById("DsOptions").style.display = "none";
+  document.getElementById("VsOptions").style.display = "block";
+  document.getElementById("AiOptions").style.display = "none";
+  document.getElementById("ScOptions").style.display = "none";
   document.getElementById("data1").style.display = "none";
   document.getElementById("data2").style.display = "block";
   document.getElementById("data3").style.display = "none";
@@ -672,6 +680,10 @@ function showvsr(){
   document.getElementById("ecspan").style.opacity = ".8";
 }
 function showais(){
+  document.getElementById("DsOptions").style.display = "none";
+  document.getElementById("VsOptions").style.display = "none";
+  document.getElementById("AiOptions").style.display = "block";
+  document.getElementById("ScOptions").style.display = "none";
   document.getElementById("data1").style.display = "none";
   document.getElementById("data2").style.display = "none";
   document.getElementById("data3").style.display = "block";
@@ -684,6 +696,10 @@ function showais(){
   document.getElementById("ecspan").style.opacity = ".8";
 }
 function showsc(){
+  document.getElementById("DsOptions").style.display = "none";
+  document.getElementById("VsOptions").style.display = "none";
+  document.getElementById("AiOptions").style.display = "none";
+  document.getElementById("ScOptions").style.display = "block";
   document.getElementById("data1").style.display = "none";
   document.getElementById("data2").style.display = "none";
   document.getElementById("data3").style.display = "none";

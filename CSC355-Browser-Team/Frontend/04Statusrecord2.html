@@ -309,7 +309,6 @@
                         <span id="vsrspan" onclick="showvsr()" style="opacity:.8;cursor:pointer;">Vital Status</span>
                         <span id="aisspan" onclick="showais()" style="opacity:.8;cursor:pointer;">AI Status</span>
                         <span id="scspan" onclick="showsc()" style="opacity:.8;cursor:pointer;">Special Care</span>
-                        <span id="ecspan" onclick="showec()" style="opacity:.8;cursor:pointer;">Env. Condition</span>
                     </div>
                     <!-- <span class="placeholderFont">This is a placeholder! Implementation of this feature will be added on in the future!</span> -->
                     <!-- <div class="placeholder"> -->
@@ -419,8 +418,31 @@
                         </div>
                         <button type="button" class="btn cancel" onclick="close_form()"><p style="position:relative;top:-15px;left:-6px;font-size:20px;"> x </p></button>
                     </div>
+<!-- Daily Status Options -->
+                    <div id="DsOptions" style="position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
 
-                    <div style="position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+                        <h2 id="current_year" style="position:relative;top:-80%"></h2>
+
+                        <div class="status_record_date_option">
+                            <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Date:</p>
+                            <input style="float: left; margin-left: 10px; border-radius:5px;" type="date" id="bday">
+                            <br><br>
+                        </div>
+
+                        <div class="status_record_option">
+                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
+                                <option>Daily Status - Patient ID</option>
+                            </select>
+                            <select id="selectCNA" style="width:70px;">
+                                <option>CNA ID</option>
+                            </select>
+                            <br><br><br>
+                        </div>
+                        <br><br>
+                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                    </div>
+<!-- Vital Status Options -->
+                    <div id="VsOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
 
                         <h2 id="current_year" style="position:relative;top:-80%"></h2>
 
@@ -431,7 +453,51 @@
 
                         <div class="status_record_option">
                             <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
-                                <option>Patient ID</option>
+                                <option>Vital Status - Patient ID</option>
+                            </select>
+                            <select id="selectCNA" style="width:70px;">
+                                <option>CNA ID</option>
+                            </select>
+                            <br><br><br>
+                        </div>
+                        <br><br>
+                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                    </div>
+<!-- AI Status Options -->
+                    <div id="AiOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+
+                        <h2 id="current_year" style="position:relative;top:-80%"></h2>
+
+                        <div class="status_record_date_option">
+                            <input type="date" id="bday">
+                            <br><br>
+                        </div>
+
+                        <div class="status_record_option">
+                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
+                                <option>AI Status - Patient ID</option>
+                            </select>
+                            <select id="selectCNA" style="width:70px;">
+                                <option>CNA ID</option>
+                            </select>
+                            <br><br><br>
+                        </div>
+                        <br><br>
+                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                    </div>
+<!-- Special Care Options -->
+                    <div id="ScOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+
+                        <h2 id="current_year" style="position:relative;top:-80%"></h2>
+
+                        <div class="status_record_date_option">
+                            <input type="date" id="bday">
+                            <br><br>
+                        </div>
+
+                        <div class="status_record_option">
+                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
+                                <option>Special Care - Patient ID</option>
                             </select>
                             <select id="selectCNA" style="width:70px;">
                                 <option>CNA ID</option>
