@@ -1,19 +1,26 @@
 // have to fix the filter function //
-//get the patient's id and put in the seleted boxs
-var fbPAT = firebase.database().ref("Activities");
+//get the patient's name and put in the seleted boxes
+var fbPAT = firebase.database().ref("Patient");
 //grab the Patient's ID from database and put into the selected box
 fbPAT.once("value")
     .then(function(snapshot){
-        var array = [];
+      var nameArray = []; // Array to hold the names
+        var idArray = []; // Array to hold the IDs
         var index = 0;
         snapshot.forEach(function(childSnapshot){
+// The .child property is the only way I know to traverse deeper into the DB layers
+          var portfolioSnap = childSnapshot.child("Portfolio")
+          var nameSnap = portfolioSnap.child("Name")
+          // console.log(nameSnap.node_.value_) // *****BINGO******
+          // Above is how the name is referenced
           var childKey = childSnapshot.key;
-          if(childSnapshot.key != "EnvironmentStatus"){
-               array.push(childKey); // add the childkey into array, push is add
-              var x = document.getElementById("selectPAT");
-              var opt = document.createElement("option");
-             opt.text= array[index];
-              x.add(opt);
+          if(childKey != "EnvironmentStatus"){
+            nameArray.push(nameSnap.node_.value_); // add the name into nameArray, push is add
+            idArray.push(childKey); // add the ID into idArray
+            var x = document.getElementById("selectPAT");
+            var opt = document.createElement("option"); // Creating the drop down options
+             opt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
+              x.add(opt); // Appending to the drop down options
               index=index+1;
           }
        });
