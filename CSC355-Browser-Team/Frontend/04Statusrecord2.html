@@ -424,17 +424,15 @@
                         <h2 id="current_year" style="position:relative;top:-80%"></h2>
 
                         <div class="status_record_date_option">
-                            <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Date:</p>
+                          <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Date:</p>
                             <input style="float: left; margin-left: 10px; border-radius:5px;" type="date" id="bday">
                             <br><br>
                         </div>
 
                         <div class="status_record_option">
-                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
+                          <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Select Patient:</p>
+                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()" style="float: left; margin-left: 10px; border-radius:5px;">
                                 <option>Daily Status - Patient ID</option>
-                            </select>
-                            <select id="selectCNA" style="width:70px;">
-                                <option>CNA ID</option>
                             </select>
                             <br><br><br>
                         </div>
