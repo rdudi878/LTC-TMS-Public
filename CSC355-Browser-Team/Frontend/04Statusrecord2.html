@@ -93,8 +93,8 @@
     }
 
         table th {
-            background-color: #B0C4DE;
-            color: #000;
+            background-color: #3f9fff;
+            color: white;
         }
 
         table td {
@@ -298,35 +298,6 @@
                 <!-- TOP BAR ENDS-->
                 <!-- Place Holder for header-->
                 <div class="user-info">
-                    <!--BACKGROUND PANEL IMAGE-->
-                    <div class="container-fluid">
-
-                        <img class="panelimg img-responsive" style="background-color: #fff5ee" />
-
-                        <div class="container" style="transform:translateY(-8.5ex)">
-                            <!-- CIRCLE IMAGE THING-->
-
-
-                            <div class="user-headface" onmouseover="imgBlur(this)" onmouseout="imgOrg(this)" style="background-color:white; white-space:nowrap;overflow: hidden;">
-                                <img src="statics/images/edit.png" id="photoword"
-                                     style="position:relative;left:20px; text-align:center;
-                                display:none;width:40px;height:40px; white-space:nowrap;overflow: hidden;" onclick="document.getElementById('newPic').click();">
-                                <img id="Profilepic" onclick="document.getElementById('newPic').click();" style="cursor:pointer; white-space:nowrap;overflow: hidden;" />
-                                <input id="newPic" type='file' accept="image/*" onchange="uploadPicProfile()" required style="display:none; white-space:nowrap;overflow: hidden;" />
-                            </div>
-
-                            <!-- TEXT NEXT TO THE CIRCLE IMAGE THING-->
-                            <div class="user-account">
-                                <p class="tip" id="time123"></p><!-- DISPLAYS GOOD MORNING/AFTERNOON/EVENING MSG -->
-                                <p></p>
-                                <p class="account" style="position:relative; top:8px;">
-                                    <span style = "font-size: 20pt;" word-wrap: break-word;>Name : <span style = "font-size: 20pt;" id="displayProfilename"></span></span>
-                                    <span class="hidden" style = "font-size: 20pt">UserID : <span style = "font-size: 20pt;" id="displayProfileid"></span></span>
-                                    <span style = "font-size: 20pt;" word-wrap: break-word;> Role : <span style = "font-size: 20pt;" id="displayProfileposition"></span></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div> <!-- END OF THE TWO HEADER!! -->
 
@@ -338,11 +309,10 @@
                         <span id="vsrspan" onclick="showvsr()" style="opacity:.8;cursor:pointer;">Vital Status</span>
                         <span id="aisspan" onclick="showais()" style="opacity:.8;cursor:pointer;">AI Status</span>
                         <span id="scspan" onclick="showsc()" style="opacity:.8;cursor:pointer;">Special Care</span>
-                        <span id="ecspan" onclick="showec()" style="opacity:.8;cursor:pointer;">Env. Condition</span>
                     </div>
-                    <span class="placeholderFont">This is a placeholder! Implementation of this feature will be added on in the future!</span>
-                    <div class="placeholder">
-                    </div>
+                    <!-- <span class="placeholderFont">This is a placeholder! Implementation of this feature will be added on in the future!</span> -->
+                    <!-- <div class="placeholder"> -->
+                    <!-- </div> -->
                     <div id="menu" style="display:none;position:fixed;top:6%;left:74%;background-color:white;height:100px;width:200px;z-index:5;">
                         <div style="position:relative;left:1%;top:2%;background-color:#ddd;width:98%;margin-bottom:5px;">Language</div>
                         <p class="selected" style="margin-top:3px;margin-bottom:3px;cursor:pointer;">&nbsp English<br></p>
@@ -359,8 +329,18 @@
                         <div class="no-doc" id="no-doc1">
                             <br><br>
                             <center>
+                              <div class="patient-info" style="margin: 10px; width: 75%; border-style: solid; border-width: 10px; border-radius: 5px; border-color: #3f9fff">
+                                <p style="float: left;">Name</p>
+                                <table class="daily-status-table" id="daily-status-table1" style="width: 75%; margin:10px; float: right;">
+                                  <tr>
+                                    <th>Category</th>
+                                    <th>Completed Tasks</th>
+                                  </tr>
+                                </table>
+
                                 <img src="statics/images/no_doc.jpg" />
                                 <p> Please Select Date, PatientID and CNAID </p>
+                              </div>
                             </center>
                         </div>
                     </div>
@@ -438,13 +418,31 @@
                         </div>
                         <button type="button" class="btn cancel" onclick="close_form()"><p style="position:relative;top:-15px;left:-6px;font-size:20px;"> x </p></button>
                     </div>
-
-                    <div style="position:relative; top:-80%; left:0%; background-color:#ddd;width:22%; height:80%;">
+<!-- Daily Status Options -->
+                    <div id="DsOptions" style="position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
 
                         <h2 id="current_year" style="position:relative;top:-80%"></h2>
-                        <h2 id='current_date' style="position:relative;"></h2>
-                        <h2 id="current_month" style="position:relative;"></h2>
-                        <h2 id="current_week" style="position:relative;"></h2>
+
+                        <div class="status_record_date_option">
+                          <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Date:</p>
+                            <input style="float: left; margin-left: 10px; border-radius:5px;" type="date" id="bday">
+                            <br><br>
+                        </div>
+
+                        <div class="status_record_option">
+                          <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Select Patient:</p>
+                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()" style="float: left; margin-left: 10px; border-radius:5px;">
+                                <option>Patient Name - Patient ID</option>
+                            </select>
+                            <br><br><br>
+                        </div>
+                        <br><br>
+                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                    </div>
+<!-- Vital Status Options -->
+                    <div id="VsOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+
+                        <h2 id="current_year" style="position:relative;top:-80%"></h2>
 
                         <div class="status_record_date_option">
                             <input type="date" id="bday">
@@ -453,7 +451,51 @@
 
                         <div class="status_record_option">
                             <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
-                                <option>Patient ID</option>
+                                <option>Vital Status - Patient ID</option>
+                            </select>
+                            <select id="selectCNA" style="width:70px;">
+                                <option>CNA ID</option>
+                            </select>
+                            <br><br><br>
+                        </div>
+                        <br><br>
+                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                    </div>
+<!-- AI Status Options -->
+                    <div id="AiOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+
+                        <h2 id="current_year" style="position:relative;top:-80%"></h2>
+
+                        <div class="status_record_date_option">
+                            <input type="date" id="bday">
+                            <br><br>
+                        </div>
+
+                        <div class="status_record_option">
+                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
+                                <option>AI Status - Patient ID</option>
+                            </select>
+                            <select id="selectCNA" style="width:70px;">
+                                <option>CNA ID</option>
+                            </select>
+                            <br><br><br>
+                        </div>
+                        <br><br>
+                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                    </div>
+<!-- Special Care Options -->
+                    <div id="ScOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+
+                        <h2 id="current_year" style="position:relative;top:-80%"></h2>
+
+                        <div class="status_record_date_option">
+                            <input type="date" id="bday">
+                            <br><br>
+                        </div>
+
+                        <div class="status_record_option">
+                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
+                                <option>Special Care - Patient ID</option>
                             </select>
                             <select id="selectCNA" style="width:70px;">
                                 <option>CNA ID</option>
@@ -467,7 +509,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- START COPY FOR SIDEBAR JAVASCRIPT -->
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

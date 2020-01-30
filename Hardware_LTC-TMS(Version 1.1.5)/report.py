@@ -35,12 +35,12 @@ from matplotlib.cbook import get_sample_data
 
 # found in Firebase, copy & paste
 config = {
-   "apiKey": "AIzaSyAMnEOZj1JB52QOEFPwbS274MX3wQWYCeM",
-   "authDomain": "browserteam.firebaseapp.com",
-   "databaseURL": "https://browserteam.firebaseio.com",
-   "projectId": "browserteam",
-   "storageBucket": "browserteam.appspot.com",
-   "messagingSenderId": "917274264132"
+   "apiKey": "AIzaSyDTQfbN-Ag-GN1z0pI-kIRnc4LtUB83NPw",
+   "authDomain": "csc354-a604d.firebaseapp.com",
+   "databaseURL": "https://csc354-a604d.firebaseio.com",
+   "projectId": "csc354-a604d",
+   "storageBucket": "csc354-a604d.appspot.com",
+   "messagingSenderId": "786974548917"
 }
 
 # config and initialization
@@ -105,7 +105,7 @@ def accessDB(patientID, start, end = date.today()):
                                     bpUpper.append(int(bpValue[0]))
                                     bpLower.append(int(bpValue[1]))
                                 if "Temperature" in str(data.key()):
-                                    tempValue.append(float(db.child("Activities").child(patientID).child(str(dates.key())).child(str(field.key())).child("vital_status").child(str(data.key())).get().val()))                                  
+                                    tempValue.append(float(db.child("Activities").child(patientID).child(str(dates.key())).child(str(field.key())).child("vital_status").child(str(data.key())).get().val()))
                                     tempDate.append(str(dates.key()))
         # Heart Rate Graph
         fig1 = plt.figure(figsize=(11.69,8.27))
@@ -126,7 +126,7 @@ def accessDB(patientID, start, end = date.today()):
         plt.ylim(60, 100)
         pp.savefig(fig1)
         plt.close()
-        
+
         # Step Graph
         fig2 = plt.figure(figsize=(11.69,8.27))
         plt.xlabel('Date')
