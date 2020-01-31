@@ -72,7 +72,7 @@ a:focus {
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: darkseagreen;
+    background: #87CEFA;
     color: #fff;
     transition: all 0.3s;
 }
@@ -105,7 +105,7 @@ a:focus {
         display: block;
     }
     /*
-        CSS for the when mouse is over the sidebar links 
+        CSS for the when mouse is over the sidebar links
     */
         #sidebar ul li a:hover {
             color: mediumseagreen;
@@ -150,8 +150,8 @@ ul.CTAs {
 
 
 /* ---------------------------------------------------
-    CONTENT STYLE: CSS that affects EVERYTHING in the webpage, except the sidebar! 
-    Purpose: To hold all the contents within a div so that the webpages are dynamically scalable 
+    CONTENT STYLE: CSS that affects EVERYTHING in the webpage, except the sidebar!
+    Purpose: To hold all the contents within a div so that the webpages are dynamically scalable
              depending on the width of the webpage. Helps with ease of view when browser is not on fullscreen.
 ----------------------------------------------------- */
 
@@ -311,7 +311,7 @@ li.dropdown {
             -webkit-transform: translateY(0);
             transform: translateY(0);
         }
-        
+
         40% {
             -webkit-transform: translateY(-5px);
             transform: translateY(-5px);
