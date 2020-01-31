@@ -1,0 +1,166 @@
+table, th, td {
+    padding: 10px;
+    border: 1px solid black;
+    width: 600px;
+    text-align: center;
+    word-wrap: break-word;
+}
+    table th {
+        background-color: #B0C4DE;
+        color: #000;
+    }
+    table td {
+        text-shadow: 2px 2px #FFFFFF;
+    }
+#newABlock {
+    width: 100%;
+    height: 100%;
+    opacity: .95;
+    right: 0;
+    top: 0;
+    padding: 40px, 60px;
+    display: none;
+    position: fixed;
+    background-color: #313131;
+    overflow: auto;
+}
+#editABlock {
+    width: 100%;
+    height: 100%;
+    opacity: .95;
+    right: 0;
+    top: 0;
+    padding: 40px, 60px;
+    display: none;
+    position: fixed;
+    background-color: #313131;
+    overflow: auto;
+}
+
+#viewABlock {
+    width: 100%;
+    height: 100%;
+    opacity: .95;
+    right: 0;
+    top: 0;
+    padding: 40px, 60px;
+    display: none;
+    position: fixed;
+    background-color: #313131;
+    overflow: auto;
+}
+#newWSBlock {
+    width: 100%;
+    height: 100%;
+    opacity: .95;
+    right: 0;
+    top: 0;
+    padding: 40px, 60px;
+    display: none;
+    position: fixed;
+    background-color: #313131;
+    overflow: auto;
+}
+#newCSBlock {
+    width: 100%;
+    height: 100%;
+    opacity: .95;
+    top: 0;
+    left: 0;
+    display: none;
+    position: fixed;
+    background-color: #313131;
+    overflow: auto;
+}
+#newWHBlock {
+    width: 100%;
+    height: 100%;
+    opacity: .95;
+    top: 0;
+    left: 0;
+    display: none;
+    position: fixed;
+    background-color: #313131;
+    overflow: auto;
+}
+.editForm_create_announcement {
+    max-width: 600px;
+    min-width: 200px;
+
+    border-radius: 10px;
+    font-family: raleway;
+    background-color: #fff;
+    position: absolute;
+    left: 500px;
+    top: 200px;
+    width: 500px;
+    height: 350px;
+}
+    .editForm_edit_announcement {
+    max-width: 600px;
+    min-width: 200px;
+
+    border-radius: 10px;
+    font-family: raleway;
+    background-color: #fff;
+    position: absolute;
+    left: 500px;
+    top: 200px;
+    width: 500px;
+    height: 370px;
+}
+.viewForm_edit_announcement {
+    max-width: 600px;
+    min-width: 200px;
+
+    border-radius: 10px;
+    font-family: raleway;
+    background-color: #fff;
+    position: absolute;
+    left: 500px;
+    top: 200px;
+    width: 500px;
+    height: 450px;
+}
+.create_new_center_schedule_form {
+    border-radius: 10px;
+    font-family: raleway;
+    background-color: #fff;
+    position: absolute;
+    left: 25%;
+    top: 20%;
+    width: 50%;
+    height: 70%;
+    overflow:scroll;
+}
+.schedule_hr {
+    margin: 10px 0px;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+.schedule_textarea {
+    width: 82%;
+    height: 140px;
+    padding: 10px;
+    resize: none;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: raleway;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+    80% {
+        -webkit-transform: translateY(-3px);
+        transform: translateY(-3px);
+    }
+}
