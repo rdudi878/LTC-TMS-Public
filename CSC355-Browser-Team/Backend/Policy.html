@@ -36,22 +36,22 @@
 	    word-wrap: break-word;
 	}
 	table th {
-	  background-color: #B0C4DE;
+	  background-color: #bfbfbf;
 	  color: #000;
 	}
 	table td {
 	  text-shadow: 2px 2px #FFFFFF;
 	}
 	</style>
-	<body style="height:750px;">
+	<body>
 		<div class="header">
 			<div class="bar">
 				<div class="w1200">
 					<span class="l"><img style="position:relative; top:3px; width:45px;height:45px;" src="statics/images/v2ltctmslogo.png"><font style="text-align:center;position:relative; top:-10px;">LTC-TMS</font></span>
-					<i class="setting"><img style="filter:invert(100%); width:20px; height:20px;position:relative; left:835px; top:4px;" src="statics/images/settings.png"><p style="position:relative; left:860px; top:-50px;">Settings</p><img onclick="openmenu()" id="openmenu" style="filter:invert(100%); width:10px; height:10px;position:relative; left:1105px; top:-98px;cursor:pointer;" class="openmenu" src="statics/images/openmenu.png"></i>
+					<i class="setting"><img style="filter:invert(100%); width:20px; height:20px;position:relative; left:835px; top:4px;" src="statics/images/settings.png"><p style="position:relative; left:860px; top:-50px;">Settings</p><img onclick="openmenu()" id="openmenu" style="filter:invert(100%); width:10px; height:10px;position:relative; cursor:pointer;left:1105px; top:-98px;" class="openmenu" src="statics/images/openmenu.png"></i>
 				</div>
 			</div>
-			<div class="user-info">
+	,<!--		<div class="user-info">
 				<div class="w1200">
 					<div class="user-headface" onmouseover="bigImg(this)" onmouseout="normalImg(this)">
 						<img src="statics/images/edit.png" id="photoword" style="position:relative;top:20px;left:20px;text-align:center;display:none;width:40px;height:40px;" onclick ="document.getElementById('newPic').click();">
@@ -65,11 +65,10 @@
 							<span style = "font-size: 20pt">Name : IT Admin<span style = "font-size: 20pt;" id="displayProfilename"></span></span>
 							<span style = "font-size: 20pt">Role : IT Admin<span style = "font-size: 20pt;" id="displayProfileposition"></span></span>
 						</p>
-						</p>
 				</div>
 			</div>
-		</div>
-		<div class="main w1200">
+		</div>-->
+		<div id="main" class="main w1200" style="margin-top:-21px;">
 			<div class="left">
 				<ul>
 					<li>
@@ -78,13 +77,13 @@
 							Contact Us
 						</a>
 					</li>
-
-					<li>
+<!-- Removing feedback page
+				<li>
 						<a href="Feedback.html" >
 							<i class="icon iconfont icon-pinglun"></i>
 							Feedback
 						</a>
-					</li>
+					</li>-->
 					<li>
 						<a href="UserManagement.html">
 							<i class="icon iconfont icon-geren"></i>
@@ -93,12 +92,9 @@
 					</li>
 				</ul>
 			</div>
-			<div class="right">
-			
-</div>
 
-
-<div class="right" style="position:relative;width:100%;height:250px;">
+<!--  changed div class right width from 100% width to 60%  -->
+<div class="right">
 	<div class="tap">
 		<span id="span" style="width:160px;">Development Team</span>
 	</div>
