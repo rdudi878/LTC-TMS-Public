@@ -1,9 +1,5 @@
 var btnLogout = document.getElementById('btnLogout')
 
-/*btnLogout.addEventListener('click', e => {
-firebase.auth().signOut();
-window.location = 'Login.html';
-});*/
 
 //Create new Announcement button
 
@@ -48,7 +44,7 @@ fbA.once('value',function(snapshot){
 
     rowIndex = rowIndex + 1;
   }); //end function(childSnapchot)
-}); //end 
+}); //end
 
 //createNew Announcement Data
 function createNewAnnouncement(){
@@ -151,12 +147,6 @@ function btnpopUp(){
   document.getElementById('Esave').style.display = "inline";
 } //end function btnpopUP
 
-/*
-//Events
-function AddNewCS(){
-document.getElementById('newCSBlock').style.display ='block';
-}
-*/
 
 //Create new Working Schedule - Upload folder into firebase
 //var uploader3 = document.getElementById('uploader3');
@@ -205,7 +195,7 @@ function injectToDOM(weeks){
 
   htmlInjection = '<table style="width:100%; border: 1px solid black;">';
   for (var i = weeks.length-1; i >= 0; i--){
-    var weekSched = firebase.database().ref('CenterSchedule/'+weeks[i]+'/'); 
+    var weekSched = firebase.database().ref('CenterSchedule/'+weeks[i]+'/');
     weekSched.once('value',function(days){
       count++;
 
@@ -263,7 +253,7 @@ function createNewCenterSchedule(){
   FriData == "" || SatData == "") {
     alert ("Please enter the following data:\n"+fields);
   }
-  
+
   else {
     var r = confirm("Are you sure you want to create a new Center Schedule?");
     if (r == true) {
@@ -287,13 +277,6 @@ function createNewCenterSchedule(){
   }
 } //end function createNewCenterSchedule
 
-/*
-function getSundayOfCurrentWeek(d)
-{
-    var day = d.getDay();
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + (day == 0?0:7)-day );
-}
-*/
 
 /**
  * @function editCenterSchedule
@@ -306,7 +289,7 @@ function editCenterSchedule(date) {
   var fbB= firebase.database().ref('CenterSchedule/'+date);
   fbB.on('value', function(CSsnapshot){
     var times = [];
-    times = CSsnapshot.val(); 
+    times = CSsnapshot.val();
     setCSEditFields(CSsnapshot.key, times);
   });
 } //end editCenterSchedule
@@ -358,7 +341,7 @@ function submitEditCenterSchedule(){
   FriData == "" || SatData == "") {
     alert ("Please enter the following data:\n"+fields);
   }
-  
+
   else {
     var r = confirm("Are you sure you want edit this Center Schedule?");
     if (r == true) {
@@ -400,35 +383,6 @@ function deleteCenterSchedule(date) {
   }
 } //end deleteCenterSchedule
 
-/*
-//createNew Announcement Data
-function createNewAnnouncement(){
-  var data = $('#Announcement').val();
-  var title1= $('#Atitle').val();
-  var title2= 'xtsx'+title1+'xtex';
-  var data2 = 'xasx' + data + 'xaex';
-  var keyA = fbA.push().key;
-  var AData = {
-    a_id : keyA,
-    ATitleAndroid: title2 ,
-    ATitleIOS:title1 ,
-    AnnouncementAndroid:data2,
-    AnnouncementIOS: data
-  }
-  var updates = {};
-  if(data == ""){
-    alert(' Please input a data');
-  }
-  else {
-    updates['Announcements/'+ keyA] = AData;
-    firebase.database().ref().update(updates);
-    alert('Successfully Entered');
-    window.location.reload();
-  }
-} //end function createNewAnnouncement
-*/
-
-
 //Working Schedule table
 function AddNewCS(){
   document.getElementById("NewCSSun").value = "";
@@ -441,71 +395,6 @@ function AddNewCS(){
   //document.getElementById("selected_date").value = year+"-"+mm+"-"+dd;
   document.getElementById('newCSBlock').style.display ='block';
 }
-
-/*
-//Create new Working Schedule - Upload folder into firebase
-var uploader = document.getElementById('uploader');
-var fileButton = document.getElementById('fileButton');
-var submitfileButton = document.getElementById('btnSubmitWS')
-
-
-fileButton.addEventListener('change', handleuploadfile);
-submitfileButton.addEventListener('click', handleuploadfileSubmit);
-
-let file;
-
-
-function handleuploadfile(e) {
-  file=e.target.files[0];
-}
-
-function handleuploadfileSubmit(e) {
-  if(file == undefined){
-    alert ("Please enter data!")
-  }
-
-  var storageRef=firebase.storage().ref('WorkingSchedule/'+file.name);
-  var uploadtask = storageRef.put(file);
-
-  uploadtask.on('state_changed',
-    function progress(snapshot){
-      var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      uploader.value = percentage;
-    },
-
-    function error(err){
-      console.log("failed");
-    },
-
-    function complete(){
-      console.log('Successful');
-      var postKey = firebase.database().ref('WorkingSchedule/').push().key;
-      var title = document.getElementById('fileTitle').value;
-      var title2 = "xtsx"+ title +"xtex";
-      storageRef.getDownloadURL().then(function(url){
-        console.log("Success");
-        console.log(url);
-        var updates = {};
-        var postData={
-          url : url,
-          id : postKey,
-          titleAndroid : title2,
-          titleIOS : title,
-          filename: file.name
-        };
-
-        updates['WorkingSchedule/' + postKey] = postData;
-        firebase.database().ref().update(updates);
-        alert ("Entered Succesfully");
-        window.location.reload();
-      });
-    }
-  );
-}
-
-
-*/
-
 
 //WS deletion
 function deleteWS(rowIndexWS){
@@ -544,70 +433,13 @@ function downloadWS(rowIndexWS){
   });
 }
 
-/*
-//Upload file
-var uploader2 = document.getElementById('uploader2');
-var fileButton2 = document.getElementById('fileButton2');
-var submitfileButton2 = document.getElementById('btnSubmitWH')
-
-fileButton2.addEventListener('change', handleuploadfile2);
-submitfileButton2.addEventListener('click', handleuploadfileSubmit2);
-
-let file2;
-
-function handleuploadfile2(e) {
-  file2=e.target.files[0];
-}
-
-function handleuploadfileSubmit2(e) {
-  if(file2 == undefined){
-    alert ("Please enter data!")
-  }
-  var storageRef=firebase.storage().ref('WorkingHourRecord/'+file2.name);
-  var uploadtask = storageRef.put(file2);
-
-  uploadtask.on('state_changed',
-  function progress(snapshot){
-    var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    uploader2.value = percentage;
-  },
-
-  function error(err){
-    console.log("failed");
-  },
-
-  function complete(){
-    console.log('Successful');
-    var postKey = firebase.database().ref('WorkingHourRecord/').push().key;
-    var title = document.getElementById('fileTitle2').value;
-    var title2 = 'xtsx'+title+'xtex';
-    storageRef.getDownloadURL().then(function(url){
-      console.log("Success");
-      console.log(url);
-      var updates = {};
-      var postData={
-        url : url,
-        id : postKey,
-        titleAndroid : title2,
-        titleIOS : title,
-        filename: file2.name
-      };
-      updates['WorkingHourRecord/' + postKey] = postData;
-      firebase.database().ref().update(updates);
-      alert ("Entered Succesfully");
-      window.location.reload();
-    }); 
-  }
-  );
-}
-*/
-
+/* Reveals the selected page in a block and hides the unwanted page */
 function showannouncement(){
   document.getElementById("data1").style.display = "block";
   document.getElementById("data3").style.display = "none";
   document.getElementById("announcementspan").style.opacity = "1";
-  document.getElementById("csspan").style.opacity = ".8";
   document.getElementById("wsspan").style.opacity = ".8";
+  document.getElementById("schspan").style.opacity = ".8";
 }
 
 function showws(){
@@ -615,6 +447,15 @@ function showws(){
   document.getElementById("data3").style.display = "block";
   document.getElementById("announcementspan").style.opacity = ".8";
   document.getElementById("wsspan").style.opacity = "1";
+  document.getElementById("schspan").style.opacity = ".8";
+}
+
+function showsch(){
+  document.getElementById("data1").style.display = "none";
+  document.getElementById("data3").style.display = "none";
+  document.getElementById("announcementspan").style.opacity = ".8";
+  document.getElementById("wsspan").style.opacity = ".8";
+  document.getElementById("schspan").style.opacity = "1";
 }
 
 function openmenu(){
