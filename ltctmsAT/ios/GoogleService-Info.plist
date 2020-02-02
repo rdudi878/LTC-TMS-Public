@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>917274264132-qdi80ou2nt9gm1h2e9v4rdk7f7dq0mnt.apps.googleusercontent.com</string>
+	<string>786974548917-rab5h0hhdbi5i75ukf13g80po7c2800s.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.917274264132-qdi80ou2nt9gm1h2e9v4rdk7f7dq0mnt</string>
+	<string>com.googleusercontent.apps.786974548917-rab5h0hhdbi5i75ukf13g80po7c2800s</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA52cQfTK-eK7P7j5xZeqTXR6SlSA5-Bng</string>
+	<string>AIzaSyC9B40_KN7_p3HqzvhGFz5bQRPW3cmZ0HA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>917274264132</string>
+	<string>786974548917</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.ku.ltctms</string>
+	<string>edu.kutztown.ltc-tms</string>
 	<key>PROJECT_ID</key>
-	<string>browserteam</string>
+	<string>csc354-a604d</string>
 	<key>STORAGE_BUCKET</key>
-	<string>browserteam.appspot.com</string>
+	<string>csc354-a604d.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:917274264132:ios:b728bd57327e7917</string>
+	<string>1:786974548917:ios:1b57ff94db789fe59daffc</string>
 	<key>DATABASE_URL</key>
-	<string>https://browserteam.firebaseio.com</string>
+	<string>https://csc354-a604d.firebaseio.com</string>
 </dict>
 </plist>

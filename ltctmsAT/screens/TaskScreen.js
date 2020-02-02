@@ -230,7 +230,7 @@ class TaskScreen extends React.Component {
     this.setState({
       fixedTasks: this.state.fixedTasks.concat(taskData)
     })
-
+   
   }
 
 
@@ -290,7 +290,7 @@ class TaskScreen extends React.Component {
   createStepimage(text, step) {
     return (
       <View key={text.toString()}>
-        <Image style={{width: 50, height: 50}} source={{uri:'https://firebasestorage.googleapis.com/v0/b/share-b7589.appspot.com/o/Patient%2Fyen.jpg?alt=media&token=76df78e6-20a1-4f96-bd56-eb3c3b7d994c'}}></Image>
+        <Image style={{width: 50, height: 50}}></Image>
         
       </View>
     );
@@ -309,8 +309,8 @@ class TaskScreen extends React.Component {
         stepsArray.push(this.createDetailText(item.steps[i].detailedSteps[j], [j + 1]));
       }
     }
-
-
+    Alert.alert(item.pic);
+    Alert.alert(item.name);
     return (
       <View>
         <TouchableOpacity
