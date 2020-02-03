@@ -33,7 +33,7 @@ class AiStatusReadScreen extends React.Component {
   constructor() {
     super();
 
-    const now = new Date();
+    var now = new Date();
 
     this.state = {
       patientList: [],
@@ -74,27 +74,10 @@ class AiStatusReadScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles2.container}>
           <View>
-          {(this.state.position == "Patient") ?
             <View>
               <Text style={styles.item}>Select Date to View AI Status</Text>
             </View>
-            :
-            <View>
-            <Text style={styles.item}>Select Patient ID to View AI Status</Text>
-            <Picker
-              mode={'dropdown'}
-              selectedValue={this.state.patient}
-              style={styles2.picker}
-              onValueChange={this.updatePatient}
-            >
-              <Picker.Item label="Select Patient" value="patient" color="black" />
-              {this.state.patientList.map((item, index) => {
-                return (<Picker.Item label={item.id} value={item.id} key={index} />)
-              })}
-            </Picker>
-            </View>}
           </View>
-
           <View style={styles.pickerView}>
             <DatePicker
               date={this.state.date}
@@ -123,13 +106,13 @@ class AiStatusReadScreen extends React.Component {
             <Button
               onPress={this._fetchAiStatus}
               title="Submit"
-              type="outline"
               style={{ padding: 10 }}
+              type="solid"
+              buttonStyle={{
+                backgroundColor:'#3f9fff'}}
             />
           </View>
           <View>
-            <Text></Text>
-            <Text></Text>
             <Text>Latest Heart Rate: {this.state.heartRate}</Text>
             <Text>Steps Taken: {this.state.steps}</Text>
             <Text>Times fallen: {this.state.fallRecord}</Text>
@@ -147,7 +130,7 @@ class AiStatusReadScreen extends React.Component {
       patient = this.state.patient;
     }
     const patientStatus = [];
-    firebase.database().ref(`Activities/${patient}/${this.state.date}/`).once('value').then((snapshot) => {
+    firebase.database().ref(`Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.date}`).once('value').then((snapshot) => {
 
       const data = snapshot.toJSON();
 
@@ -159,6 +142,7 @@ class AiStatusReadScreen extends React.Component {
 
         if (data.AI.FallRecord && data.AI.FallRecord.Fell) {
           falls = parseInt(data.AI.FallRecord.Fell.slice(11, data.AI.FallRecord.Fell.length).trim());
+          console.log("falls: " + this.state.fallRecord)
         }
 
         if (data.AI.HeartRate) {
