@@ -68,30 +68,39 @@ fbPAT.once("value")
     function click_display() {
       var selectedPatient = $('#selectPAT').val()
       var selectedDate = $('#bday').val()
-      selectedPatient = getSecondPart(selectedPatient) // Split the string to ignore the name
+      selectedPatient = getSecondPart(selectedPatient) // Split the string to ignore the name portion of the dropdown selection
       var patientRef = firebase.database().ref("Activities");
       var patientChild = patientRef.child(selectedPatient);
-      console.log(patientChild);
+      console.log(patientChild.child("330001").child("vital_status"));
       patientChild.on('value', gotPatientInfo, patientInfoError);
 
       function gotPatientInfo(data) {
         var dates = data.val();
         var keys = Object.keys(dates);
-        console.log(keys);
-        for (var i=0; i<keys.length; i++) {
-          // console.log(keys[i]);
-          if (keys[i]==selectedDate) {
-            console.log("MATCH");
-            // console.log("keys[i]:");
-            // console.log(keys[i]);
-            // console.log("selectedDate:");
-            // console.log(selectedDate);
-// Now do something here since a match was found w/ patient info
-
-          } else {
-            console.log("no match found");
-          }
-        }
+        var dateRef = patientChild.child(selectedDate);
+        var cnoRef = dateRef.child("330001");
+        var vitalStatRef = cnoRef.child("vital_status");
+        console.log("dateRef: ");
+        console.log(dateRef);
+        console.log("cnoRef: ");
+        console.log(cnoRef);
+        console.log("vitalStatRef");
+        console.log(vitalStatRef);
+        // console.log(keys);
+//         for (var i=0; i<keys.length; i++) {
+//           // console.log(keys[i]);
+//           if (keys[i]==selectedDate) {
+//             console.log("MATCH");
+//             // console.log("keys[i]:");
+//             // console.log(keys[i]);
+//             // console.log("selectedDate:");
+//             // console.log(selectedDate);
+// // Now do something here since a match was found w/ patient info
+//
+//           } else {
+//             console.log("no match found");
+//           }
+//         }
 // print the patient info in a legible format w/ .val
 // instead of some goofy-lookin' javasript object
         // console.log(data.val());
