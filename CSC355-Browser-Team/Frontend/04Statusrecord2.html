@@ -333,9 +333,11 @@
                                 <p style="float: left;">Name</p>
                                 <table class="daily-status-table" id="daily-status-table1" style="width: 75%; margin:10px; float: right;">
                                   <tr>
-                                    <th>Category</th>
                                     <th>Completed Tasks</th>
                                   </tr>
+                                  <tbody id="dailyStatTable">
+                                    <tr></tr>
+                                  </tbody>
                                 </table>
 
                                 <img src="statics/images/no_doc.jpg" />
@@ -431,7 +433,7 @@
 
                         <div class="status_record_option">
                           <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Select Patient:</p>
-                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()" style="float: left; margin-left: 10px; border-radius:5px;">
+                            <select id="DSselectPAT" onclick="clearBox()" onchange="selectPatient()" style="float: left; margin-left: 10px; border-radius:5px;">
                                 <option>Patient Name - Patient ID</option>
                             </select>
                             <br><br><br>
@@ -450,7 +452,7 @@
                         </div>
 
                         <div class="status_record_option">
-                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
+                            <select id="VSselectPAT" onclick="clearBox()" onchange="selectPatient()">
                                 <option>Vital Status - Patient ID</option>
                             </select>
                             <select id="selectCNA" style="width:70px;">
@@ -459,7 +461,7 @@
                             <br><br><br>
                         </div>
                         <br><br>
-                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                        <input class="status_record_display_button" type="button" value="Display" onclick=" asd(this);" style="cursor:pointer;" />
                     </div>
 <!-- AI Status Options -->
                     <div id="AiOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">

@@ -17,10 +17,14 @@ fbPAT.once("value")
           if(childKey != "EnvironmentStatus"){
             nameArray.push(nameSnap.node_.value_); // add the name into nameArray, push is add
             idArray.push(childKey); // add the ID into idArray
-            var x = document.getElementById("selectPAT");
-            var opt = document.createElement("option"); // Creating the drop down options
-             opt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
-              x.add(opt); // Appending to the drop down options
+            var dsPat = document.getElementById("DSselectPAT");
+            var vsPat = document.getElementById("VSselectPAT");
+            var dsOpt = document.createElement("option"); // Creating the drop down options
+            var vsOpt = document.createElement("option"); // Creating the drop down options
+            dsOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
+            vsOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
+              dsPat.add(dsOpt); // Appending to the drop down options
+              vsPat.add(vsOpt); // Appending to the drop down options
               index=index+1;
           }
        });
@@ -66,14 +70,16 @@ fbPAT.once("value")
     }
 
     function click_display() {
-      var selectedPatient = $('#selectPAT').val()
+      var dsStatInfo = document.getElementById("dailyStatTable");
+      var selectedPatient = $('#DSselectPAT').val()
       var selectedDate = $('#bday').val()
       selectedPatient = getSecondPart(selectedPatient) // Split the string to ignore the name portion of the dropdown selection
       var rootRef = firebase.database().ref();
-// Note: will need to get the CNA ID some other way.
+// Note: will need to get the CNA ID some other way. Also, the DB format for the date is currently different.
       var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/330001/vital_status/");
       statusRef.once("value", function(snapshot) {
         snapshot.forEach(function(child) {
+          var dsStatRow = dsStatInfo.insertRow(0);
           console.log(child.key+": "+child.val());
         });
       });
