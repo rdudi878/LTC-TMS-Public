@@ -266,8 +266,21 @@ function showsf(){
   function submit_feedback(){
     console.log("feedback submited");
     var database = firebase.database();
-    firebase.database().ref('Feedback/-LdeJhhMx-V6SBW2bWi_').set({
-    feedbackText: "testing"
-  });
+    console.log(firebase.database().ref('Feedback/-LdeJhhMx-V6SBW2bWi_').key);
+    var post_data = {
+      feedbackText: "testing",
+      feedbackType: "testing",
+      replyId: "testing",
+      replyText: "testing",
+      replyTimestamp: "testing",
+      timestamp: 423432,
+      userEmail: "dasdas@test.com",
+      userID: "33231"
+    }
+
+    var updates = {};
+    updates['Feedback/-LdeJhhMx-V6SBW2bWi_'] = post_data;
+
+    return firebase.databas().ref().update(updates);
 
 }
