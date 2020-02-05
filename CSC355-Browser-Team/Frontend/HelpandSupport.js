@@ -19,6 +19,8 @@ var c = 0;
  * @param feedbackData - feedback (to put into the callback function, not strictly necessary, but makes the flow of data more apparent)
  * @param callback Function to perform after finding all categories
  */
+
+
 function getFeedback(callback){
     var count = 0
     fbGet.on('value',function(snapshot){
@@ -226,7 +228,7 @@ function showsf(){
 
   /**
    * @function showpf
-   * @description gets the family(patient) feedback via tab
+   * @description gets the website instructions via tab
    */
   function showef(){
     document.getElementById("container").style.display = "none";
@@ -273,14 +275,14 @@ function showsf(){
       replyId: "testing",
       replyText: "testing",
       replyTimestamp: "testing",
-      timestamp: 423432,
-      userEmail: "dasdas@test.com",
+      timestamp: serverValue.TIMESTAMP,
+      userEmail: "userEmail",
       userID: "33231"
     }
 
     var updates = {};
     updates['Feedback/-LdeJhhMx-V6SBW2bWi_'] = post_data;
 
-    return firebase.databas().ref().update(updates);
+    return firebase.database().ref().update(updates);
 
 }
