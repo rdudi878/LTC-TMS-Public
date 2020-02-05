@@ -27,7 +27,7 @@ function getFeedback(callback){
             count++;
             console.log(count);
             console.log(feedback);
-            
+
         })
         //callback(feedback);
         return;
@@ -69,7 +69,7 @@ function loadStaffFeedback(){
 
         var userTextCell = $('<td>').addClass('staffFeedback');
             userTextCell.html(feedbackText);
-        
+
         var userReplyCell = $('<td>').addClass('staffFeedback');
             userReplyCell.html(feedbackReply).width("100%");
 
@@ -129,7 +129,7 @@ function loadFamilyFeedback(){
 
         //var userTextCell = $('<td>').addClass('familyFeedback');
             //userTextCell.html(feedbackText);
-        
+
         var userReplyCell = $('<td>').addClass('familyFeedback');
             userReplyCell.html(feedbackReply);
 
@@ -190,7 +190,7 @@ function populateArray(feedback){
 
 /**
  * @function getFeedbackFromPathCallback
- * @param {*} feedback 
+ * @param {*} feedback
  */
 function getFeedbackFromPathCallback(feedback){
     getFeedback(feedback, populateArray);
@@ -207,8 +207,10 @@ function showsf(){
     document.getElementById("container1").style.display = "none";
     document.getElementById("stafffeedbackspan").style.opacity = "1";
     document.getElementById("patientfeedbackspan").style.opacity = ".8";
+    document.getElementById("website_instruction").style.opacity = ".8";
+    document.getElementById("tutorial").style.display = "none";
   }
-  
+
   /**
    * @function showpf
    * @description gets the family(patient) feedback via tab
@@ -218,4 +220,54 @@ function showsf(){
     document.getElementById("container1").style.display = "block";
     document.getElementById("stafffeedbackspan").style.opacity = ".8";
     document.getElementById("patientfeedbackspan").style.opacity = "1";
+    document.getElementById("website_instruction").style.opacity = ".8";
+    document.getElementById("tutorial").style.display = "none";
   }
+
+  /**
+   * @function showpf
+   * @description gets the family(patient) feedback via tab
+   */
+  function showef(){
+    document.getElementById("container").style.display = "none";
+    document.getElementById("container1").style.display = "none";
+    document.getElementById("stafffeedbackspan").style.opacity = ".8";
+    document.getElementById("patientfeedbackspan").style.opacity = ".8";
+    document.getElementById("website_instruction").style.opacity = "1";
+    document.getElementById("tutorial").style.display = "block";
+
+  }
+
+
+
+
+
+
+  $(document).ready(function(){
+
+  //hides dropdown content
+  $(".size_chart").hide();
+
+  //unhides first option content
+  $("#option1").show();
+
+  //listen to dropdown for change
+  $("#size_select").change(function(){
+    //rehide content on change
+    $('.size_chart').hide();
+    //unhides current item
+    $('#'+$(this).val()).show();
+  });
+
+});
+
+/**Submit feedback function
+*/
+  function submit_feedback(){
+    console.log("feedback submited");
+    var database = firebase.database();
+    firebase.database().ref('Feedback/-LdeJhhMx-V6SBW2bWi_').set({
+    feedbackText: "testing"
+  });
+
+}
