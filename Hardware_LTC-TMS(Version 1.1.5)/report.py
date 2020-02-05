@@ -205,7 +205,7 @@ def accessDB(patientID, start, end = date.today()):
             firstPage.text(0.675,bpCoord,bpText, transform=firstPage.transFigure, size=11, ha="left")
             m = m + 1
         # replace my username with appropriate destination and directory
-        im = plt.imread(get_sample_data('/home/STUDENTS/nperu898/reports/logo.png'))
+        im = plt.imread(get_sample_data('/www/ltctms/logoExport.png'))
         newax1 = firstPage.add_axes([0.725, 0.8, 0.2, 0.2], anchor='NE', zorder=-1)
         newax1.imshow(im)
         newax1.axis('off')
@@ -218,7 +218,7 @@ def accessDB(patientID, start, end = date.today()):
 
         # copy report to kutztown web then delete from local directory to clean up
         # replace my username with another to function
-        subprocess.Popen(["scp", reportName, "nperu898@csit.kutztown.edu:/www/student/nperu898"]).communicate(timeout=1) # copy report to acad web area
+        subprocess.Popen(["scp", reportName, "ylam887@csit.kutztown.edu:/www/ltctms"]).communicate(timeout=1) # copy report to acad web area
         os.remove(os.getcwd() + '/' + reportName)
         db.child("Reports").update({"Success": "true"})
         print("report successfully generated")
