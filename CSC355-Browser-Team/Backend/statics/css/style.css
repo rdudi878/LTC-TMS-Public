@@ -5,7 +5,7 @@ ul{list-style: none;}
 a{text-decoration: none;}
 .w1200{width: 100%;height: auto;margin: 0px; padding: 0px; overflow: hidden;font-size: 16px;}
 .header{width: 100%;height: auto;overflow: hidden;}
-.header .bar{background:#3F9FFF;height: 50px;line-height: 50px;color: #fff;}
+.header .bar{height: 50px;line-height: 50px;color: #fff;}
 .header .bar .l{float: left;}
 .header .bar .l font{font-size: 22px;border-left: 1px solid #fff;margin-left: 20px;padding-left: 20px;}
 .header .bar .r{float: right;}
