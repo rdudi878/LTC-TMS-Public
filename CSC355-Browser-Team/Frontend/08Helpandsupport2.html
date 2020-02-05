@@ -41,12 +41,12 @@
         word-wrap: break-word;
     }
         table th {
-            background-color: #3F9FFF;
+            background-color: lightgray;
             color: #000;
         }
 
         table td {
-            background-color: #87CEFA;
+            text-shadow: 2px 2px #FFFFFF;
         }
     <!-- usermessage-- > * {
         margin: 0px;
@@ -326,41 +326,9 @@
                     </nav>
                 </div>
                 <!-- TOP BAR ENDS-->
-                <!-- Place Holder for header-->
-                <div class="user-info">
-                    <!--BACKGROUND PANEL IMAGE-->
-                    <div class="container-fluid">
-
-                        <img class="panelimg img-responsive" style="background-color: #fff5ee" />
-
-                        <div class="container" style="transform:translateY(-8.5ex)">
-                            <!-- CIRCLE IMAGE THING-->
 
 
-                            <div class="user-headface" onmouseover="imgBlur(this)" onmouseout="imgOrg(this)" style="background-color:white; white-space:nowrap;overflow: hidden;">
-                                <img src="statics/images/edit.png" id="photoword"
-                                     style="position:relative;left:20px; text-align:center;
-                                display:none;width:40px;height:40px; white-space:nowrap;overflow: hidden;" onclick="document.getElementById('newPic').click();">
-                                <img id="Profilepic" onclick="document.getElementById('newPic').click();" style="cursor:pointer; white-space:nowrap;overflow: hidden;" />
-                                <input id="newPic" type='file' accept="image/*" onchange="uploadPicProfile()" required style="display:none; white-space:nowrap;overflow: hidden;" />
-                            </div>
-
-                            <!-- TEXT NEXT TO THE CIRCLE IMAGE THING-->
-                            <div class="user-account">
-                                <p class="tip" id="time123"></p><!-- DISPLAYS GOOD MORNING/AFTERNOON/EVENING MSG -->
-                                <p></p>
-                                <p class="account" style="position:relative; top:8px;">
-                                    <span style = "font-size: 20pt;" word-wrap: break-word;>Name : <span style = "font-size: 20pt;" id="displayProfilename"></span></span>
-                                    <span class="hidden" style = "font-size: 20pt">UserID : <span style = "font-size: 20pt;" id="displayProfileid"></span></span>
-                                    <span style = "font-size: 20pt;" word-wrap: break-word;> Role : <span style = "font-size: 20pt;" id="displayProfileposition"></span></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- END OF THE TWO HEADER!! -->
-
-            <div class="main container-fluid wrapper">
+            <div class="main container-fluid wrapper" style="margin-top:100px;">
                 <!-- START OF MIDDLE CONTENT-->
                 <div class="right" style="width:800ex; transform:translateY(-9ex)">
                         <div class="tap">
@@ -368,74 +336,101 @@
                             <span id="stafffeedbackspan" onclick="showsf()" style="opacity:1;cursor:pointer;">Staff Feedback</span>
 
                             <span id="patientfeedbackspan" onclick="showpf()" style="opacity:.8;cursor:pointer;">Family Feedback</span>
+
+                            <span id="website_instruction" onclick="showef()" style="opacity:.8;cursor:pointer;">Website Instruction</span>
+
+
                         </div>
-                        <div id="container" class="container" style="overflow-y:scroll;overflow-x:scroll;">
-                            <table style="width:100%;border-style:hidden;" id="staffFeedback" class="staffTable" >
+                        <div id="container" class="container" style="overflow-y:scroll;overflow-x:scroll;margin-top:25px;">
+                            <textarea rows="4" cols="50">Feedback goes here.</textarea>
+                            <input type="submit" value="Submit" onclick="submit_feedback()">
 
-                                <tr>
-                                    <th style="width:20%" id="email"> UserEmail </th>
-                                    <th style="width:10%" id="id"> User I.D </th>
-                                    <th style="width:35%" id="feedback"> Feedback </th>
-                                    <th style="width:35%" id="reply"> Reply </th>
-                                </tr>
-                                <tr>
-                                        <td>User Email(template)</td>
-                                        <td>User I.d<br>(template)</td>
-                                        <td>Feedback(template)</td>
-                                        <td>Reply(template)</td>
-                                </tr>
-                                <tr>
-                                        <td>User Email(template)</td>
-                                        <td>User I.d<br>(template)</td>
-                                        <td>Feedback(template)</td>
-                                        <td>Reply(template)</td>
-                                </tr>
-                                <tr></tr>
+                          </div>
 
-                            </table>
+                          <div id="tutorial" style="display:none;margin-top:25px;">
+                          <!--Size dropdown menu-->
+                            <select id="size_select">
+                              <option value="option1">Login</option>
+                              <option value="option2">About Us</option>
+                              <option value="option3">Schedule</option>
+                              <option value="option4">Memo</option>
+                              <option value="option5">Status Record</option>
+                              <option value="option6">Reports</option>
+                              <option value="option7">Library</option>
+                              <option value="option8">My Task</option>
+                              <option value="option9">E-Portfolio</option>
+                              <option value="option10">Help and Support</option>
+                            </select>
+
+                          <!--Size dropdown content-->
+                          <div id="option1" class="size_chart">
+                            <ol> <li>Enter Credentials</li></ol>
+                          </div>
+                          <div id="option2" class="size_chart">
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option3" class="size_chart">
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option4" class="size_chart">
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option5" class="size_chart">
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option6" class="size_chart">
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option7" class="size_chart">
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option8" class="size_chart">
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option9" class="size_chart">
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option10" class="size_chart">
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          </div>
 
 
-                            <!--usermessag  Please don't delete
-                    <div class="liuyan" >
-                        <span id="user-fa" ><i class="fa fa-user"><img  class="user-fa" src="statics/images/user_face.jpg"/></i></span>
-                        <div  id="user">
-                           <span href="#" id="usename" >ZengXiaoYa</span>
-                       </div>
-                        <span  id ="comment" ></span>
-                        <span id = "reply" onclick="reply()">Reply</span>
-
-                        <div id="usermessage">
-                            <div class="content">
-                                <input id="message" class="text-success" type="text">
-                                </input>
-                                <button id="btn" class="btn btn-success" ="sendMess()">发表</button>
-                            </div>
-                        </div>
-                    </div>
-                -->
-                        </div>
-                        <div id="container1" class="container" style="display:none;overflow-y:scroll;">
-                            <table id="familyTable" class="familyTable" border="1">
-                                <tr>
-                                    <th style="width:20%" class="library_table_firstbox"> UserEmail </th>
-                                    <th style="width:10%" class="library_table_firstbox"> User I.D </th>
-                                    <th style="width:70%" class="library_table_firstbox"> Reply </th>
-                                </tr>
-                                <tr>
-                                    <td>User Email(template)</td>
-                                    <td>User I.d<br>(template)</td>
-                                    <td>Reply(template)</td>
-                                </tr>
-                                <tr>
-                                    <td>User Email(template)</td>
-                                    <td>User I.d<br>(template)</td>
-                                    <td>Reply(template)</td>
-                                </tr>
-                                <tr></tr>
-                            </table>
+                        <div id="container1" class="container" style="display:none;overflow-y:scroll;margin-top:25px;">
+                            <textarea rows="4" cols="50">Feedback goes here.</textarea>
+                            <input type="submit" value="Submit" onclick="submit_feedback()">
                         </div>
                     </div>
                 </div>
+
+
                 <div style="position:absolute;left:40px;bottom:0;">
                         <p style="position:relative;font-size:10px;">*Please Contact Development Team for Further Assistance</p>
                         <table id="Contact_information" style="width:80%">
@@ -490,24 +485,6 @@
             });
         });
 
-
-        function imgBlur(obj) {
-            var photoword = document.getElementById("photoword");
-            var Profilepic = document.getElementById("Profilepic");
-            photoword.style.display = "inline";
-            photoword.style.position = "absolute";
-            photoword.style.transform = "translate(2ex,2ex)";
-            Profilepic.style.filter = "blur(3px)";
-            Profilepic.style.display = "inline";
-        }
-
-        function imgOrg(obj) {
-            var photoword = document.getElementById("photoword");
-            var Profilepic = document.getElementById("Profilepic");
-            photoword.style.display = "none";
-            Profilepic.style.display = "inline";
-            Profilepic.style.filter = "blur(0px)";
-        }
 
         </script>
         <!-- END COPY FOR SIDEBAR JAVASCRIPT-->
