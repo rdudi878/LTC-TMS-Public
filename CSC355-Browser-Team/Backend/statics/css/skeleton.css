@@ -88,7 +88,7 @@ a:focus {
 
     #sidebar ul.components {
         padding: 20px 0;
-        border-bottom: 1px solid #468b5f;
+        border-bottom: 1px solid black;
     }
 
     #sidebar ul p {
@@ -108,7 +108,7 @@ a:focus {
         CSS for the when mouse is over the sidebar links
     */
         #sidebar ul li a:hover {
-            color: mediumseagreen;
+            color: black;
             background: #fff;
         }
 
@@ -213,7 +213,7 @@ ul.CTAs {
     CSS to make the LTC-TMS font-color green when hovered on the top nav bar
 */
     .white-text:hover, a:hover {
-        color: springgreen;
+        color: black;
         text-decoration: none;
     }
 
