@@ -108,12 +108,53 @@ fbPAT.once("value")
       function getSecondPart(str) {
         return str.split('- ')[1];
       }
+      $('#patient-info').show();
+    }
+    function display_vs() {
+      var vsDisplayButton = document.getElementById("vsDisplayButton");
+      var vsRefreshButton = document.getElementById("vsRefreshButton");
+      vsDisplayButton.style.display = "none";
+      vsRefreshButton.style.display = "block";
+      var vsStatInfo = document.getElementById("vitalStatTable");
+      var vsRowIndex = 1;
+      var cnaKey = "";
+      var pressuresArr = [];
+      var tempsArr = [];
+      var timeArr = [];
+      var selectedPatient = $('#VSselectPAT').val()
+      var selectedDate = $('#vs_bday').val()
+      selectedPatient = getSecondPart(selectedPatient) // Split the string to ignore the name portion of the dropdown selection
+      var rootRef = firebase.database().ref();
+// Note: will need to get the CNA ID some other way. Also, the DB format for the date is currently different.
+      var cnaRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate);
+      cnaRef.once('value', function(cnaSnap){
+        cnaSnap.forEach(function(cnaChild) {
+// Pulling out the CNA ID so that it can be dynamically referenced for getting vital statuses
+          cnaKey = cnaChild.key;
+        });
+      });
+      var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/"+cnaKey+"/vital_status/");
+      statusRef.once("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+          if (child.key!=="specialrecord") {
+            var vsStatRow = vsStatInfo.insertRow(vsRowIndex);
+            vsStatRow.setAttribute("class","table-list-row");
+            var cellMeasurementType = vsStatRow.insertCell(0)
+            var cellMeasurementValue = vsStatRow.insertCell(1)
+            cellMeasurementType.appendChild(document.createTextNode(child.key));
+            cellMeasurementValue.appendChild(document.createTextNode(child.val()));
+          }
+        });
+      });
+
+      function getSecondPart(str) {
+        return str.split('- ')[1];
+      }
 // These are the values of the selected date and patient name drop down
       // console.log($('#selectPAT').val());
       // console.log($('#bday').val());
 // Display the patient info window
       $('#patient-info').show();
-
     }
     function refreshPage() {
       location.reload();
