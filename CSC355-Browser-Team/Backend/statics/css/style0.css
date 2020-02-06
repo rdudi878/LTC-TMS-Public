@@ -37,3 +37,6 @@ a{text-decoration: none;}
 .logoutselected{border-top-style: inset;}
 .xfilter:hover{color:red;}
 .openprofile:hover{animation: bounce 1s;}
+.navbar-inverse .navbar-nav>li>a {
+    color: black;
+}
