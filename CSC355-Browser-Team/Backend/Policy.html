@@ -11,12 +11,17 @@
 		<meta charset="UTF-8">
 		<title>LTC-TMS</title>
 		<link rel="icon" type="image/jpg" href="image\logo.jpg">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+		<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="statics/css/iconfont.css" />
 		<link rel="stylesheet" type="text/css" href="statics/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="statics/css/style0.css" />
 		<link rel="stylesheet" type="text/css" href="statics/css/chat.css" />
-		<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
-		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="statics/css/skeleton.css" />
+
 
 		<script type = 'text/javascript' src = "Config.js"></script>
 		<script type = 'text/javascript' src = 'adminChat.js'></script>
@@ -41,62 +46,73 @@
 	}
 	table td {
 	  text-shadow: 2px 2px #FFFFFF;
+
+		nav.navbar.navbar-inverse.navbar-fixed-top.navbar-default {
+    background: #3F9FFF;
+}
+
+.navbar-inverse {
+    background-color: #3F9FFF;
+    border-color: #080808;
+}
+
 	}
 	</style>
 	<body>
-		<div class="header">
-			<div class="bar">
-				<div class="w1200">
-					<span class="l"><img style="position:relative; top:3px; width:45px;height:45px;" src="statics/images/v2ltctmslogo.png"><font style="text-align:center;position:relative; top:-10px;">LTC-TMS</font></span>
-					<i class="setting"><img style="filter:invert(100%); width:20px; height:20px;position:relative; left:835px; top:4px;" src="statics/images/settings.png"><p style="position:relative; left:860px; top:-50px;">Settings</p><img onclick="openmenu()" id="openmenu" style="filter:invert(100%); width:10px; height:10px;position:relative; cursor:pointer;left:1105px; top:-98px;" class="openmenu" src="statics/images/openmenu.png"></i>
-				</div>
-			</div>
-	,<!--		<div class="user-info">
-				<div class="w1200">
-					<div class="user-headface" onmouseover="bigImg(this)" onmouseout="normalImg(this)">
-						<img src="statics/images/edit.png" id="photoword" style="position:relative;top:20px;left:20px;text-align:center;display:none;width:40px;height:40px;" onclick ="document.getElementById('newPic').click();">
-						<img style="cursor:pointer;" id="Profilepic" onclick ="document.getElementById('newPic').click();" />
-						<input id="newPic" type='file' accept="image/*" onchange="uploadPicProfile()" required  style="display:none;"/>
-					</div>
-					<div class="user-account">
-						<p class="tip" id="time123"></p>
-						<span></span>
-						<p class="account" style="position:relative; top:1px;">
-							<span style = "font-size: 20pt">Name : IT Admin<span style = "font-size: 20pt;" id="displayProfilename"></span></span>
-							<span style = "font-size: 20pt">Role : IT Admin<span style = "font-size: 20pt;" id="displayProfileposition"></span></span>
-						</p>
-				</div>
-			</div>
-		</div>-->
-		<div id="main" class="main w1200" style="margin-top:-21px;">
-			<div class="left">
-				<ul>
-					<li>
-						<a href="Policy.html"class="active" >
-							<i class="icon iconfont icon-wenda"></i>
-							Contact Us
-						</a>
-					</li>
-<!-- Removing feedback page
-				<li>
-						<a href="Feedback.html" >
-							<i class="icon iconfont icon-pinglun"></i>
-							Feedback
-						</a>
-					</li>-->
-					<li>
-						<a href="UserManagement.html">
-							<i class="icon iconfont icon-geren"></i>
-							User Management
-						</a>
-					</li>
-				</ul>
-			</div>
+		<div class="wrapper"><!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
+				<nav id="sidebar"><!-- SIDEBAR -->
+						<ul class="list-unstyled components">
+								<li class="current">
+										<a href="Policy.html"class="active">
+												<i class="glyphicon glyphicon-info-sign"></i>
+												Contact Us
+										</a>
+								</li>
+								<li>
+										<a href="UserManagement.html">
+												<i class="icon iconfont icon-geren"></i>
+										User Management</a>
+								</li>
 
+						</ul>
+				</nav>
+
+	<div id="content"> <!-- Place everything except the sidebar in content class -->
+			<div class="header"> <!-- DIV CONTAINER OF OUR HEADER-->
+
+					<div class="bar"><!-- PlaceHolder for top bar -->
+
+							<nav class="navbar navbar-inverse navbar-fixed-top navbar-default" style="background=#3F9FFF;"><!-- Bootstrap navigation bar -->
+									<div class="container-fluid">
+											<div class="navbar-header">
+
+													<a href="policy.html">
+															<img src="statics/images/v2ltctmslogo.png" height="50" width="60" />
+													</a>
+
+													<a href="#" style=" padding-left:20px">
+															<span class="white-text title"> LTC-TMS</span>
+													</a>
+
+											</div>
+											<ul class="nav navbar-nav navbar-right" style="margin-right:3px">
+													<li class="dropdown">
+															<a href="javascript:void(0)" class="dropbtn">IT Admin <span class="glyphicon glyphicon-cog white-text"></span></a>
+															<div class="dropdown-content">
+																	<a href="#">English</a>
+																	<a href="/../Frontend-Chinese/01Aboutus2.html">Chinese</a>
+																	<a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
+															</div>
+													</li>
+											</ul>
+									</div>
+							</nav>
+					</div>
+				</div>
 <!--  changed div class right width from 100% width to 60%  -->
 <div class="right">
-	<div class="tap">
-		<span id="span" style="width:160px;">Development Team</span>
+	<div class="tap" style="width: 100%;height: 40px;border-bottom: 2px solid #3F9FFF;background: #f9fafa; margin-bottom: 10px;">
+		<span id="span" style="cursor:pointer; display: inline-block;width: 150px;height: 100%;line-height: 40px;color: #fff;text-align: center;background: #3F9FFF; ">Development Team</span>
 	</div>
 
 	<div id="menu" style="display:none;position:fixed;top:6%;left:74%;background-color:white;height:100px;width:200px;z-index:5;">
