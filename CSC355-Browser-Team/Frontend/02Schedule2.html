@@ -90,6 +90,11 @@
                         Help and Support
                     </a>
                 </li>
+                <li>
+                    <a href="../Frontend/11Feedback2.html">
+                        <i class="glyphicon glyphicon-comment"></i>
+                    Feedback</a>
+                </li>
             </ul>
         </nav>
         <!-- End of sidebar !-->
@@ -211,6 +216,23 @@
                         </table>
                         <div style="width:100%;" id="CenterScheduleInfo"></div><!--end div style="width:100%;" id="CenterScheduleInfo"-->
                     </div> <!--end div class="container" id="data3" style="display:none;"-->
+                    <!-- Working schedule tab contents "data4"-->
+                    <div class="container" id="data4" style="display:none;overflow:scroll;">
+                      <table id='WStable' style="width:100%; border: 1px solid black;">
+                          <tr>
+                              <th style="width:11%">CNA</th>
+                              <th style="width:11%">SUN</th>
+                              <th style="width:11%">MON</th>
+                              <th style="width:11%">TUE</th>
+                              <th style="width:11%">WED</th>
+                              <th style="width:11%">THU</th>
+                              <th style="width:11%">FRI</th>
+                              <th style="width:11%">SAT</th>
+                              <th style="width:11%" colspan="1"></th>
+                          </tr>
+                      </table>
+                      <div style="width:100%;" id="workingScheduleInfo"></div>
+                    </div><!--end data4 container-->
                 </div> <!--end div class="right" style="width:800ex; transform:translateY(-13ex)"-->
             </div> <!--end div class="main container-fluid wrapper"-->
         </div><!-- END OF MAIN DIV CONTAINER CLASS!!! --> <!--end div id="content"-->
@@ -374,6 +396,56 @@
             </div>
         </div>
     </div><!--end div id="editWSBlock-->
+    <!--</div>-->
+
+
+<!--edit working schedule block -->
+    <div id="editWorkBlock" style="display:none">
+        <div class="create_new_center_schedule_form">
+            <h2><center>New Working Schedule</center></h2>
+            <hr class="schedule_hr">
+            <div style="padding:2%">
+                <table style="border:none; width: 50%;">
+                    <tr>
+                        <td style="border:none">CNA:</td>
+                        <td style="border:none" id = editCNAws></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Sunday</td>
+                        <td style="border:none"><input type="text" id="editWSSun" value=""><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Monday</td>
+                        <td style="border:none"><input type="text" id="editWSMon"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Tuesday</td>
+                        <td style="border:none"><input type="text" id="editWSTue"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Wednesday</td>
+                        <td style="border:none"><input type="text" id="editWSWed"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Thursday</td>
+                        <td style="border:none"><input type="text" id="editWSThu"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Friday</td>
+                        <td style="border:none"><input type="text" id="editWSFri"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Saturday</td>
+                        <td style="border:none"><input type="text" id="editWSSat"><br></td>
+                    </tr>
+                </table>
+                <br>
+
+                <button id="btnSubmitWork" style="cursor:pointer;" onclick="submitEditWorkingSchedule()">Submit</button> &nbsp&nbsp
+                <button id="Ecancel" onclick="document.getElementById('editWorkBlock').style.display='none';" style="cursor:pointer;">Cancel</button>
+            </div>
+        </div>
+    </div><!--end div id="editWorkBlock-->
     <!--</div>-->
 
     <!--</div>-->

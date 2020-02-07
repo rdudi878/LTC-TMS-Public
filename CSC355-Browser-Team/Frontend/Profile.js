@@ -16,7 +16,7 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
                 fbMTL.once("value")
                 .then(function(snapshotuAccount){
                   //console.log(snapshotuAccount.val());
-                  
+
                   var displayName = snapshotuAccount.val()["Name"];
                   //console.log("displayName: "+displayName);
                   document.getElementById('displayProfilename').innerHTML=displayName;
@@ -32,16 +32,16 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
                     }
                   }
                 });
-          
+
           document.getElementById('displayProfileid').innerHTML=userid;
         }
-  
+
       });
     })
     var displayName = firebaseUser.displayName;
     var pic = firebaseUser.photoURL;
     //console.log(pic);
-    
+
     var fbP = firebase.database().ref('uAccount/'+userid).child('Position');
     fbP.once('value',function(snapshot){
       var position = snapshot.val();
@@ -63,12 +63,12 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
     document.getElementById("profile").style.display = "block";
     displayProfile();
   }
-  
+
   function closeprofile(){
     document.getElementById("profile").style.display = "none";
     document.getElementById("editprofile").style.display = "none";
   }
-  
+
   function editprofile(){
     document.getElementById("editprofile").style.display = "block";
     document.getElementById('nameProfileE').value = document.getElementById('nameProfile').innerHTML;
@@ -78,13 +78,13 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
     document.getElementById('positionProfileE').innerHTML = document.getElementById('positionProfile').innerHTML;
     document.getElementById("profile").style.display = "none";
   }
-  
+
   function cancelprofile(){
     document.getElementById("profile").style.display = "none";
     document.getElementById("editprofile").style.display = "none";
     document.getElementById("changePass").style.display = "none";
   }
-  
+
   function submitprofile(){
     var name=document.getElementById('nameProfileE').value;
     var id =document.getElementById('idProfileE').innerHTML;
@@ -109,7 +109,7 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
       }
     });
   }
-  
+
   function displayProfile(){
     //alert("hi");
     firebase.auth().onAuthStateChanged(function(user){
@@ -127,8 +127,8 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
             }
           });
         })
-  
-  
+
+
         var email= user.email;;
         var position = document.getElementById('displayProfileposition').innerHTML;
         document.getElementById('nameProfile').innerHTML=name;
@@ -136,16 +136,16 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
         document.getElementById('idProfile').innerHTML=id;
         document.getElementById('emailProfile').innerHTML=email;
         document.getElementById('positionProfile').innerHTML=position;
-  
+
       }
     });
   }
-  
+
   function changePassword(){
     document.getElementById("changePass").style.display="block";
-  
+
   }
-  
+
   function submitNewPass(){
     var newPass= document.getElementById('newPassword').value;
     var cnewPass=document.getElementById('confirmnewPassword').value;
@@ -163,11 +163,11 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
               var currentYear = today.getFullYear();
               var currentMonth = today.getMonth()+1;
               var currentDay = today.getDate();
-  
+
               var currentHour = today.getHours();
               var currentMinute = today.getMinutes();
               var currentSecond = today.getSeconds();
-  
+
               if(currentHour < 10){
                 currentHour = '0' + currentHour
               }
@@ -177,13 +177,13 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
               if(currentSecond < 10){
                 currentSecond = '0' + currentSecond
               }
-  
+
               var fullDate = currentYear+'-'+currentMonth+'-'+currentDay;
               var fullTime = currentHour+':'+currentMinute+':'+currentSecond;
               var fullDateandTime = fullDate +'-'+ fullTime;
               var passRenewal = oldPass +'~' + newPass;
               firebase.database().ref('AccountStatus/Browser/'+ user.uid+'/ChangePasswordHistory/'+fullDateandTime).set(passRenewal);
-  
+
               alert('Successfully Re-New Password!');
               window.location.reload();
             }).catch(function(error){
@@ -195,21 +195,21 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
     }else{
       alert("Your Password are not match!")
     }
-  
+
   }
-  
-  
-  
+
+
+
   function Logout(){
     var today = new Date();
     var currentYear = today.getFullYear();
     var currentMonth = today.getMonth()+1;
     var currentDay = today.getDate();
-  
+
     var currentHour = today.getHours();
     var currentMinute = today.getMinutes();
     var currentSecond = today.getSeconds();
-  
+
     if(currentHour < 10){
       currentHour = '0' + currentHour
     }
@@ -219,7 +219,7 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
     if(currentSecond < 10){
       currentSecond = '0' + currentSecond
     }
-  
+
     var fullDate = currentYear+'-'+currentMonth+'-'+currentDay;
     var fullTime = currentHour+':'+currentMinute+':'+currentSecond;
     var fullDateandTime = fullDate +'-'+ fullTime;
@@ -231,14 +231,14 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
     //console.log('logout');
     window.location.href = "/../Frontend/00Login2.html";
   }
-  
+
   function uploadPicProfile(){
     var file = $('#newPic').get(0).files[0];
     var id = document.getElementById('displayProfileid').innerHTML
     var storageRefProfile =firebase.storage().ref('Profile/'+id+'/'+file.name);
     storageRefProfile.put(file).on('state_changed',
         function(){
-  
+
         },function error(err){
           //console.log(err.message);
         },
@@ -256,17 +256,17 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
             });
           });
         });
-  
-  
+
+
   }
-  
-  
+
+
   var a = new Date();
   var hour = a.getHours();
   var minute = a.getMinutes();
   var second = a.getSeconds();
-  
-  
+
+
   if(hour < 10){
     hour = '0' + hour
   }
@@ -276,9 +276,9 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
   if(second < 10){
     second = '0' + second
   }
-  
+
   var time123 = hour+":"+minute+":"+second;
-  
+
   window.onload=function(){
     console.log("HELLO");
       if(time123<"12:00:00" && time123>="04:00:00"){
@@ -291,4 +291,3 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
       document.getElementById("time123").innerHTML = "Good Evening &nbsp ";
     }
   }
-  
