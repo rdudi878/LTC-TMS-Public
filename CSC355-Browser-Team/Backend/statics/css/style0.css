@@ -1,4 +1,4 @@
-*{font-family: "microsoft yahei";box-sizing: border-box;margin: 0;color: inherit;}
+*{font-family: "microsoft yahei";box-sizing: border-box;padding: 0;margin: 0;color: inherit;}
 body{background: #f1f1f1;}
 img{border: none;}
 ul{list-style: none;}
@@ -21,9 +21,9 @@ a{text-decoration: none;}
 .main .left ul li a{display: block;width: 100%;height: 100%;padding-left: 20px;}
 .main .left ul li a i{font-size: 20px;padding-right: 5px;}
 .main .left ul li a.active{border-left: 3px solid #62ab00;background: #f3f7ed;color: #62ab00;}
-.main .left ul li a:hover{border-left: 3px solid #62ab00;background: #f3f7ed;color: #62ab00;}
+.main .left ul li a:hover{border-left: 3px solid #62ab00;background: #f3f7ed;color: black;}
 .main .right{float: left;width: 980px;height: 500px;overflow: hidden;}
-.main .right .tap{width: 100%;height: 40px;border-bottom: 2px solid #3F9FFF;background: #f9fafa;}
+.main .right .tap{width: 100%;height: 40px;border-bottom: 2px solid black;background: #f9fafa;}
 .main .right .tap span{display: inline-block;width: 150px;height: 100%;line-height: 40px;color: #fff;text-align: center;background: #3f9fff;}
 
 .main .right .container{width: 100%;height: 400px;overflow: hidden;background: #fff;}
@@ -37,3 +37,6 @@ a{text-decoration: none;}
 .logoutselected{border-top-style: inset;}
 .xfilter:hover{color:red;}
 .openprofile:hover{animation: bounce 1s;}
+.navbar-inverse .navbar-nav>li>a {
+    color: black;
+}

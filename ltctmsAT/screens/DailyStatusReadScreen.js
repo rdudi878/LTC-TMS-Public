@@ -17,6 +17,7 @@ import {
   ScrollView,
   Picker,
 } from 'react-native';
+import {Collapse, CollapseHeader, CollapseBody,AccordionList} from "accordion-collapse-react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import { createStackNavigator, createSwitchNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import firebase from 'react-native-firebase';
@@ -24,6 +25,10 @@ import DatePicker from 'react-native-datepicker';
 import styles from '../styles/styles';
 import { Text } from 'native-base';
 import { Button } from 'react-native-elements';
+import PatientRecordsScreen from '../screens/PatientRecordsScreen';
+import selectedValue from '../screens/PatientRecordsScreen';
+import{Form, Textarea,Card,Content,CardItem,Separator,ListItem}from'native-base'
+
 class DailyStatusReadScreen extends React.Component {
   static navigationOptions = {
     title: 'Daily Status Read',
@@ -37,14 +42,18 @@ class DailyStatusReadScreen extends React.Component {
     this.state = {
       patientList: [],
       patient: '',
-      showeredAM: '',
-      showeredPM: '',
-      ateAM: '',
-      atePM: '',
       poop: '',
       urinate: '',
-      brushTeethAM: '',
-      brushTeethPM: '',
+      shower:'',
+      face:'',
+      breakfast:'',
+      lunch:'',
+      dinner:'',
+      brushTeeth:'',
+      shampoo:'',
+      Haircut:'',
+      Shave:'',
+      Turnover:'',
       today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
       date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
       status: [],
@@ -75,28 +84,9 @@ class DailyStatusReadScreen extends React.Component {
   render() {
 
     return (
-      <View style={styles.container}>
+      <View style={styles2.container}>
         <ScrollView style={styles2.container}>
-          {(this.state.position == "Patient") ?
-            <View>
-              <Text style={styles.item}>Select Date to View Daily Status</Text>
-            </View>
-            :
-            <View>
-              <Text style={styles.item}>Select Patient ID to view a Daily Status</Text>
-              <Picker
-                mode={'dropdown'}
-                selectedValue={this.state.patient}
-                style={styles2.picker}
-                onValueChange={this.updatePatient}
-              >
-                <Picker.Item label="Select Patient" value="patient" />
-                {this.state.patientList.map((item, index) => {
-                  return (<Picker.Item label={item.id} value={item.id} key={index} />)
-                })}
-              </Picker>
-            </View>
-          }
+          <Text style={styles.item}>Select Date to View Daily Status</Text>
           <View style={styles.pickerView}>
             <DatePicker
               style={styles.pickerStyle}
@@ -122,27 +112,80 @@ class DailyStatusReadScreen extends React.Component {
               onDateChange={(date) => { this.setState({ date: date }) }}
             />
           </View>
+          <Button
+                  onPress={this._fetchStatus}
+                  title="Submit"
+                  style={{ padding: 10 }}
+                  type="solid"
+                  buttonStyle={{
+                    backgroundColor:'#3f9fff'}}
+                />
           <View>
-            <Button
-              onPress={this._fetchStatus}
-              title="Submit"
-              type="outline"
-              style={{ padding: 10 }}
-            />
-          </View>
+          <View style={styles2.container1}>
+            <Content>
+            <Separator bordered>
+                <Text >Sanitation Behavior 衛生行為（Freshen up</Text>
+            </Separator>
+            <ListItem>
+              <Text >Shower: {this.state.shower}</Text>
+            </ListItem>
+            <ListItem>
+              <Text >Brush Teeth: {this.state.brushTeeth}</Text>
+            </ListItem>
+            <ListItem last>
+             <Text >Wash Face: {this.state.face}</Text>
+            </ListItem>
+            <ListItem>
+            <Text>Shampoo: {this.state.shampoo}</Text>
+            </ListItem>
+            <ListItem>
+            <Text >Haircut: {this.state.Haircut}</Text>
+            </ListItem>
+            <ListItem>
+            <Text >Shave: {this.state.Shave}</Text>
+            </ListItem>
 
-          <View style={styles.container}>
-            <Text style={styles.item}>Patient Daily Status</Text>
-            <Text style={styles.item}>Showered AM: {this.state.showeredAM}</Text>
-            <Text style={styles.item}>Showered PM: {this.state.showeredPM}</Text>
-            <Text style={styles.item}>Ate AM: {this.state.ateAM}</Text>
-            <Text style={styles.item}>Ate PM: {this.state.atePM}</Text>
-            <Text style={styles.item}>Poop time: {this.state.poop}</Text>
-            <Text style={styles.item}>Urinate time: {this.state.urinate}</Text>
-            <Text style={styles.item}>Brush Teeth AM: {this.state.brushTeethAM}</Text>
-            <Text style={styles.item}>Brush Teeth PM: {this.state.brushTeethPM}</Text>
-            <Text></Text>
+            <Separator bordered>
+              <Text>Dietary Condition 飲食狀況</Text>
+            </Separator>
+            <ListItem>
+            <Text >Breakfast: {this.state.breakfast}</Text>
+            </ListItem>
+            <ListItem>
+            <Text >Lunch: {this.state.lunch}</Text>
+            </ListItem>
+            <ListItem last>
+              <Text >Dinner: {this.state.dinner}</Text>
+            </ListItem>
+
+            <Separator bordered>
+            <Text>Basic Care 基本護理</Text>
+            </Separator>
+            <ListItem>
+            <Text >Poop: {this.state.poop}</Text>
+            </ListItem>
+            <ListItem>
+            <Text >Urinate: {this.state.urinate}</Text>
+            </ListItem>
+            
+           
+
+            <Separator bordered>
+            <Text>Basic Care 基本護理</Text>
+            </Separator>
+            <ListItem>
+            <Text>Turnover: {this.state.Turnover}</Text>
+            </ListItem>
+            
+
+
+          </Content>
+            
+              </View>
+            
           </View>
+         
+
         </ScrollView>
       </View>
     );
@@ -157,26 +200,34 @@ class DailyStatusReadScreen extends React.Component {
     }
     const patientStatus = [];
     console.log("Patient : ", this.state.patient);
-    firebase.database().ref(`Activities/${patient}/${this.state.date}/DailyStatuses/`).once('value').then((snapshot) => {
+    firebase.database().ref(`Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.date}/DailyStatuses/`).once('value').then((snapshot) => {
       var status = snapshot.toJSON();
-      var showeredAM = status.showeredAM ? 'Yes' : 'No';
-      var showeredPM = status.showeredPM ? 'Yes' : 'No';
-      var ateAM = status.ateAM ? 'Yes' : 'No';
-      var atePM = status.atePM ? 'Yes' : 'No';
+      var shower = status.shower;
+      var shampoo = status.shampoo;
+      var Haircut= status.Haircut;
+      var Shave= status.Shave;
+      var Turnover= status.Turnover;
       var poop = status.poop;
       var urinate = status.urinate;
-      var brushTeethAM = status.brushTeethAM ? 'Yes' : 'No';
-      var brushTeethPM = status.brushTeethPM ? 'Yes' : 'No';
+      var brushTeeth = status.brushTeeth;
+      var face = status.face;
+      var breakfast= status.breakfast;
+      var lunch= status.lunch;
+      var dinner= status.dinner;
 
       this.setState({
-        showeredAM,
-        showeredPM,
-        ateAM,
-        atePM,
         poop,
         urinate,
-        brushTeethAM,
-        brushTeethPM
+        shower,
+        face,
+        breakfast,
+        lunch,
+        dinner,
+        brushTeeth,
+        shampoo,
+        Haircut,
+        Shave,
+        Turnover,
       })
     }).catch((err) => {
       Alert.alert('Unable to find data for the specified date and patient combination. Please try another one.');
@@ -225,8 +276,13 @@ class DailyStatusReadScreen extends React.Component {
 const styles2 = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    marginTop: 15,
+    padding: -10,
+    marginTop: 0,
+  },
+  container1:{
+    flex:1,
+    padding:-10
+
   },
   item: {
     padding: 4,

@@ -20,12 +20,16 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Text } from 'native-base';
-import { createStackNavigator, createSwitchNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import { Button } from 'react-native-elements';
 import firebase from 'react-native-firebase';
-import DatePicker from 'react-native-datepicker';
 import styles from '../styles/styles';
+import {Collapse, CollapseHeader, CollapseBody,AccordionList} from "accordion-collapse-react-native";
+import { Thumbnail } from 'native-base';
+import Icon2 from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Dropdown } from 'react-native-material-dropdown';
+import{Container,Header,Title,Content,Icon,ListItem,Text,Left,Right,Body,Separator}from'native-base';
+
 class DailyStatusAddScreen extends React.Component {
   static navigationOptions = {
     title: 'Daily Status Add',
@@ -37,18 +41,20 @@ class DailyStatusAddScreen extends React.Component {
     var now = new Date();
 
     this.state = {
-      patientList: [],
-      patient: '',
-      showeredAM: false,
-      showeredPM: false,
-      ateAM: false,
-      atePM: false,
       poop: '',
       urinate: '',
-      brushTeethAM: false,
-      brushTeethPM: false,
+      shower:'',
+      face:'',
+      breakfast:'',
+      lunch:'',
+      dinner:'',
+      brushTeeth:'',
+      shampoo:'',
+      Haircut:'',
+      Shave:'',
+      Turnover:'',
       userInfo: null,
-      today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
+      today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
     };
   }
 
@@ -63,134 +69,336 @@ class DailyStatusAddScreen extends React.Component {
     await this._fetchUserInfo();
     this._fetchPatients();
   }
-
-  updatePatient = (patient) => {
-    this.setState({ patient: patient })
-  }
-
+ 
   // render content
   // consists of one picker container to choose patient, with several picker items
   // then a date picker for choosing the date to retrieve data from
   // a button is used to trigger data retrieval, and text elements to present the data
   render() {
+    
     return (
-      <KeyboardAvoidingView behavior='position' style={{backgroundColor:'#e6f3ff', flex:1}}>
-      <View style={{backgroundColor:'#e6f3ff'}}>
+      <KeyboardAvoidingView behavior='padding' style={{backgroundColor:'#fff', flex:1}}>
+      <View style={{backgroundColor:'#fff'}}>
         <ScrollView >
+        <Content>
+        <Separator bordered={styles2.borderedContent}>
+            <Text style={styles2.textContent}>Sanitation Behavior 衛生行為（Freshen up)</Text>
+          </Separator>
+          <ListItem >
           <View>
-            <Text style={styles.item}>Select Patient ID to add a Daily Status</Text>
-            <Picker
-              mode='anchor'
-              style={styles2.picker}
-              selectedValue={this.state.patient}
-              onValueChange={this.updatePatient}
-            >
-              <Picker.Item label="Select Patient" value="patient"/>
-              {this.state.patientList.map((item, index) => {
-                return (<Picker.Item label={item.id} value={item.id} key={index}/>)
-              })}
-            </Picker>
+            <Collapse style>
+              <CollapseHeader style={{flexDirection:'row',alignItems:'flex-start'}}>
+              <View style={{ paddingTop: 10 }}>
+                    <Text style={styles.statusToggle}>Shower</Text>
+                  </View>
+             </CollapseHeader>
+              <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                  <View style={{ paddingTop: 10, alignItems:'center' }}>
+                  <TextInput
+                      placeholder="Enter Time (format example 13:50)"
+                      placeholderTextColor='black'
+                      style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                      onChangeText={(shower) => this.setState({ shower })}
+                      value={this.state.shower}
+                    />             
+                  </View>
+              </CollapseBody>
+            </Collapse>
           </View>
+          </ListItem>
 
-          <View style={{ paddingTop: 10 }}>
-            <Text style={styles.statusToggle}>Showered AM</Text>
-            <Text style={styles.statusToggle}> {this.state.showeredAM ? 'Yes' : 'No'}</Text>
-            <Switch
-              onValueChange={(value) => this.setState({ showeredAM: value })}
-              style={{ marginTop: 10, marginBottom: 10, alignSelf: 'center' }}
-              value={this.state.showeredAM}
-              trackColor={{ true: 'green', false: 'blue' }}
-            />
+          <ListItem>
+          <View style >
+          <Collapse style>
+              <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+              <View style={{ paddingTop: 10 }}>
+                    <Text style={styles.statusToggle}>Brush Teeth</Text>
+                  </View>
+             </CollapseHeader>
+              <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                  <View style={{ paddingTop: 10, alignItems:'center' }}>
+                  <TextInput
+                      placeholder="Enter Time (format example 13:50)"
+                      placeholderTextColor='black'
+                      style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                      onChangeText={(brushTeeth) => this.setState({ brushTeeth })}
+                      value={this.state.brushTeeth}
+                    />     
+                  </View>
+              </CollapseBody>
+            </Collapse>
           </View>
-          <View style={{ paddingTop: 10 }}>
-            <Text style={styles.statusToggle}>Showered PM</Text>
-            <Text style={styles.statusToggle}> {this.state.showeredPM ? 'Yes' : 'No'}</Text>
-            <Switch
-              onValueChange={(value) => this.setState({ showeredPM: value })}
-              style={{ marginBottom: 10, marginTop: 10, alignSelf: 'center' }}
-              value={this.state.showeredPM}
-              trackColor={{ true: 'green', false: 'blue' }}
-            />
-          </View>
+          </ListItem>
 
-          <View style={{ paddingTop: 10 }}>
-            <Text style={styles.statusToggle}>Ate AM</Text>
-            <Text style={styles.statusToggle}> {this.state.ateAM ? 'Yes' : 'No'}</Text>
-            <Switch
-              onValueChange={(value) => this.setState({ ateAM: value })}
-              style={{ marginBottom: 10, marginTop: 10, alignSelf: 'center' }}
-              value={this.state.ateAM}
-              trackColor={{ true: 'green', false: 'blue' }}
-            />
+          <ListItem>
+          <View style >
+          <Collapse>
+              <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+              <View style={{ paddingTop: 10 }}>
+                    <Text style={styles.statusToggle}>Shampoo</Text>
+                  </View>
+             </CollapseHeader>
+              <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                  <View style={{ paddingTop: 10, alignItems:'center' }}>
+                  <TextInput
+                      placeholder="Enter Time (format example 13:50)"
+                      placeholderTextColor='black'
+                      style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                      onChangeText={(Shampoo) => this.setState({ Shampoo })}
+                      value={this.state.Shampoo}
+                    />     
+                  </View>
+              </CollapseBody>
+            </Collapse>
           </View>
+          </ListItem>
 
-          <View style={{ paddingTop: 10 }}>
-            <Text style={styles.statusToggle}>Ate PM</Text>
-            <Text style={styles.statusToggle}> {this.state.atePM ? 'Yes' : 'No'}</Text>
-            <Switch
-              onValueChange={(value) => this.setState({ atePM: value })}
-              style={{ marginBottom: 10, marginTop: 10, alignSelf: 'center' }}
-              value={this.state.atePM}
-              trackColor={{ true: 'green', false: 'blue' }}
-            />
+         <ListItem>
+         <View style={{ paddingTop: 0 }}>
+          <Collapse>
+              <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>          
+              <View style={{ paddingTop: 10 }}>
+                    <Text style={styles.statusToggle}>Shave</Text>
+                  </View>
+             </CollapseHeader>
+              <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                  <View style={{ paddingTop: 10, alignItems:'center' }}>
+                  <TextInput
+                      placeholder="Enter Time (format example 13:50)"
+                      placeholderTextColor='black'
+                      style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                      onChangeText={(Shave) => this.setState({Shave})}
+                      value={this.state.Shave}
+                    />     
+                  </View>
+              </CollapseBody>
+            </Collapse>
           </View>
+         </ListItem>
 
-          <View style={{ paddingTop: 10 }}>
-            <Text style={styles.statusToggle}>Brush Teeth AM</Text>
-            <Text style={styles.statusToggle}> {this.state.brushTeethAM ? 'Yes' : 'No'}</Text>
-            <Switch
-              onValueChange={(value) => this.setState({ brushTeethAM: value })}
-              style={{ marginBottom: 10, marginTop: 10, alignSelf: 'center' }}
-              value={this.state.brushTeethAM}
-              trackColor={{ true: 'green', false: 'blue' }}
-            />
+         <ListItem>
+         <View style={{ paddingTop: 0 }}>
+          <Collapse >
+              <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+              <View style={{ paddingTop: 10 }}>
+                    <Text style={styles.statusToggle}>Haircut</Text>
+                  </View>
+             </CollapseHeader>
+              <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                  <View style={{ paddingTop: 10, alignItems:'center' }}>
+                  <TextInput
+                      placeholder="Enter Time (format example 13:50)"
+                      placeholderTextColor='black'
+                      style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                      onChangeText={(Haircut) => this.setState({ Haircut })}
+                      value={this.state.Haircut}
+                    />     
+                  </View>
+              </CollapseBody>
+            </Collapse>
           </View>
+         </ListItem>
 
-          <View style={{ paddingTop: 10 }}>
-            <Text style={styles.statusToggle}>Brush Teeth PM</Text>
-            <Text style={styles.statusToggle}> {this.state.brushTeethPM ? 'Yes' : 'No'}</Text>
-            <Switch
-              onValueChange={(value) => this.setState({ brushTeethPM: value })}
-              style={{ marginBottom: 10, marginTop: 10, alignSelf: 'center' }}
-              value={this.state.brushTeethPM}
-              trackColor={{ true: 'green', false: 'blue' }}
-            />
+          <ListItem last>
+            <View style >
+              <Collapse >
+                  <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+                  <View style={{ paddingTop: 10 }}>
+                        <Text style={styles.statusToggle}>Wash Face</Text>
+                      </View>
+                </CollapseHeader>
+                  <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                      <View style={{ paddingTop: 10, alignItems:'center' }}>
+                      <TextInput
+                          placeholder="Enter Time (format example 13:50)"
+                          placeholderTextColor='black'
+                          style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                          onChangeText={(face) => this.setState({ face })}
+                          value={this.state.face}
+                        />     
+                      </View>
+                  </CollapseBody>
+                </Collapse>
           </View>
+          </ListItem>
 
-          <View style={{ paddingTop: 10, alignItems:'center' }}>
-            <Text style={styles.statusToggle}>Poop Time</Text>
-            <TextInput
-              placeholder="Enter Time (format example 13:00)"
-              placeholderTextColor='black'
-              style={{ height: 40, width: 300, borderColor: '#b2d1f1', borderWidth: 2, color:'black' }}
-              onChangeText={(poop) => this.setState({ poop })}
-              value={this.state.poop}
-            />
+          <Separator bordered={styles2.borderedContent}>
+            <Text style={styles2.textContent}>Dietary Condition 飲食狀況</Text>
+          </Separator>
+          <ListItem>
+          <View>
+          <Collapse>
+              <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+              <View style={{ paddingTop: 10 }}>
+                    <Text style={styles.statusToggle}>Feed Breakfast</Text>
+                  </View>
+             </CollapseHeader>
+              <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                  <View style={{ paddingTop: 10, alignItems:'center' }}>
+                  <TextInput
+                      placeholder="Enter Time (format example 13:50)"
+                      placeholderTextColor='black'
+                      style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                      onChangeText={(breakfast) => this.setState({ breakfast })}
+                      value={this.state.breakfast}
+                    />     
+                  </View>
+              </CollapseBody>
+            </Collapse>
           </View>
+          </ListItem>
 
-          <View style={{ paddingTop: 10, alignItems:'center' }}>
-            <Text style={styles.statusToggle}>Urinate Time</Text>
-            <TextInput
-              placeholder="Enter Time (format example 13:50)"
-              placeholderTextColor='black'
-              style={{ height: 40, width: 300, borderColor: '#b2d1f1', borderWidth: 2, color:'black' }}
-              onChangeText={(urinate) => this.setState({ urinate })}
-              value={this.state.urinate}
-            />
+          <ListItem>
+            <View>
+            <Collapse>
+                <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+                <View style={{ paddingTop: 10 }}>
+                      <Text style={styles.statusToggle}>Feed Lunch</Text>
+                    </View>
+              </CollapseHeader>
+                <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                    <View style={{ paddingTop: 10, alignItems:'center' }}>
+                    <TextInput
+                        placeholder="Enter Time (format example 13:50)"
+                        placeholderTextColor='black'
+                        style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                        onChangeText={(lunch) => this.setState({ lunch })}
+                        value={this.state.lunch}
+                      />     
+                    </View>
+                </CollapseBody>
+              </Collapse>
+          </View>
+          </ListItem>
+
+          <ListItem last>
+          <Collapse>
+                <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+                <View style={{ paddingTop: 10 }}>
+                      <Text style={styles.statusToggle}>Feed Dinner</Text>
+                    </View>
+              </CollapseHeader>
+                <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                    <View style={{ paddingTop: 10, alignItems:'center' }}>
+                    <TextInput
+                        placeholder="Enter Time (format example 13:50)"
+                        placeholderTextColor='black'
+                        style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                        onChangeText={(dinner) => this.setState({ dinner })}
+                        value={this.state.dinner}
+                      />     
+                    </View>
+                </CollapseBody>
+              </Collapse>
+          </ListItem>
+
+          <Separator bordered={styles2.borderedContent}>
+          <Text style={styles2.textContent}>Basic Care 基本護理</Text>
+          </Separator>
+          <ListItem last>
+          <View style={{ paddingTop: 0 }}>
+          <Collapse >
+              <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+              <View style={{ paddingTop: 10 }}>
+                    <Text style={styles.statusToggle}>Turn Over/Back Care</Text>
+                  </View>
+             </CollapseHeader>
+              <CollapseBody style={{alignItems:'center',justifyContent:'center',padding:4}}>
+                  <View style={{ paddingTop: 10, alignItems:'center' }}>
+                  <TextInput
+                      placeholder="Enter Time (format example 13:50)"
+                      placeholderTextColor='black'
+                      style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                      onChangeText={(Turnover) => this.setState({Turnover})}
+                      value={this.state.Turnover}
+                    />     
+                  </View>
+              </CollapseBody>
+            </Collapse>
+          </View>
+          </ListItem>
+
+          <Separator bordered={styles2.borderedContent}>
+          <Text style={styles2.textContent}>Defecation / Urination</Text>
+          </Separator>    
+
+          <ListItem> 
+          <View style={{ paddingTop: 0 }}>
+          <Collapse >
+            <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+              
+              <View style={{ paddingTop: 10 }}>
+                 <Text style={styles.statusToggle}>Poop Time</Text>
+              </View>
+            </CollapseHeader>
+            <CollapseBody style={{alignItems:'center',justifyContent:'center',flexDirection:'row',padding:4}}>           
+              <Collapse style={{flexDirection:'row'}}>
+                <CollapseHeader>
+                <View style={{ paddingTop: 10, alignItems:'center' }}> 
+              
+                    <TextInput
+                    placeholder="Enter Time (format example 13:00)"
+                    placeholderTextColor='black'
+                    style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                   onChangeText={(poop) => this.setState({ poop })}
+                   value={this.state.poop}
+                 />
+                  </View>
+                </CollapseHeader>
+              </Collapse>
+            </CollapseBody>
+          </Collapse>
+          </View>  
+        </ListItem> 
+
+            <ListItem last>
+            <View style={{ paddingTop: 0}}>
+          <Collapse >
+            <CollapseHeader style={{flexDirection:'row',alignItems:'center'}}>
+              <View style={{ paddingTop: 10 }}>
+                    <Text style={styles.statusToggle}>Urinate Time</Text>
+              </View>
+            </CollapseHeader>
+            <CollapseBody style={{alignItems:'center',justifyContent:'center',flexDirection:'row',padding:4}}>
+              
+              <Collapse style={{flexDirection:'row'}}>
+                <CollapseHeader>
+                <View style={{ paddingTop: 10, alignItems:'center' }}>
+                    
+                    <TextInput
+                      placeholder="Enter Time (format example 13:50)"
+                      placeholderTextColor='black'
+                      style={{ height: 40, width: 300, borderColor: '#A1D3D1', borderWidth: 4, color:'black' }}
+                      onChangeText={(urinate) => this.setState({ urinate })}
+                      value={this.state.urinate}
+                    />
+                  </View>
+                </CollapseHeader>
+              </Collapse>
+            </CollapseBody>
+          </Collapse>
+       
           </View>
         
-          <View style={{padding:10}}>
+
+            </ListItem> 
+          
+          <View style={{marginTop: 10, marginHorizontal: 50, alignSelf: 'auto', flex: 1, justifyContent: 'space-between', fontSize: '10'}}>
             <Button
               onPress={this._submitDailyStatus}
               title="Submit"
-              type="outline"
+              type="solid"
+              buttonStyle={{
+               
+                backgroundColor:'#3f9fff'}}
             />
           </View>
+          </Content>
         </ScrollView>
       </View>
       </KeyboardAvoidingView>
     )
-
+             
   }
 
   // fetch content (patients)
@@ -211,26 +419,35 @@ class DailyStatusAddScreen extends React.Component {
   }
 
   _submitDailyStatus = async () => {
-    const baseRef = `Activities/${this.state.patient}/${this.state.today}/DailyStatuses/`;
+    const baseRef = `Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.today}/DailyStatuses/`;
     const ref = firebase.database().ref(baseRef);
     const user = this.state.userInfo;
     const now = new Date();
-
+    
     await ref.update({
       date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
       timestamp: firebase.database.ServerValue.TIMESTAMP,
       submittedBy: user.ID,
-      showeredAM: this.state.showeredAM,
-      showeredPM: this.state.showeredPM,
-      ateAM: this.state.ateAM,
-      atePM: this.state.atePM,
-      brushTeethAM: this.state.brushTeethAM,
-      brushTeethPM: this.state.brushTeethPM,
+      shower: this.state.shower,
+      breakfast:this.state.breakfast,
+      lunch:this.state.lunch,
+      dinner:this.state.dinner,
+      brushTeeth:this.state.brushTeeth,
       poop: this.state.poop,
-      urinate: this.state.urinate
+      urinate: this.state.urinate,
+      face:this.state.face,
+      shampoo:this.state.shampoo,
+      Haircut:this.state.Haircut,
+      Turnover:this.state.Turnover,
+      Shave:this.state.Shave
     });
 
+    this._showPatientRecords();
     Alert.alert('Daily Status Add', 'Successful!');
+  }
+
+  _showPatientRecords() {
+    this.props.navigation.goBack();
   }
 
   // signout user by deleting locally stored user info and navigate back to sign in screen
@@ -243,7 +460,7 @@ class DailyStatusAddScreen extends React.Component {
 
 const styles2 = StyleSheet.create({
   container: {
-    backgroundColor: '#e6f3ff',
+    backgroundColor: '#fff',
     flex: 1,
     padding: 20,
     marginTop: 15,
@@ -252,6 +469,13 @@ const styles2 = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
   },
+  textContent: {
+    fontSize: 15,
+  },
+  borderedContent:{
+  padding:10
+  },
+  
 
   /*
   item: {
