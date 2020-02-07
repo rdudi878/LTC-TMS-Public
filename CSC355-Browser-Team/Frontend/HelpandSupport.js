@@ -275,9 +275,9 @@ function showsf(){
       replyId: "testing",
       replyText: "testing",
       replyTimestamp: "testing",
-      timestamp: serverValue.TIMESTAMP,
-      userEmail: "userEmail",
-      userID: "33231"
+      timestamp: time123,
+      userEmail: user.email,
+      userID: id,
     }
 
     var updates = {};
