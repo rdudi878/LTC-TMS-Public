@@ -172,8 +172,7 @@ fbPAT.once("value")
       var tempsArr = [];
       var timeArr = [];
       var selectedPatient = $('#AIselectPAT').val();
-      // var selectedDate = $('#ai_bday').val()
-      var selectedDate = '2019-2-1';
+      var selectedDate = $('#ai_bday').val()
       console.log(selectedDate);
       selectedPatient = getSecondPart(selectedPatient); // Split the string to ignore the name portion of the dropdown selection
       var rootRef = firebase.database().ref();
@@ -185,17 +184,22 @@ fbPAT.once("value")
 //           cnaKey = cnaChild.key;
 //         });
 //       });
-      var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/AI/");
-      statusRef.once("value", function(snapshot) {
+      var categoryRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/AI/");
+      categoryRef.once("value", function(snapshot) {
         snapshot.forEach(function(child) {
           if (child.key!=="HeartRateRecord"
               && child.key!=="Location") {
             var aiStatRow = aiStatInfo.insertRow(aiRowIndex);
             aiStatRow.setAttribute("class","table-list-row");
             var cellMeasurementType = aiStatRow.insertCell(0)
-            var cellMeasurementValue = aiStatRow.insertCell(1)
+            var valueRef = categoryRef.child(child.key+"/")
+            valueRef.once("value", function(snapshot2) {
+              snapshot2.forEach(function(child) {
+                var cellMeasurementValue = aiStatRow.insertCell(1);
+                cellMeasurementValue.appendChild(document.createTextNode(child.val()));
+              });
+            });
             cellMeasurementType.appendChild(document.createTextNode(child.key));
-            cellMeasurementValue.appendChild(document.createTextNode(child.val()));
           }
         });
       });
