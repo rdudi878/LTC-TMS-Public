@@ -28,7 +28,7 @@ fbPAT.once("value")
             aiOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
               dsPat.add(dsOpt); // Appending to the drop down options
               vsPat.add(vsOpt); // Appending to the drop down options
-              aiPat.add(vsOpt); // Appending to the drop down options
+              aiPat.add(aiOpt); // Appending to the drop down options
               index=index+1;
           }
        });
