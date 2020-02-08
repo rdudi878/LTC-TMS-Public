@@ -335,10 +335,11 @@ function injectToDOM(){
     if (taskDetails["outline"] == "Type an outline here" || taskDetails["outline"] == ""){
         htmlInjection += '<div>' + '<textarea name="text" class="taskName" id="taskOutline" placeholder="Type an outline here"></textarea>' + '</div>';
     } else {
-        htmlInjection += '<div>' + '<textarea class="taskName" id="taskOutline" >' + taskDetails["outline"] + ' </textarea>' + '</div>';
+        htmlInjection += '<div>' + '<textarea id="theOutline" class="taskName" id="taskOutline" >' + taskDetails["outline"] + ' </textarea>' + '</div>';
     }
     //Visibility
     htmlInjection += '<center><button type="button" onclick="textToSpeech()" style="float:right;width:15%;text-align:center;"> Text to Voice </button></center>';
+    htmlInjection += '<center><button type="button" onclick="voiceToText()" style="float:right;width:15%;text-align:center;"> Voice to Text </button></center>';
     htmlInjection += '<div style="text-align:center;"> Task Visibility: </div>';
     htmlInjection += '<div class="radioField">';
     htmlInjection += '<div class="radioChild">';
@@ -417,6 +418,30 @@ function injectToDOM(){
     installEventHandlers(steps, taskDetails);
     textToSpeech();
 }   // end injectToDom
+
+function voiceToText() {
+  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  const recognition = new SpeechRecognition();
+  //setting this to true works while you are speaking
+  recognition.iterimResults = true;
+
+  let p = document.createElement('p');
+  const words = document.querySelector('[name="text"]');
+  words.appendChild(p);
+
+  recognition.addEventListener('result', e => {
+    // console.log(e.results);
+    const transcript =  Array.from(e.results)
+    .map(result => result[0])
+    .map(result => result.transcript)
+    .join('')
+    p.textContent = transcript;
+    console.log(transcript);
+  });
+  recognition.addEventListener('end', recognition.start);
+  recognition.start();
+}
 
 function textToSpeech() {
   var synth = window.speechSynthesis;
