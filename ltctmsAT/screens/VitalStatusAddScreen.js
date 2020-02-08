@@ -27,6 +27,7 @@ import { Text } from 'native-base';
 import { Button } from 'react-native-elements';
 import { ListRow,Input } from 'teaset';
 import{Form, Textarea,Card,Content,CardItem}from'native-base'
+import Moment from 'moment';
 
 class VitalStatusAddScreen extends React.Component {
     static navigationOptions = {
@@ -36,20 +37,42 @@ class VitalStatusAddScreen extends React.Component {
     constructor() {
         super();
 
-        const now = new Date();
+        var now = new Date();
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var day = ("0" + now.getDate()).slice(-2);
 
         this.state = {
             patientList: [],
-            patient: '',
-            today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
-            date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
+            patient: '',         
+            today: `${now.getFullYear()}-${month}-${day}`,
+            date: `${now.getFullYear()}-${month}-${day}`,
             CNA: '',
             diastolic: '',
             systolic: '',
             temperature: '',
             specialrecord:'',
             userInfo: null,
+            
         };
+    }
+
+    checkDate() {
+        const now = new Date();
+        if(now.getDate() < 10) {
+            return "0"+ now.getDate();
+        } else {
+            return now.getDate();
+        }
+    }
+
+    checkMonth() {
+        const now = new Date();
+        if(now.getMonth() < 10) {
+            //return month;
+            return "0" + now.getMonth();
+        } else{
+            return now.getDate();
+        }
     }
 
     updatePatient = (patient) => {
