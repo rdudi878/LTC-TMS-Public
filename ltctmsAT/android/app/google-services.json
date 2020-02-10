@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "786974548917",
+    "firebase_url": "https://csc354-a604d.firebaseio.com",
+    "project_id": "csc354-a604d",
+    "storage_bucket": "csc354-a604d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786974548917:android:97bb007a38ee5f219daffc",
+        "android_client_info": {
+          "package_name": "com.kutztown.ltctms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786974548917-3lns1kf1le45leto8kq2t37e9oni9n7d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl92BKR-8pEt10mFUDTnNblMiUqKuNOIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786974548917-3lns1kf1le45leto8kq2t37e9oni9n7d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "786974548917-g18ib413qkgmpp41srrkv8gfddls8l43.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "d"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

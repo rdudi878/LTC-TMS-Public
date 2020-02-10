@@ -37,6 +37,29 @@ class DailyStatusAddScreen extends React.Component {
 
   constructor() {
     super();
+    var now = new Date();
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var day = ("0" + now.getDate()).slice(-2);
+    this.state = {
+      patientList: [],
+      patient: '',
+      showeredAM: false,
+      showeredPM: false,
+      ateAM: false,
+      atePM: false,
+      poop: '',
+      urinate: '',
+      brushTeethAM: false,
+      brushTeethPM: false,
+      userInfo: null,
+      today: `${now.getFullYear()}-${month}-${day}`
+    };
+  }
+
+  /*
+
+  constructor() {
+    super();
 
     var now = new Date();
 
@@ -56,7 +79,7 @@ class DailyStatusAddScreen extends React.Component {
       userInfo: null,
       today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
     };
-  }
+  }*/
 
   async _fetchUserInfo() {
     const userInfo = await AsyncStorage.getItem("userInfo");
@@ -419,7 +442,7 @@ class DailyStatusAddScreen extends React.Component {
   }
 
   _submitDailyStatus = async () => {
-    const baseRef = `Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.today}/DailyStatuses/`;
+    const baseRef = `Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.today}/daily_status/`;
     const ref = firebase.database().ref(baseRef);
     const user = this.state.userInfo;
     const now = new Date();
