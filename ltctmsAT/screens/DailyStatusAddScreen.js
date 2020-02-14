@@ -40,6 +40,7 @@ class DailyStatusAddScreen extends React.Component {
     var now = new Date();
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
     var day = ("0" + now.getDate()).slice(-2);
+    
     this.state = {
       patientList: [],
       patient: '',
