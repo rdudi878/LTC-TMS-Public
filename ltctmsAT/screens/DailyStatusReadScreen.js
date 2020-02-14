@@ -37,7 +37,9 @@ class DailyStatusReadScreen extends React.Component {
   constructor() {
     super();
 
-    const now = new Date();
+    var now = new Date();
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var day = ("0" + now.getDate()).slice(-2);
 
     this.state = {
       patientList: [],
@@ -54,8 +56,8 @@ class DailyStatusReadScreen extends React.Component {
       Haircut:'',
       Shave:'',
       Turnover:'',
-      today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
-      date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
+      today: `${now.getFullYear()}-${month}-${day}`,
+      date: `${now.getFullYear()}-${month}-${day}`,
       status: [],
       userID: '',
       position: ''
@@ -93,7 +95,7 @@ class DailyStatusReadScreen extends React.Component {
               date={this.state.date}
               mode="date"
               placeholder="Select Date"
-              format="YYYY-M-DD"
+              format="YYYY-MM-DD"
               minDate="2018-1-01"
               maxDate={this.state.today}
               confirmBtnText="Confirm"
@@ -200,7 +202,7 @@ class DailyStatusReadScreen extends React.Component {
     }
     const patientStatus = [];
     console.log("Patient : ", this.state.patient);
-    firebase.database().ref(`Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.date}/DailyStatuses/`).once('value').then((snapshot) => {
+    firebase.database().ref(`Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.date}/daily_status/`).once('value').then((snapshot) => {
       var status = snapshot.toJSON();
       var shower = status.shower;
       var shampoo = status.shampoo;

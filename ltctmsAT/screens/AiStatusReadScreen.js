@@ -34,12 +34,14 @@ class AiStatusReadScreen extends React.Component {
     super();
 
     var now = new Date();
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var day = ("0" + now.getDate()).slice(-2);
 
     this.state = {
       patientList: [],
       patient: '',
-      today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
-      date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
+      today: `${now.getFullYear()}-${month}-${day}`,
+      date: `${now.getFullYear()}-${month}-${day}`,
       fallRecord: '',
       heartRate: null,
       location: null,
@@ -83,7 +85,7 @@ class AiStatusReadScreen extends React.Component {
               date={this.state.date}
               mode="date"
               placeholder="Select Date"
-              format="YYYY-M-D"
+              format="YYYY-MM-DD"
               minDate="2019-1-01"
               maxDate={this.state.today}
               confirmBtnText="Confirm"
