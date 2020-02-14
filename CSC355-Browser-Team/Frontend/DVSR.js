@@ -19,12 +19,16 @@ fbPAT.once("value")
             idArray.push(childKey); // add the ID into idArray
             var dsPat = document.getElementById("DSselectPAT");
             var vsPat = document.getElementById("VSselectPAT");
+            var aiPat = document.getElementById("AIselectPAT");
             var dsOpt = document.createElement("option"); // Creating the drop down options
             var vsOpt = document.createElement("option"); // Creating the drop down options
+            var aiOpt = document.createElement("option"); // Creating the drop down options
             dsOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
             vsOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
+            aiOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
               dsPat.add(dsOpt); // Appending to the drop down options
               vsPat.add(vsOpt); // Appending to the drop down options
+              aiPat.add(aiOpt); // Appending to the drop down options
               index=index+1;
           }
        });
@@ -156,6 +160,60 @@ fbPAT.once("value")
 // Display the patient info window
       $('#patient-info').show();
     }
+    function display_ai() {
+      var aiDisplayButton = document.getElementById("aiDisplayButton");
+      var aiRefreshButton = document.getElementById("aiRefreshButton");
+      aiDisplayButton.style.display = "none";
+      aiRefreshButton.style.display = "block";
+      var aiStatInfo = document.getElementById("aiStatTable");
+      var aiRowIndex = 1;
+      var cnaKey = "";
+      var pressuresArr = [];
+      var tempsArr = [];
+      var timeArr = [];
+      var selectedPatient = $('#AIselectPAT').val();
+      var selectedDate = $('#ai_bday').val()
+      console.log(selectedDate);
+      selectedPatient = getSecondPart(selectedPatient); // Split the string to ignore the name portion of the dropdown selection
+      var rootRef = firebase.database().ref();
+// Note: will need to get the CNA ID some other way. Also, the DB format for the date is currently different.
+//       var cnaRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate);
+//       cnaRef.once('value', function(cnaSnap){
+//         cnaSnap.forEach(function(cnaChild) {
+// // Pulling out the CNA ID so that it can be dynamically referenced for getting vital statuses
+//           cnaKey = cnaChild.key;
+//         });
+//       });
+      var categoryRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/AI/");
+      categoryRef.once("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+          if (child.key!=="HeartRateRecord"
+              && child.key!=="Location") {
+            var aiStatRow = aiStatInfo.insertRow(aiRowIndex);
+            aiStatRow.setAttribute("class","table-list-row");
+            var cellMeasurementType = aiStatRow.insertCell(0)
+            var valueRef = categoryRef.child(child.key+"/")
+            valueRef.once("value", function(snapshot2) {
+              snapshot2.forEach(function(child) {
+                var cellMeasurementValue = aiStatRow.insertCell(1);
+                cellMeasurementValue.appendChild(document.createTextNode(child.val()));
+              });
+            });
+            cellMeasurementType.appendChild(document.createTextNode(child.key));
+          }
+        });
+      });
+
+      function getSecondPart(str) {
+        return str.split('- ')[1];
+      }
+// These are the values of the selected date and patient name drop down
+      // console.log($('#selectPAT').val());
+      // console.log($('#bday').val());
+// Display the patient info window
+      $('#patient-info').show();
+    }
+
     function refreshPage() {
       location.reload();
     }

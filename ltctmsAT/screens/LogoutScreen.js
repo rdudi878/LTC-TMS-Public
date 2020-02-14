@@ -155,7 +155,7 @@ class LogoutScreen extends React.Component {
           <View style={styles2.bodyContent2}></View>
             <Text style={styles2.name}>{this.state.name}</Text>
             <Text style={styles2.info}>User ID: {this.state.userID}</Text>
-            <Text style={styles2.description}>Position: {this.state.position}</Text>
+            <Text style={styles2.info}>Position: {this.state.position}</Text>
             <Text style={styles2.description}>Address: {this.state.address}</Text>
             <Text style={styles2.description}>Room #: {this.state.room}</Text>
             <Text style={styles2.description}>Nationality: {this.state.nationality}</Text>

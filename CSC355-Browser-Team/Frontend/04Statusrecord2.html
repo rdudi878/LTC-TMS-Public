@@ -370,14 +370,21 @@
                     <div id="data3" style="display:none;position:relative;left:22%;width:78%;height:80%;background-color:#fff;border-left:2px solid black;overflow-x:hidden; overflow-y:scroll;">
                         <table id="AI_table" class="a_i_status" onclick="sortAI()" style="position:relative;width:100%;border-style:hidden;">
                             <tr>
-                                <th colspan="3"> A.I. Status<input type="button" onclick="viewMore()" value="view more" style="position:relative;left:38%;cursor:pointer;"></th>
+                                <th colspan="3"> A.I. Status</th>
                             </tr>
                         </table>
                         <div class="no-doc" id="no-doc3">
                             <br><br>
                             <center>
-                                <img src="statics/images/no_doc.jpg" />
-                                <p> Please Select Date, PatientID and CNAID </p>
+                              <table class="vital-status-table" id="ai-status-table" style="height:100%; width: 75%;">
+                                <tr>
+                                  <th>Measurement</th>
+                                  <th>Value</th>
+                                </tr>
+                                <tbody id="aiStatTable">
+                                  <tr></tr>
+                                </tbody>
+                              </table>
                             </center>
                         </div>
                     </div>
@@ -477,21 +484,21 @@
                         <h2 id="current_year" style="position:relative;top:-80%"></h2>
 
                         <div class="status_record_date_option">
-                            <input type="date" id="bday">
+                          <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Date:</p>
+                            <input style="float: left; margin-left: 10px; border-radius:5px;" type="date" id="ai_bday">
                             <br><br>
                         </div>
 
                         <div class="status_record_option">
-                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
-                                <option>AI Status - Patient ID</option>
-                            </select>
-                            <select id="selectCNA" style="width:70px;">
-                                <option>CNA ID</option>
+                          <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Patient:</p>
+                            <select id="AIselectPAT" onclick="clearBox()" onchange="selectPatient()" style="float: left; margin-left: 10px; border-radius:5px;">
+                              <option value="none" selected disabled hidden>AI Status - Patient ID</option>
                             </select>
                             <br><br><br>
                         </div>
                         <br><br>
-                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                        <input id="aiDisplayButton" class="status_record_display_button" type="button" value="Display" onclick="display_ai(this);" style="cursor:pointer;" />
+                        <input id="aiRefreshButton" class="status_record_display_button" type="button" value="Refresh" onclick="refreshPage();" style="cursor:pointer; display:none;" />
                     </div>
 <!-- Special Care Options -->
                     <div id="ScOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">

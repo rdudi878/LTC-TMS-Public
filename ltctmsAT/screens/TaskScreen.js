@@ -309,8 +309,7 @@ class TaskScreen extends React.Component {
         stepsArray.push(this.createDetailText(item.steps[i].detailedSteps[j], [j + 1]));
       }
     }
-    Alert.alert(item.pic);
-    Alert.alert(item.name);
+    
     return (
       <View>
         <TouchableOpacity

@@ -46,4 +46,10 @@ target 'ltctms' do
   # Automatically detect installed unimodules
   use_unimodules!
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+
+  pod 'react-native-viewpager', :path => '../node_modules/@react-native-community/viewpager'
+
 end

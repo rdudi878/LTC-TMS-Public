@@ -340,7 +340,7 @@ class CenterInfo extends React.Component {
             <View style={{marginTop: 20, marginHorizontal: 50, alignSelf: 'auto', flex: 1, justifyContent: 'space-between', fontSize: '10', width: 210}}>
               <Button
               onPress={() => {
-                this.props.navigation.navigate('')
+                this.props.navigation.navigate('Feedback')
               }}
               title="Submit Feedback"
               type="solid"
@@ -348,7 +348,7 @@ class CenterInfo extends React.Component {
                 backgroundColor:'#3f9fff'}}
               />
             </View>
-            <View style={{marginTop: 10, marginHorizontal: 100, marginRight: 100, alignSelf: 'auto', flex: 1, justifyContent: 'space-between', fontSize: '10', width: 100}}>
+            <View style={{flexDirection: 'row', marginTop: 10, marginHorizontal: 50, marginRight: 50, alignSelf: 'flex-start', flex: 1, justifyContent: 'space-between', fontSize: '10', width: 100}}>
               <Button
                 onPress={() => {
                   Linking.openURL(`mailto:ltctmscenter2018@gmail.com`);
@@ -359,7 +359,7 @@ class CenterInfo extends React.Component {
                   backgroundColor:'#3f9fff'}}
               />
             </View>
-            <View style={{marginTop: -35, marginHorizontal: 100, marginLeft: 50, alignSelf: 'auto', flex: 1, width: 100, justifyContent: 'space-between', fontSize: '10'}}>
+            <View style={{flexDirection: 'row', marginTop: -40, marginHorizontal: 100, marginRight: 23, alignSelf: 'flex-end', flex: 1, justifyContent: 'space-between', fontSize: '10', width: 100}}>
               <Button
                 onPress={() => {
                   Linking.openURL(`tel:+16106834340`);

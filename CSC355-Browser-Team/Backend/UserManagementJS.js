@@ -22,9 +22,9 @@ function newAccount(){
   var ref2 = firebase.database().ref('UID').child('LastDirID');
   rec.once('value').then(function(snapshot){
     lastCNOID = snapshot.val();//contains lastCNOID
-    sendLastCNOID = lastCNOID;  
+    sendLastCNOID = lastCNOID;
 })
-rec2.once('value').then(function(snapshot){  
+rec2.once('value').then(function(snapshot){
     lastDirID = snapshot.val();//contains lastDirID
     sendLastDirID = lastDirID;
 })
@@ -65,11 +65,11 @@ else if(email.includes(".com") ==false){
         if (data || (data != 0)){
             data++;
             return data;
-        }    
+        }
         else{
             console.log("Didn't work, GG");
         }
-        
+
     }, function(error, commited, snapshot){
       if (commited){
         window.location.reload(true);
@@ -94,16 +94,16 @@ else if(email.includes(".com") ==false){
               if (data || (data != 0)){
                   data++;
                   return data;
-              }    
+              }
               else{
                   console.log("Didn't work, GG");
               }
-              
+
           }, function(error, commited, snapshot){
             if (commited){
                 window.location.reload(true);
             }
-      
+
         }, true); //end transaction function
         }// end third else
 })//end firebase.auth()
@@ -144,10 +144,10 @@ function deleteUserAccount(i){
   var password = "321cba"
   currPassword.once('value').then(function(snapshot){
     oldPass = snapshot.val();
-    sendOldPass = oldPass;  
+    sendOldPass = oldPass;
 })
 
-currEmail.once('value').then(function(snapshot){  
+currEmail.once('value').then(function(snapshot){
   oldEmail = snapshot.val();
   sendOldEmail = oldEmail;
 })
@@ -156,7 +156,7 @@ console.log(sendOldEmail);
 console.log(sendOldPass);
 console.log(email);
 console.log(password);
-  var confirmation = confirm("You are about to delete " + sendOldEmail + ". Once it's delted it cannot be unodne.");
+  var confirmation = confirm("You are about to delete " + sendOldEmail + ". Once it's deleted it cannot be undone.");
   if(confirmation == true){
     fbACCD.remove();
     fbABCD.remove();
@@ -164,12 +164,12 @@ console.log(password);
       .then(function (info){
         var user = firebase.auth().currentUser;
         user.delete();
-        firebase.auth().signInWithEmailAndPassword("ltctmsapp2018@gmail.com", "admin123123")  
+        firebase.auth().signInWithEmailAndPassword("ltctmsapp2018@gmail.com", "admin123123")
       },function(error, commited, snapshot){
         if (commited){
 
           alert("successfully removed the account!");
-          
+
           location.reload();
         }
       });
@@ -179,7 +179,7 @@ console.log(password);
 /**
 * @function editUserAccount
 * @description shows the information already for the user in the popup
-* @param {*} i 
+* @param {*} i
 */
 function editUserAccount(i){
   var sid = document.getElementById('cellId['+i+']').innerHTML;
@@ -219,7 +219,7 @@ function editedUserAccount(){
   var userAccount = firebase.database().ref("uAccount/");
 
   //Do not remove, this needs to be here to update the authentication portion of firebase
-  currEmail.once('value').then(function(snapshot){  
+  currEmail.once('value').then(function(snapshot){
     oldEmail = snapshot.val();
     sendOldEmail = oldEmail;
     firebase.auth().signInWithEmailAndPassword(sendOldEmail, sendOldPass)
@@ -231,7 +231,7 @@ function editedUserAccount(){
 
   currPassword.once('value').then(function(snapshot){
     oldPass = snapshot.val();
-    sendOldPass = oldPass;  
+    sendOldPass = oldPass;
     firebase.auth().signInWithEmailAndPassword(sendOldEmail, sendOldPass)
 .then(function (info){
   var user = firebase.auth().currentUser;
@@ -275,7 +275,7 @@ else{
         updates['uAccount/'+ sid]=data;
         updates['No_Portfolio/'+position+'/'+sid] =data;
         firebase.database().ref().update(updates);
-        
+
 }
 });
 
@@ -296,20 +296,20 @@ function editedUserAccount2(){
   var currEmail = firebase.database().ref('uAccount/' + sid + '/' + 'Email');
   var userAccount = firebase.database().ref("uAccount/");
 
-  currEmail.once('value').then(function(snapshot){  
+  currEmail.once('value').then(function(snapshot){
     oldEmail = snapshot.val();
     sendOldEmail = oldEmail;
     firebase.auth().signInWithEmailAndPassword(sendOldEmail, sendOldPass)
     .then(function (info){
       var user = firebase.auth().currentUser;
       user.updateEmail(email);
-      
+
     })
   })
 
   currPassword.once('value').then(function(snapshot){
     oldPass = snapshot.val();
-    sendOldPass = oldPass;  
+    sendOldPass = oldPass;
     firebase.auth().signInWithEmailAndPassword(sendOldEmail, sendOldPass)
 .then(function (info){
   var user = firebase.auth().currentUser;
@@ -317,7 +317,7 @@ function editedUserAccount2(){
 })
 })
 }
-  
+
 
 //Display UM table - UID, NAME, STATUS, EDIT button, DELETE button
 var rowIndex=0;
@@ -376,7 +376,7 @@ function tableNewRow(fb){
 
 /**
 * @function showusermanagement
-* @description 
+* @description
 */
 function showusermanagement(){
   document.getElementById("data1").style.display = "block";
