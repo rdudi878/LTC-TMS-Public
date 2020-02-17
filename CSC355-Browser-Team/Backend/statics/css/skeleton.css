@@ -72,7 +72,7 @@ a:focus {
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: #87CEFA;
+    background: #077692;
     color: #fff;
     transition: all 0.3s;
 }
@@ -199,7 +199,7 @@ ul.CTAs {
     CSS dealing with the COLOR of the TOP nav bar
 */
 .navbar-default {
-    background-color: #3F9FFF;
+    background-color: #09A1C7;
     border-color: white;
 }
 
@@ -284,7 +284,7 @@ li.dropdown {
     background-repeat: repeat-y;
 }
 .current {
-    background-color: #3F9FFF;
+    background-color: #09A1C7;
 }
 
 @media screen and (max-width:768px) {
