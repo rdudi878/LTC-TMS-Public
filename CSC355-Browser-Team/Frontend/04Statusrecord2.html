@@ -446,12 +446,21 @@
                         </div>
 
                         <div class="status_record_option">
+                          <form>
+                            <input type="radio" id="pickByPatient" value="pickByPatient" name="searchBy">
+                            <label for="pickByPatient">Patient</label>
+                            <input type="radio" id="pickByRoom" value="pickByRoom" name="searchBy">
+                            <label for="pickByRoom">Room No.</label>
+                          </form>
+                        </div>
+
+                        <div class="status_record_option">
                           <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Patient:</p>
                             <select id="DSselectPAT" onclick="clearBox()" onchange="selectPatient()" style="float: left; margin-left: 10px; border-radius:5px;">
                                 <option value="none" selected disabled hidden>Patient Name - Patient ID</option>
                             </select>
                             <br><br><br>
-                        </div>
+                          </div>
                         <br><br>
                         <input id="srDisplayButton" class="status_record_display_button" type="button" value="Display" onclick="click_display(this);" style="cursor:pointer;" />
                         <input id="refreshButton" class="status_record_display_button" type="button" value="Refresh" onclick="refreshPage();" style="cursor:pointer; display:none;" />
