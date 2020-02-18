@@ -447,23 +447,32 @@
 
                         <div class="status_record_option">
                           <form>
-                            <input type="radio" id="pickByPatient" value="pickByPatient" name="searchBy">
+                            <input type="radio" id="pickByPatient" value="pickByPatient" name="searchBy" onclick="showPatientMenu()">
                             <label for="pickByPatient">Patient</label>
-                            <input type="radio" id="pickByRoom" value="pickByRoom" name="searchBy">
+                            <input type="radio" id="pickByRoom" value="pickByRoom" name="searchBy" onclick="showRoomMenu()">
                             <label for="pickByRoom">Room No.</label>
                           </form>
                         </div>
 
-                        <div class="status_record_option">
+                        <div class="status_record_option" id="patientSelect" style="display:none;">
                           <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Patient:</p>
                             <select id="DSselectPAT" onclick="clearBox()" onchange="selectPatient()" style="float: left; margin-left: 10px; border-radius:5px;">
-                                <option value="none" selected disabled hidden>Patient Name - Patient ID</option>
+                                <option value="0" selected disabled hidden>Patient Name - Patient ID</option>
+                            </select>
+                            <br><br><br>
+                          </div>
+                        <div class="status_record_option" id="roomSelect" style="display:none;">
+                          <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Room Number:</p>
+                            <select id="DSselectRoom" onclick="clearBox()" onchange="selectRoom()" style="float: left; margin-left: 10px; border-radius:5px;">
+                                <option value="0" selected disabled hidden>Room Number</option>
                             </select>
                             <br><br><br>
                           </div>
                         <br><br>
-                        <input id="srDisplayButton" class="status_record_display_button" type="button" value="Display" onclick="click_display(this);" style="cursor:pointer;" />
-                        <input id="refreshButton" class="status_record_display_button" type="button" value="Refresh" onclick="refreshPage();" style="cursor:pointer; display:none;" />
+                        <div class="status_record_option">
+                          <input id="srDisplayButton" type="button" value="Display" onclick="click_display(this);" style="cursor:pointer;"/>
+                          <input id="refreshButton" class="status_record_display_button" type="button" value="Refresh" onclick="refreshPage();" style="cursor:pointer; display:none;" />
+                        </div>
                     </div>
 <!-- Vital Status Options -->
                     <div id="VsOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">

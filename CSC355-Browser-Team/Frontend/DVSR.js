@@ -34,10 +34,27 @@ fbPAT.once("value")
        });
     });
 
-    function clearBox()
-{
-    document.getElementById("selectCNA").innerHTML = "";
-}
+var rooms = firebase.database().ref("Room/");
+rooms.once('value')
+  .then(function(roomSnap) {
+    var roomArray = [];
+    var roomIndex = 0;
+    roomSnap.forEach(function(roomChild) {
+      roomArray.push(roomChild.key);
+      var dsRoom = document.getElementById("DSselectRoom");
+      var dsRoomOpt = document.createElement("option"); // Creating the drop down options
+      dsRoomOpt.text = roomArray[roomIndex];
+      dsRoom.add(dsRoomOpt); // adding rooms to dropdown menu
+      roomIndex+=1;
+    })
+    console.log("roomArray");
+    console.log(roomArray);
+  })
+
+
+    function clearBox() {
+      document.getElementById("selectCNA").innerHTML = "";
+    }
 
     var search;//search Date
     function selectPatient(){
@@ -73,6 +90,7 @@ fbPAT.once("value")
         });
     }
 
+
     function click_display() {
       var srDisplayButton = document.getElementById("srDisplayButton");
       var refreshButton = document.getElementById("refreshButton");
@@ -85,7 +103,6 @@ fbPAT.once("value")
       var selectedDate = $('#bday').val()
       selectedPatient = getSecondPart(selectedPatient) // Split the string to ignore the name portion of the dropdown selection
       var rootRef = firebase.database().ref();
-// Note: will need to get the CNA ID some other way. Also, the DB format for the date is currently different.
       var cnaRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate);
       cnaRef.once('value', function(cnaSnap){
         cnaSnap.forEach(function(cnaChild) {
@@ -114,6 +131,26 @@ fbPAT.once("value")
       }
       $('#patient-info').show();
     }
+
+    function showPatientMenu() {
+      var patientSelect = document.getElementById("patientSelect");
+      var roomSelect = document.getElementById("roomSelect");
+      var dSselectRoom = document.getElementById("DSselectRoom");
+      patientSelect.style.display = "block";
+      roomSelect.style.display = "none";
+      dSselectRoom.selectedIndex = 0;
+
+    }
+
+    function showRoomMenu() {
+      var patientSelect = document.getElementById("patientSelect");
+      var roomSelect = document.getElementById("roomSelect");
+      var dSselectPAT = document.getElementById("DSselectPAT");
+      patientSelect.style.display = "none";
+      roomSelect.style.display = "block";
+      dSselectPAT.selectedIndex = 0;
+    }
+
     function display_vs() {
       var vsDisplayButton = document.getElementById("vsDisplayButton");
       var vsRefreshButton = document.getElementById("vsRefreshButton");
