@@ -100,7 +100,22 @@ rooms.once('value')
       var dsRowIndex = 1;
       var cnaKey = "";
       var selectedPatient = $('#DSselectPAT').val()
+      var selectedRoom = $('#DSselectRoom').val()
       var selectedDate = $('#bday').val()
+      var trueIfPatient = verifyPatientSelected(selectedPatient);
+// User selected by room number
+      if (trueIfPatient==false) {
+        var patientsInRoomRef = firebase.database().ref('Room/'+selectedRoom)
+        patientsInRoomRef.once('value')
+          .then(function(inRoomSnap) {
+            inRoomSnap.forEach(function(inRoomChildSnap) {
+              console.log("inRoomChildSnap");
+              console.log(inRoomChildSnap.key); // these are the patient IDs of who is in the room
+              // PICK IT UP AGAIN HERE ***************************************************************************************
+              // In this loop, have to use the current patient ID to loop over all the tasks and output them in a table
+            })
+          })
+      }
       selectedPatient = getSecondPart(selectedPatient) // Split the string to ignore the name portion of the dropdown selection
       var rootRef = firebase.database().ref();
       var cnaRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate);
@@ -125,11 +140,21 @@ rooms.once('value')
           }
         });
       });
-
-      function getSecondPart(str) {
-        return str.split('- ')[1];
-      }
       $('#patient-info').show();
+    }
+
+    function getSecondPart(str) {
+      return str.split('- ')[1];
+    }
+
+    function verifyPatientSelected(patient) {
+      if (patient==null) {
+        console.log('User has selected by Room');
+        return false;
+      } else {
+        console.log('User has selected by Patient');
+        return true;
+      }
     }
 
     function showPatientMenu() {
