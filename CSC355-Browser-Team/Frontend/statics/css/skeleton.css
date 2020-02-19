@@ -118,8 +118,9 @@ body {
             CSS for the when mouse is over the sidebar links
         */
             #sidebar ul li a:hover {
-                color: mediumseagreen;
-                background: #fff;
+                color: grey;
+                background: #66a5ad;
+                transition: .8s;
             }
 
         #sidebar ul li.active > a,
@@ -225,6 +226,7 @@ body {
         .white-text:hover, a:hover {
             color: springgreen;
             text-decoration: none;
+            transition: .5s;
         }
 
     .title {
@@ -397,7 +399,7 @@ a:focus {
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: #87CEFA !important;
+    background: #07575B;
     color: #fff;
     transition: all 0.3s;
 }
@@ -433,14 +435,15 @@ a:focus {
         CSS for the when mouse is over the sidebar links
     */
         #sidebar ul li a:hover {
-            color: #3F9FFF;
-            background: #fff;
+            color: grey;
+            background: #07575B;
+            transition: .5s;
         }
 
     #sidebar ul li:active > a,
     a[aria-expanded="true"] {
         color: #fff;
-        background: #3F9FFF;
+        background: #07575B;
     }
 
 a[data-toggle="collapse"] {
@@ -538,8 +541,9 @@ ul.CTAs {
     CSS to make the LTC-TMS font-color green when hovered on the top nav bar
 */
     .white-text:hover, a:hover {
-        color: #87CEFA;
+        color: #66A5AD;
         text-decoration: none;
+        transition: .5s;
     }
 
 .title {
@@ -609,7 +613,11 @@ li.dropdown {
     background-repeat: repeat-y;
 }
 .current {
-    background-color: #3F9FFF;
+    background-color: #66A5AD;
+}
+
+.navbar-header {
+  margin: 7px;
 }
 
 @media screen and (max-width:768px) {
