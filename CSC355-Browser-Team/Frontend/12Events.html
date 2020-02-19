@@ -1,0 +1,245 @@
+<!--
+  @file 025Schedule2.html
+  @author  MCU
+  @author  Kutztown University
+  @license
+-->
+<!DOCTYPE html>
+<!--#30B400#339933#99CC00#FFFFCC-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LTC-TMS</title>
+    <link rel="icon" type="image/jpg" href="image\logo.jpg">
+    <link rel="stylesheet" type="text/css" href="statics/css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="statics/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="statics/css/schedule.css" />
+    <!-- IMPORTING BOOTSTRAP!!-->
+    <!-- Importing BOOTSTRAP!!! -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- Our Custom SIDE/TOP Bar CSS -->
+    <link rel="stylesheet" href="statics/css/skeleton.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
+        <nav id="sidebar">
+            <!-- SIDEBAR -->
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="../Frontend/01Aboutus2.html">
+                      <!-- glyphicon is custom image on side of nav bar -->
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                        About Us
+                    </a>
+                </li>
+                <li>
+                    <a href="../Frontend/02Schedule2.html">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        Schedule
+                    </a>
+                </li>
+                <li class="current">
+                    <a href="../Frontend/12Events.html">
+                        <i class="glyphicon glyphicon-folder-close"></i>
+                        Events
+                    </a>
+                </li>
+                <li>
+                    <a href="../Frontend/03Memo2.html">
+                        <i class="glyphicon glyphicon-folder-close"></i>
+                        Memo
+                    </a>
+                </li>
+                <li>
+                    <a href="../Frontend/04Statusrecord2.html">
+                        <i class="glyphicon glyphicon-heart-empty"></i>
+                        Status Record
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../Frontend/Reports.html">
+                        <i class="glyphicon glyphicon-file"></i>
+                        Reports
+                    </a>
+                </li>
+                <li>
+                    <a href="../Frontend/05Library2.html">
+                        <i class="glyphicon glyphicon-book"></i>
+                        Library
+                    </a>
+                </li>
+                <li>
+                    <a href="../Frontend/10Mytask2.html">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        My Task
+                    </a>
+                </li>
+                <li>
+                    <a href="../Frontend/07E-portfolio2.html">
+                        <i class="glyphicon glyphicon-user"></i>
+                        E-Portfolio
+                    </a>
+                </li>
+                <li>
+                    <a href="../Frontend/08Helpandsupport2.html">
+                        <i class="glyphicon glyphicon-question-sign"></i>
+                        Help and Support
+                    </a>
+                </li>
+                <li>
+                    <a href="../Frontend/11Feedback2.html">
+                        <i class="glyphicon glyphicon-comment"></i>
+                    Feedback</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- End of sidebar !-->
+
+        <div id="content">
+            <!-- Place everything except the sidebar in content class -->
+            <div class="header">
+                <!-- DIV CONTAINER OF OUR HEADER-->
+
+                <div class="bar">
+                    <!-- PlaceHolder for top bar -->
+
+                    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
+                        <!-- Bootstrap navigation bar -->
+                        <div class="container-fluid">
+
+                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="float:left; margin-right: 1.5ex;padding-top:1.5ex;padding-bottom:1.5ex;padding-left:2px;padding-right:2px; background-color:green;outline-color:darkgreen">
+                                <i class="fas fa-align-left"></i>
+                                <span id="toggleSide">Hide sidebar</span>
+                            </button>
+
+                            <div class="navbar-header">
+
+                                <a href="../Frontend/01Aboutus2.html">
+                                    <img src="statics/images/v2ltctmslogo.png" height="50" width="60" />
+                                </a>
+
+                                <a href="#" style=" padding-left:20px">
+                                    <span class="white-text title"> LTC-TMS</span>
+                                </a>
+
+                            </div> <!--end div class="navbar-header"-->
+                            <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0)" class="dropbtn"><span class="glyphicon glyphicon-cog white-text"></span></a>
+                                    <div class="dropdown-content">
+                                        <a href="#">English</a>
+                                        <a href="/../Frontend-Chinese/02Schedule2.html">Chinese</a>
+                                        <a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
+                                    </div> <!--end div class="dropdown-content"-->
+                                </li>
+                            </ul>
+                        </div> <!--end div class="container-fluid"-->
+                    </nav>
+                </div> <!--end div class="bar"-->
+                <!-- TOP BAR ENDS-->
+                <!-- Place Holder for header-->
+                <div class="user-info">
+                    <!--BACKGROUND PANEL IMAGE-->
+                    <div class="container-fluid">
+                        <img class="panelimg img-responsive" style="background-color: #fff5ee" />
+                        <div class="container" style="transform:translateY(-8.5ex)">
+                        <!-- CIRCLE IMAGE THING-->
+                            <div class="user-headface" onmouseover="imgBlur(this)" onmouseout="imgOrg(this)" style="background-color:white; white-space:nowrap;overflow: hidden;">
+                                <img src="statics/images/edit.png" id="photoword"
+                                    style="position:relative;left:20px; text-align:center;
+                                    display:none;width:40px;height:40px; white-space:nowrap;overflow: hidden;" onclick="document.getElementById('newPic').click();">
+                                <img id="Profilepic" onclick="document.getElementById('newPic').click();" style="cursor:pointer; white-space:nowrap;overflow: hidden;" />
+                                <input id="newPic" type='file' accept="image/*" onchange="uploadPicProfile()" required style="display:none; white-space:nowrap;overflow: hidden;" />
+                            </div> <!--end div class="user-headface"-->
+
+                            <!-- TEXT NEXT TO THE CIRCLE IMAGE THING-->
+                            <div class="user-account">
+                                <p class="tip" id="time123"></p><!-- DISPLAYS GOOD MORNING/AFTERNOON/EVENING MSG -->
+                                <p class="account" style="position:relative; top:8px;">
+
+                                <span style = "font-size: 20pt;" word-wrap: break-word;>Name : <span style = "font-size: 20pt;" id="displayProfilename"></span></span>
+                                <span class="hidden" style = "font-size: 20pt">UserID : <span style = "font-size: 20pt;" id="displayProfileid"></span></span>
+                                <span style = "font-size: 20pt;" word-wrap: break-word;> Role : <span style = "font-size: 20pt;" id="displayProfileposition"></span></span>
+                                </p>
+                            </div> <!--end div class="user-account"-->
+                        </div> <!--end div class="container" -->
+                    </div> <!--end div class="container-fluid"-->
+                </div> <!--end div class="user-info"-->
+            </div> <!-- END OF THE TWO HEADER!! --> <!--end div class="header"-->
+
+            <div class="main container-fluid wrapper">
+                <!-- START OF MIDDLE CONTENT-->
+                <div class="right" style="width:800ex; transform:translateY(-8ex)">
+<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%234285F4&amp;ctz=America%2FNew_York&amp;src=Y25vdGVzdDEyM0BnbWFpbC5jb20&amp;color=%234285F4&amp;showPrint=1" style="border-width:0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
+                </div> <!--end div class="right" style="width:800ex; transform:translateY(-13ex)"-->
+
+            </div> <!--end div class="main container-fluid wrapper"-->
+        </div><!-- END OF MAIN DIV CONTAINER CLASS!!! --> <!--end div id="content"-->
+    </div><!--End OF WRAPPER CLASS!!--> <!--end div class="wrapper"-->
+
+    <script type='text/javascript' src='Config.js'></script>
+    <script type='text/javascript' src='Schedulejs.js'></script>
+    <script type='text/javascript' src='Profile.js'></script>
+    <!-- START COPY FOR SIDEBAR JAVASCRIPT -->
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                if (document.getElementById("toggleSide").innerHTML == "Hide sidebar") {
+                    document.getElementById("toggleSide").innerHTML = "Show sidebar";
+
+
+                } else if (document.getElementById("toggleSide").innerHTML == "Show sidebar") {
+                    document.getElementById("toggleSide").innerHTML = "Hide sidebar";
+
+
+                }
+            });
+        });
+
+        function imgBlur(obj) {
+            var photoword = document.getElementById("photoword");
+            var Profilepic = document.getElementById("Profilepic");
+            photoword.style.display = "inline";
+            photoword.style.position = "absolute";
+            photoword.style.transform = "translate(2ex,2ex)";
+            photoword.style.zIndex = "2000";
+            Profilepic.style.filter = "blur(3px)";
+            Profilepic.style.display = "inline";
+        }
+
+        function imgOrg(obj) {
+            var photoword = document.getElementById("photoword");
+            var Profilepic = document.getElementById("Profilepic");
+            photoword.style.display = "none";
+            Profilepic.style.display = "inline";
+            Profilepic.style.filter = "blur(0px)";
+        }
+    </script>
+    <!-- END COPY FOR SIDEBAR JAVASCRIPT-->
+</body>
+</html>
