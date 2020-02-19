@@ -648,3 +648,11 @@ li.dropdown {
         }
     }
 }
+
+/*
+    CSS to fix the google calendar
+*/
+
+iframe{
+  width: 100%;
+}

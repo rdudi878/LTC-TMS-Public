@@ -157,6 +157,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="../Frontend/12Events.html">
+                        <i class="glyphicon glyphicon-folder-close"></i>
+                        Events
+                    </a>
+                </li>
+                <li>
                     <a href="../Frontend/03Memo2.html">
                         <i class="glyphicon glyphicon-folder-close"></i>
                         Memo
@@ -295,16 +301,16 @@
                                 <th colspan="3"> Report Generation </th>
                             </tr>
                         </table>
-                        <div class="no-doc" id="no-doc1">   <!-- Reports field implimentation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! --> 
+                        <div class="no-doc" id="no-doc1">   <!-- Reports field implimentation !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                             <br><br>
                             <center>
-							
+
                         <div class="start_date_option"> <!-- start date -->
 								Start Date:
                             <input type="date" id="startDate" onchange="validate();">
                             <br><br>
                         </div>
-						
+
 					   <div class="end_date_option">  <!-- end date -->
 								End Date:
                             <input type="date" id="endDate" onchange="validate();">
@@ -317,35 +323,35 @@
                         <input class="week_button" type="button" value="Week Report" onclick="fastWeek();" style="cursor:pointer;" id="week_button" />&nbsp &nbsp
 						<input class="month_button" type="button" value="Month Report" onclick="fastMonth();" style="cursor:pointer;" id="month_button" />
 
-                        
 
-                        
+
+
 						<!-- Patient Name Option-->
 						 <div class="patient_name_option">
                              <br>
 						 Patient Name:
                             <select id="selectPatName"  onchange="selectPatientName()">
-								
+
                                 <option>Patient Name</option>
                             </select>
                             <br><br>
-                        </div>			
+                        </div>
 
 
                         <!-- Pantient ID Option-->
                         <div class="patient_id_values">
                             Patient ID:
-                               
+
                                     <input type="text" name="patientID" onchange="validate();" value="" id="patientID" disabled>
-                                    
-                              
+
+
                                 <br><br>
                             </div>
-                        <!--Clear button--> 
+                        <!--Clear button-->
                             &nbsp &nbsp
                             <input class="clear_button" type="button" value="Clear" onclick=" clearBox();" style="cursor:pointer;" />
                             &nbsp &nbsp
-                        <!-- Generate Report Button-->             
+                        <!-- Generate Report Button-->
                         <input class="generate_report_button" type="button" value="Generate Report" onclick=" generateReport();" style="cursor:pointer; background-color:#A9A9A9 " id="generate_report_button" disabled/>
 
                         <br><br>
@@ -353,8 +359,8 @@
                             </center>
                         </div>
                     </div>
-					
-					
+
+
 
                             <!-- Outline for rest of the page (Style sidebar menu etc...) -->
                     <div class="dvsr_form-popup" id="form" style="position:absolute;left:250px; top:100px;display:none;overflow-y:scroll;">
@@ -416,4 +422,4 @@
     </script>
     <!-- END COPY FOR SIDEBAR JAVASCRIPT-->
 </body>
-</html> 
+</html>
