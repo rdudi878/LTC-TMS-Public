@@ -41,13 +41,11 @@
         word-wrap: break-word;
     }
         table th {
-            background-color: lightgray;
+            background-color: #C4DFE6;
             color: #000;
         }
 
-        table td {
-            text-shadow: 2px 2px #FFFFFF;
-        }
+        
     <!-- usermessage-- > * {
         margin: 0px;
         padding: 0px;
@@ -334,27 +332,64 @@
                 <div class="right" style="width:800ex; transform:translateY(-9ex)">
                         <div class="tap">
 
-                            <span id="stafffeedbackspan" onclick="showsf()" style="opacity:1;cursor:pointer;">Staff Feedback</span>
+                            <span id="contact_information" onclick="showsf()" style="opacity:1;cursor:pointer;">Contact Information</span>
 
-                            <span id="patientfeedbackspan" onclick="showpf()" style="opacity:.8;cursor:pointer;">Family Feedback</span>
 
                             <span id="website_instruction" onclick="showef()" style="opacity:.8;cursor:pointer;">Website Instruction</span>
 
 
                         </div>
-                        <div id="container" class="container" style="overflow-y:scroll;overflow-x:scroll;margin-top:25px;">
-                            <textarea rows="4" cols="50">Feedback goes here.</textarea>
-                            <input type="submit" value="Submit" onclick="submit_feedback()">
+                        <div id="contact" class="container" style="overflow-y:scroll;overflow-x:scroll;margin-top:25px;">
+
+                          <p style="position:relative;font-size:10px;">*Please Contact Development Team for Further Assistance</p>
+                          <table id="Contact_information" style="width:80%">
+                              <tr>
+                                  <th colspan="4"> <h3 style="padding:10px 10px;"><i>Development Team Contact Information</i></h3></th>
+                              </tr>
+                              <tr>
+                                  <th style="padding:6px 6px;">Name </th>
+                                  <!--<td style="padding:6px 6px;">Ming Chuan AC IV </td>-->
+                                  <td style="padding:6px 6px;">Kutztown University </td>
+                                  <th style="padding:6px 6px;">Email Address </th>
+                                  <td style="padding:6px 6px;">ltctmscenter2018@gmail.com </td>
+                          </tr>
+                          <tr>
+                                  <th style="padding:6px 6px;">Contact No </th>
+                                  <!--<td style="padding:6px 6px;">+886911223344 </td>-->
+                                  <td style="padding:6px 6px;">+1(610)-683-4000 </td>
+                                  <th style="padding:6px 6px;">Address </th>
+                                  <!--<td style="padding:6px 6px;">No. 5, Deming Road, Guishan District, Taoyuan City, 333 </td>-->
+                                  <td style="padding:6px 6px;">15200 Kutztown Rd, Kutztown, PA 19530 </td>
+                          </tr>
+                          </table>
+
 
                           </div>
 
                           <div id="tutorial" class="container" style="overflow-y:scroll;overflow-x:scroll;display:none;margin-top:25px;">
                           <!--Size dropdown menu-->
+                          <h1>Need help to use the website?</h1>
+                          <h2>Select a topic from the dropdown for instructions.</h2>
                             <select id="size_select">
                               <option value="option1">Login</option>
-                              <option value="option2">Schedule</option>
-                              <option value="option3">Status Record</option>
-                              <option value="option4">Help and Support</option>
+                              <option value="option2">Login-Forgot Password</option>
+                              <option value="option3">About Us-Introduction</option>
+                              <option value="option4">About Us-Center Info</option>
+                              <option value="option5">Schedule-Announcment</option>
+                              <option value="option6">Schedule-Center Schedule</option>
+                              <option value="option7">Schedule-Working Schedule</option>
+                              <option value="option8">Memo</option>
+                              <option value="option9">Status Record-Daily Status</option>
+                              <option value="option10">Status Record-Vital Status</option>
+                              <option value="option11">Status Record-AI Status</option>
+                              <option value="option12">Status Record-Special Care</option>
+                              <option value="option13">Reports</option>
+                              <option value="option14">Library</option>
+                              <option value="option15">My Task</option>
+                              <option value="option16">E-Profile</option>
+                              <option value="option17">Feedback</option>
+                              <option value="option18">Help and Support-Contact Information</option>
+                              <option value="option19">Help and Support-Website Instruction</option>
                             </select>
 
                           <!--Size dropdown content-->
@@ -366,130 +401,212 @@
                             </ol>
                           </div>
                           <div id="option2" class="size_chart">
-                              <h1><u>Schedule</u></h1>
-                              <h2>Announcments:</h2>
-                              <h3>View Details</h3>
+                            <h1><u>Login-Forgot Password</u></h1>
                             <ol>
-                                <li>Example</li>
-                                <li>Example</li>
-                            </ol>
-                              <h3>Edit Announcments</h3>
-                            <ol>
-                                <li>Example</li>
-                                <li>Example</li>
-                            </ol>
-                              <h3>Delete Announcments</h3>
-                            <ol>
-                                <li>Example</li>
-                                <li>Example</li>
-                            </ol>
-                              <h3>Add Announcments</h3>
-                            <ol>
-                                <li>Example</li>
-                                <li>Example</li>
-                            </ol>
-                              <h2>Center Schedule:</h2>
-                              <h3>Add New Schedule</h3>
-                            <ol>
-                                <li>Example</li>
-                                <li>Example</li>
-                            </ol>
-                              <h3>Edit Schedules</h3>
-                            <ol>
-                                <li>Example</li>
-                                <li>Example</li>
-                            </ol>
-                              <h3>Delete Schedules</h3>
-                            <ol>
-                                <li>Example</li>
-                                <li>Example</li>
-                            </ol>
-                              <h2>Working Schedule:</h2>
-                              <h3>Edit Schedules</h3>
-                            <ol>
-                                <li>First, from the top bar select working schedule.</li>
-                                <li>Then, click the edit button on the schedule you wish to edit.</li>
-                                <li>Then, in the pop up window click the text box according to the day you wish to change</li>
-                                <li>When you are finished click the submit button and the window will close.</li>
-                                <li>Finally, you will be prompted with an alert asking if you are sure that you want the edit that schedule, click yes</li>
+                              <li>Click the forget password link.</li>
+                              <li>Enter your email, position, and staff ID.</li>
+                              <li>Click enter.</li>
+                              <li>Now an email will be sent to you with a reset link to reset your password.</li>
                             </ol>
                           </div>
                           <div id="option3" class="size_chart">
-                              <h1><u>Status Record</u></h1>
-                              <h2>Daily Status:</h2>
+                            <h1><u>About Us-Introduction</u></h1>
                             <ol>
-                              <li>First, from the top bar select daily status.</li>
-                              <li>Then, select the date of status under date by clicking the drop down arrow and selecting a date from the calendar.</li>
-                              <li>Then, click the drop down button under patient to select the patient you wish to see.</li>
-                              <li>Finally, click the display button.</li>
-                              <li>Now you will see the patient daily status information to your right.</li>
-                            </ol>
-                              <h2>Vital Status:</h2>
-                            <ol>
-                              <li>First, from the top bar select vital status.</li>
-                              <li>Then, select the date of status under date by clicking the drop down arrow and selecting a date from the calendar.</li>
-                              <li>Then, click the drop down button under patient to select the patient you wish to see.</li>
-                              <li>Finally, click the display button.</li>
-                              <li>Now you will see the patient vital status information to your right.</li>
-                            </ol>
-                              <h2>AI Status:</h2>
-                            <ol>
-                              <li>Example</li>
-                              <li>Example</li>
-                            </ol>
-                              <h2>Special Care:</h2>
-                            <ol>
-                              <li>Example</li>
-                              <li>Example</li>
+                              <li>Click edit.</li>
+                              <li>Make your changes in the text box.</li>
+                              <li>Click ok when finished.</li>
                             </ol>
                           </div>
                           <div id="option4" class="size_chart">
-                              <h1><u>Help and Support</u></h1>
-                              <h2>Contact Information:</h2>
+                            <h1><u>About Us-Center Info</u></h1>
                             <ol>
-                              <li>Contact Information can be found at the bottom of the page.</li>
-                              <li>Example</li>
+                              <li>Click edit.</li>
+                              <li>Make your changes in the text boxes.</li>
+                              <li>Click ok when finished.</li>
                             </ol>
-                              <h2>Feedback:</h2>
+                          </div>
+                          <div id="option5" class="size_chart">
+                              <h1><u>Schedule-Announcment</u></h1>
+                              <h2>View Details</h2>
+                            <ol>
+                                <li>Click the details button.</li>
+                                <li>A pop up window will appear with all the details for the announcment.</li>
+                            </ol>
+                              <h2>Edit Announcments</h2>
+                            <ol>
+                                <li>Click the edit button.</li>
+                                <li>Edit the announcment title and the announcment itself.</li>
+                                <li>Click save.</li>
+                            </ol>
+                              <h2>Delete Announcments</h2>
+                            <ol>
+                                <li>Click the delete button.</li>
+                                <li>Click ok when the alert appears asking if you are sure you want to delete the announcment.</li>
+                            </ol>
+                              <h2>Add Announcments</h2>
+                            <ol>
+                                <li>Click the green plus button.</li>
+                                <li>Enter in the announcment title and the announcment itself.</li>
+                                <li>Click submit.</li>
+                            </ol>
+                          </div>
+                          <div id="option6" class="size_chart">
+                              <h1><u>Schedule-Center Schedule</u></h1>
+                              <h2>Add New Schedule</h2>
+                            <ol>
+                                <li>Click the add new schedule button.</li>
+                                <li>Click the drop down arrow for the week of text box and click on the date you want.</li>
+                                <li>Fill out the rest of the text boxes with the times you want</li>
+                                <li>Click submit.</li>
+                            </ol>
+                              <h2>Edit Schedules</h2>
+                            <ol>
+                                <li>Click the edit button.</li>
+                                <li>Edit the week of text box and the other text boxes.</li>
+                                <li>Click submit.</li>
+                            </ol>
+                              <h2>Delete Schedules</h2>
+                            <ol>
+                                <li>Click the delete button.</li>
+                                <li>Click ok when the alert appears asking if you are sure you want to delete the schedule.</li>
+                            </ol>
+                            </div>
+                          <div id="option7" class="size_chart">
+                              <h1><u>Schedule-Working Schedule</u></h1>
+                              <h2>Edit Schedules</h2>
+                            <ol>
+                                <li>From the top bar select working schedule.</li>
+                                <li>Click the edit button on the schedule you wish to edit.</li>
+                                <li>In the pop up window click the text box according to the day you wish to change</li>
+                                <li>When you are finished click the submit button and the window will close.</li>
+                                <li>You will be prompted with an alert asking if you are sure that you want the edit that schedule, click yes</li>
+                            </ol>
+                          </div>
+                          <div id="option8" class="size_chart">
+                            <h1><u>Memo</u></h1>
+                            <h2>Add Memo</h2>
+                            <ol>
+                                <li>Click the add memo button.</li>
+                                <li>Click the drop down arrow to enter the memos date.</li>
+                                <li>Enter the content of that memo.</li>
+                                <li>Click submit.</li>
+                            </ol>
+                            <h2>Edit</h2>
+                            <ol>
+                                <li>Click the edit button.</li>
+                                <li>Edit the content.</li>
+                                <li>Click submit.</li>
+                            </ol>
+                            <h2>Delete</h2>
+                            <ol>
+                                <li>Click the delete button.</li>
+                                <li>Click ok when the alert appears asking are you sure you want to delete this memo.</li>
+                            </ol>
+                          </div>
+                          <div id="option9" class="size_chart">
+                              <h1><u>Status Record-Daily Status</u></h1>
+                            <ol>
+                                <li>From the top bar select daily status.</li>
+                                <li>Select the date of status under date by clicking the drop down arrow and selecting a date from the calendar.</li>
+                                <li>Click the drop down button under patient to select the patient you wish to see.</li>
+                                <li>Click the display button.</li>
+                                <li>Now you will see the patient daily status information to your right.</li>
+                            </ol>
+                          </div>
+                          <div id="option10" class="size_chart">
+                              <h1><u>Status Record-Vital Status</u></h1>
+                            <ol>
+                                <li>From the top bar select vital status.</li>
+                                <li>Select the date of status under date by clicking the drop down arrow and selecting a date from the calendar.</li>
+                                <li>Click the drop down button under patient to select the patient you wish to see.</li>
+                                <li>Click the display button.</li>
+                                <li>Now you will see the patient vital status information to your right.</li>
+                            </ol>
+                          </div>
+                          <div id="option11" class="size_chart">
+                              <h1><u>Status Record-AI Status</u></h1>
+                            <ol>
+                                <li>From the top bar select AI status.</li>
+                                <li>Select the date of status under date by clicking the drop down arrow and selecting a date from the calendar.</li>
+                                <li>Click the drop down button under patient to select the patient you wish to see.</li>
+                                <li>Click the display button.</li>
+                                <li>Now you will see the patient AI status information to your right.</li>
+                            </ol>
+                          </div>
+                          <div id="option12" class="size_chart">
+                              <h1><u>Status Record-Special Care</u></h1>
+                            <ol>
+                                <li>Example</li>
+                                <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option13" class="size_chart">
+                            <h1><u>Reports</u></h1>
+                            <ol>
+                                <li>Click the drop down to select a start date.</li>
+                                <li>Click the drop down to select a End date.</li>
+                                <li>Or under fast report select either a day, week, or month report to automatically set the date.</li>
+                                <li>Click the drop down to select a patient.</li>
+                                <li>Click the Generate report button</li>
+                            </ol>
+                          </div>
+                          <div id="option14" class="size_chart">
+                            <h1><u>Library</u></h1>
+                            <h2>Filter</h2>
+                            <ol>
+                                <li>Click the drop down to select the category of task you want to appear.</li>
+                                <li>Click the search bar and enter in the category or the task name you want to appear.</li>
+                            </ol>
+                            <h2>Details</h2>
+                            <ol>
+                                <li>Click the details button.</li>
+                                <li>A pop up window will appear with all the details for the task.</li>
+                                <li>Click the here button for more details.</li>
+                            </ol>
+                            <h2>Request Copy</h2>
+                            <ol>
+                                <li>Check the boxes next to the tasks you want a copy of.</li>
+                                <li>Click the request copy button.</li>
+                                <li>Your copy will then appear under my tasks</li>
+                            </ol>
+                          </div>
+                          <div id="option15" class="size_chart">
+                            <h1><u>My Task</u></h1>
                             <ol>
                               <li>Example</li>
                               <li>Example</li>
                             </ol>
                           </div>
+                          <div id="option16" class="size_chart">
+                            <h1><u>E-Profile</u></h1>
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option17" class="size_chart">
+                            <h1><u>Feedback</u></h1>
+                            <ol>
+                              <li>Example</li>
+                              <li>Example</li>
+                            </ol>
+                          </div>
+                          <div id="option18" class="size_chart">
+                              <h1><u>Help and Support-Contact Information</u></h1>
+                            <ol>
+                              <li>Contact information can be found here.</li>
+                            </ol>
+                          </div>
+                          <div id="option19" class="size_chart">
+                            <h1><u>Help and Support-Website Instruction</u></h1>
+                            <ol>
+                              <li>Website instructions can be found here.</li>
+                            </ol>
+                          </div>
                           </div>
 
-
-                        <div id="container1" class="container" style="display:none;overflow-y:scroll;margin-top:25px;">
-                            <textarea rows="4" cols="50">Feedback goes here.</textarea>
-                            <input type="submit" value="Submit" onclick="submit_feedback()">
-                        </div>
                     </div>
                 </div>
-
-
-                <div style="position:absolute;left:40px;bottom:0;">
-                        <p style="position:relative;font-size:10px;">*Please Contact Development Team for Further Assistance</p>
-                        <table id="Contact_information" style="width:80%">
-                            <tr>
-                                <th colspan="4"> <h3 style="padding:10px 10px;"><i>Development Team Contact Information</i></h3></th>
-                            </tr>
-                            <tr>
-                                <th style="padding:6px 6px;">Name </th>
-                                <!--<td style="padding:6px 6px;">Ming Chuan AC IV </td>-->
-                                <td style="padding:6px 6px;">Kutztown University </td>
-                                <th style="padding:6px 6px;">Email Address </th>
-                                <td style="padding:6px 6px;">ltctmscenter2018@gmail.com </td>
-                        </tr>
-                        <tr>
-                                <th style="padding:6px 6px;">Contact No </th>
-                                <!--<td style="padding:6px 6px;">+886911223344 </td>-->
-                                <td style="padding:6px 6px;">+1(610)-683-4000 </td>
-                                <th style="padding:6px 6px;">Address </th>
-                                <!--<td style="padding:6px 6px;">No. 5, Deming Road, Guishan District, Taoyuan City, 333 </td>-->
-                                <td style="padding:6px 6px;">15200 Kutztown Rd, Kutztown, PA 19530 </td>
-                        </tr>
-                        </table>
-            </div>
         </div>
     </div>
 

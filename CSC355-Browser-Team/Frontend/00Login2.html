@@ -93,10 +93,6 @@
                     <div class="container-fluid">
 
                         <div class="navbar-header">
-                            <!--Click on logo to get to login page, which you're already on-->
-                            <a href="#" style="padding-left:4px">
-                                <img src="statics/images/v2ltctmslogo.png" height="50" width="60" />
-                            </a>
                             <!--Click name of system to get to login page, which you're already on-->
                             <a href="#" style=" padding-left:20px">
                                 <span class="white-text title"> LTC-TMS</span>
@@ -120,12 +116,11 @@
             <!-- TOP BAR ENDS-->
 
             <!--middle part of page-->
-            <div style="margin-top:10%; float:right;">
+            <div style="margin-top:2%; float:right; color:white;">
                 <!--"we care image-->
-                <img src="statics/images/v2ltctmslogin.jpg" style="float:left;width:50%;opacity:.6;">
+                <img src="statics/images/v2ltctmslogin.jpg" style="float:left;width:37%;opacity:.6;margin-top:2%">
                 <!--login box-->
-                <div style="float:right; width:25%; background-color:#78c869ff; border-radius: 25px;
-                border: 1px solid black; margin-right: 5%">
+                <div style="float:right; width:25%; background-color:#07575B; border-radius: 25px;margin-top:10%;margin-right:10%;border: 1px solid black;">
                     <h2 style="font-size:26px;"><center> Login </center></h2>
                     <div style=" background-color:black; width:100%;
                     border: 1px solid black;"></div>
@@ -133,15 +128,15 @@
                         <form onsubmit="LoginUser();return false">
                             <label for="Email"><b style="position:relative; font-size:16px;">Email</b></label>
                             <br>
-                            <input style="position:relative; width:75%;height:5%;" id="txtEmail" type="text" placeholder="Enter Email">
+                            <input style="position:relative;width:75%;height:5%;color:black;" id="txtEmail" type="text" placeholder="Enter Email">
                             <br>
                             <label for="Password"><b style="position:relative; font-size:16px;">Password</b></label>
                             <br>
-                            <input style="position:relative; width:75%; height:5%;" id="txtPassword" type="password" placeholder="Enter Password">
-                            <br><br/>
-                            <input type="submit" value="Login" style="position:relative;cursor:pointer; width:20%" id="btnLogin" style="margin-left:100px;"></input>
+                            <input style="position:relative; width:75%; height:5%;color:black;" id="txtPassword" type="password" placeholder="Enter Password">
+                            <br></br>
+                            <input type="submit" value="Login" style="position:relative;cursor:pointer; width:20%; color:black;" id="btnLogin" style="margin-left:100px;"></input>
                         </form>
-                        <button id="forgetPassword" onclick="document.getElementById('forgot').style.display = 'block'" style="cursor:pointer;position:relative;border-style:none;background-color:#78c869ff;"> <font class="forgotbutton"><u>Forgot Password?</u></font> </button>
+                        <button id="forgetPassword" onclick="document.getElementById('forgot').style.display = 'block'" style="cursor:pointer;position:relative;border-style:none;background-color:#07575B;"> <font class="forgotbutton"><u>Forgot Password?</u></font> </button>
                     </center>
                 </div>
                 <!--end login box-->
@@ -167,7 +162,9 @@
             <!--end forgot password pop up box-->
 
             <!--English android link & image-->
-            <div style="float: left; width:33.4%; text-align: center; margin-bottom: 10%">
+
+
+            <div style="float: left; width:33.4%; text-align: center; margin-bottom: 3%">
                 <a style="text-decoration: underline"href="https://drive.google.com/open?id=1UPPpo7K8ikw-E_ujKuMvXCZg5418TMXX">English Android Link<br/></a>
                 <a href="https://drive.google.com/open?id=1UPPpo7K8ikw-E_ujKuMvXCZg5418TMXX">
                     <img style="margin: 5%;"src="../image/englishandroiddd.jpg" width="100" height="100" alt="English android qr code">
@@ -184,12 +181,14 @@
             </div>
 
             <!--Chinese android link & image-->
-            <div style="float: left; width:33.3%; text-align: center">
+            <div  style="float: left; width:33.3%; text-align: center">
                     <a style="text-decoration: underline"href="https://drive.google.com/open?id=1UPPpo7K8ikw-E_ujKuMvXCZg5418TMXX">Chinese Android Link<br/></a>
                     <a href="https://drive.google.com/open?id=1UPPpo7K8ikw-E_ujKuMvXCZg5418TMXX">
                         <img style="margin: 5%;" src="../image/androidqrcode.jpg" width="100" height="100" alt="Chinese Android Qr Code">
                     </a>
             </div>
+
+
 
             <!--bottom bar-->
             <div style="background-color:#f1f1f1;z-index:2;float: left;">
