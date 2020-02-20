@@ -339,7 +339,7 @@ function injectToDOM(){
     }
     //Visibility
     htmlInjection += '<center><button type="button" onclick="textToSpeech()" style="float:right;width:15%;text-align:center;"> Text to Voice </button></center>';
-    htmlInjection += '<center><button type="button" onclick="voiceToText()" style="float:right;width:15%;text-align:center;"> Voice to Text </button></center>';
+    htmlInjection += '<center><button type="button" id="startRec" onclick="voiceToText()" style="float:right;width:15%;text-align:center;"> Voice to Text </button></center>';
     htmlInjection += '<div style="text-align:center;"> Task Visibility: </div>';
     htmlInjection += '<div class="radioField">';
     htmlInjection += '<div class="radioChild">';
@@ -429,7 +429,8 @@ function voiceToText() {
 // creating a new <p> element, where the text is appended
   let p = document.createElement('p');
   p.style.display = "none";
-  const words = document.querySelector('.words');
+  // const words = document.querySelector('.words');
+  const words = document.activeElement;
   words.appendChild(p);
 
   recognition.addEventListener('result', e => {
@@ -440,6 +441,14 @@ function voiceToText() {
     .join('')
 
     p.textContent = transcript;
+
+    if(transcript.includes('stop')) {
+      console.log("he said STOP");
+      recognition.abort();
+      recognition.stop();
+      return;
+    }
+
     if(e.results[0].isFinal) {
       p = document.createElement('p');
       p.style.display = "none";
@@ -452,10 +461,19 @@ function voiceToText() {
   recognition.start();
 }
 
+function stopRecording() {
+  //set button to start recording again on next click
+  recordButton = document.getElementById('startRec');
+  recordButton.setAttribute('onclick', 'voiceToText()');
+  recognition.stop();
+  console.log("MAN WANTS TO STOP THE RECORDING PLZ");
+}
+
 function copyTextOver(speech) {
   console.log("SPEEEECHH");
   console.log(speech);
-  let textArea = document.getElementById("taskOutline");
+  // let textArea = document.getElementById("taskOutline");
+  let textArea = document.activeElement;
   textArea.value += speech;
 
 }
