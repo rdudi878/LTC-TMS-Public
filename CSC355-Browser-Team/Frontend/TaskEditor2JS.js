@@ -331,7 +331,7 @@ function injectToDOM(){
      }
     //Task outline
     // console.log(taskDetails["outline"]);
-    htmlInjection += '<div style="text-align:center;"> Task Outline: </div>';
+    htmlInjection += '<div class="words" style="text-align:center;"> Task Outline: </div>';
     if (taskDetails["outline"] == "Type an outline here" || taskDetails["outline"] == ""){
         htmlInjection += '<div>' + '<textarea name="text" class="taskName" id="taskOutline" placeholder="Type an outline here"></textarea>' + '</div>';
     } else {
@@ -426,8 +426,10 @@ function voiceToText() {
   //setting this to true works while you are speaking
   recognition.iterimResults = true;
 
+// creating a new <p> element, where the text is appended
   let p = document.createElement('p');
-  const words = document.querySelector('[name="text"]');
+  p.style.display = "none";
+  const words = document.querySelector('.words');
   words.appendChild(p);
 
   recognition.addEventListener('result', e => {
@@ -436,11 +438,26 @@ function voiceToText() {
     .map(result => result[0])
     .map(result => result.transcript)
     .join('')
+
     p.textContent = transcript;
+    if(e.results[0].isFinal) {
+      p = document.createElement('p');
+      p.style.display = "none";
+      words.appendChild(p);
+    }
     console.log(transcript);
+    copyTextOver(transcript);
   });
   recognition.addEventListener('end', recognition.start);
   recognition.start();
+}
+
+function copyTextOver(speech) {
+  console.log("SPEEEECHH");
+  console.log(speech);
+  let textArea = document.getElementById("taskOutline");
+  textArea.value += speech;
+
 }
 
 function textToSpeech() {
