@@ -37,3 +37,10 @@ a{text-decoration: none;}
 .logoutselected{border-top-style: inset;}
 .xfilter:hover{color:red;}
 .openprofile:hover{animation: bounce 1s;}
+
+/* E-Portfolio CSS */
+.portfolio_display_table th {cursor: pointer; background:#66A5AD; color:white}
+.portfolio_display_table th:hover {
+  color:#DDDDDD;
+  transition: .5s;
+}
