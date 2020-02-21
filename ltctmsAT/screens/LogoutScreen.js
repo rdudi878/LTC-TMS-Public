@@ -66,11 +66,11 @@ class LogoutScreen extends React.Component {
   /* Return Value: none */
   /* */
   /*************************************************************************/
-  async componentWillMount() {
+  async componentDidMount() {
     await this._fetchUserInfo();
   }
 
-  componentWillMount() {
+  componentDidUpdate() {
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
       this.state.userID = data.ID;
@@ -165,19 +165,14 @@ class LogoutScreen extends React.Component {
             <Text style={styles2.description}>E-mail: {this.state.email}</Text>
             <Text style={styles2.description}>Admission Reason: {this.state.admissionReason}</Text>
             <Text style={styles2.description}>Medical Records: {this.state.medicalRecord}</Text>
-           
-            <View style={{marginTop: 5, alignSelf: 'center', flex: 1, justifyContent: 'space-between', fontSize: 10, width: 250}}>
-            <Button title="Language" type='solid' onPress={this._showDailyStatusAdd} 
-              buttonStyle={{
-              backgroundColor:'#3f9fff'}}/>
-              </View>
 
-            <View style={{marginTop: 5, alignSelf: 'center', flex: 1, justifyContent: 'space-between', fontSize: 10, width: 250}}>                       
+            {/*<View style={{marginTop: 5, alignSelf: 'center', flex: 1, justifyContent: 'space-between', fontSize: 10, width: 250}}>                       
             <Button title="Settings" type='solid' onPress={this._showDailyStatusAdd} 
               buttonStyle={{
               backgroundColor:'#3f9fff'}}/>          
-            </View>
+              </View>*/}
 
+            
             <View style={{marginTop: 5, alignSelf: 'center', flex: 1, justifyContent: 'space-between', fontSize: 10, width: 250}}>                       
             <Button 
             onPress={() => {

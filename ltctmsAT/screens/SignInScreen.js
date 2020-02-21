@@ -63,7 +63,7 @@ class SignInScreen extends React.Component {
             <Image style={styles_2.inputIcon} source={{uri: 'https://imgur.com/a01Jwvn.png'}}/>
             <TextInput
               style={styles_2.inputs}
-              placeholder="Username"
+              placeholder="User ID"
               placeholderTextColor='black'
               returnKeyType={"next"}
               onSubmitEditing={()=>this.secondTextInput.focus()}
