@@ -70,13 +70,19 @@ class DailyStatusReadScreen extends React.Component {
 
   // This pulls the current logged in users data that was saved in asyncstorage into state
   // begin fetching content (patients) before the component actually mounts
-  componentWillMount() {
+  componentDidMount() {
     this._fetchPatients();
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
       this.state.userID = data.ID;
       this.state.position = data.Position;
     })
+  }
+
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
   }
 
   // render content

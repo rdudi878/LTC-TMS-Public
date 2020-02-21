@@ -66,7 +66,7 @@ class PortfolioScreen extends React.Component {
  
   // This pulls the current logged in users data that was saved in asyncstorage into state
 
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
       this.state.userID = data.ID;
@@ -89,6 +89,12 @@ class PortfolioScreen extends React.Component {
     })
 
     this._fetchPatients();
+  }
+
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
   }
 
 
@@ -357,7 +363,8 @@ const styles2 = StyleSheet.create({
   },
   
   mb: {
-    marginBottom: 15
+    marginBottom: 15,
+    borderColor: 'black'
   },
   picker:{
     paddingTop:-10

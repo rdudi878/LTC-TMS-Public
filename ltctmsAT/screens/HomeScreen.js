@@ -65,9 +65,15 @@ class HomeScreen extends React.Component {
   }
 
   // begin fetching content (announcements) before the component actually mounts
-  componentWillMount() {
+  componentDidMount() {
     this._fetchAnnouncements();
   }
+
+  /*componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
+  }*/
 
     // handler for rendering the header for the FlatList UI component in use
   renderHeader() {
@@ -130,18 +136,22 @@ class HomeScreen extends React.Component {
 
         <Content padder >   
         
-            <CardItem style={{marginHorizontal: 21}} >
+            <CardItem style={{marginHorizontal: 24}} >
               <Left>              
                 <Body>
-                  <Text>Announcement</Text>
-                  <Text note>April 15, 2016</Text>
+                <Text style={{fontWeight: 'bold'}}>
+                <Text style={{fontSize: 30}}>
+                Announcement Board
+                </Text>
+                </Text>
+                  <Text note></Text>
                 </Body>
               </Left>
             </CardItem>        
               
               <Swiper
                   autoplay={true}   
-                  autoplayTimeout={5}    
+                  autoplayTimeout={15}    
                   height={530}
                   horizontal={true}
                   paginationStyle={{bottom: 5}}

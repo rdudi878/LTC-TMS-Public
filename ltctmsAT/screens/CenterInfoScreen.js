@@ -71,9 +71,15 @@ class CenterInfo extends React.Component {
   /* Return Value: none */
   /* */
   /*************************************************************************/
-  componentWillMount() {
+  componentDidMount() {
     this.getItems();
     this._fetchDates();
+  }
+
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
   }
 
   /*************************************************************************/

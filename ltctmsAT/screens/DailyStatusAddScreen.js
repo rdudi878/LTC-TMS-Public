@@ -57,30 +57,6 @@ class DailyStatusAddScreen extends React.Component {
     };
   }
 
-  /*
-
-  constructor() {
-    super();
-
-    var now = new Date();
-
-    this.state = {
-      poop: '',
-      urinate: '',
-      shower:'',
-      face:'',
-      breakfast:'',
-      lunch:'',
-      dinner:'',
-      brushTeeth:'',
-      shampoo:'',
-      Haircut:'',
-      Shave:'',
-      Turnover:'',
-      userInfo: null,
-      today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
-    };
-  }*/
 
   async _fetchUserInfo() {
     const userInfo = await AsyncStorage.getItem("userInfo");
@@ -89,9 +65,15 @@ class DailyStatusAddScreen extends React.Component {
     });
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     await this._fetchUserInfo();
     this._fetchPatients();
+  }
+
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
   }
  
   // render content
