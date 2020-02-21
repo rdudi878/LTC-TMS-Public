@@ -143,10 +143,29 @@ fbPAT.once("value")
           if (child.key!=="specialrecord") {
             var vsStatRow = vsStatInfo.insertRow(vsRowIndex);
             vsStatRow.setAttribute("class","table-list-row");
-            var cellMeasurementType = vsStatRow.insertCell(0)
-            var cellMeasurementValue = vsStatRow.insertCell(1)
-            cellMeasurementType.appendChild(document.createTextNode(child.key));
-            cellMeasurementValue.appendChild(document.createTextNode(child.val()));
+            var cellMeasurementTime = vsStatRow.insertCell(0)
+            var cellMeasurementType = vsStatRow.insertCell(1)
+            var cellMeasurementValue = vsStatRow.insertCell(2)
+
+        // Split the time and Measurement type by "_" character
+            var splitIt = child.key;
+            var splitArray = splitIt.split('_');
+        // Clean up the way Blood Pressure displays
+            if (splitArray[0]=="BloodPressure") {
+              splitArray[0] = "Blood Pressure";
+            }
+        // Clean up how temperature and blood pressure values display
+            var value = child.val();
+            if (splitArray[0]!=="Blood Pressure") {
+              value = child.val()+"°F";
+            } else {
+              value = value.replace("~", "/");
+            }
+
+        // Append to the table
+            cellMeasurementTime.appendChild(document.createTextNode(splitArray[1]));
+            cellMeasurementType.appendChild(document.createTextNode(splitArray[0]));
+            cellMeasurementValue.appendChild(document.createTextNode(value));
           }
         });
       });
