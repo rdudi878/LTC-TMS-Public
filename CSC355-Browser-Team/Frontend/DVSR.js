@@ -73,13 +73,27 @@ fbPAT.once("value")
         });
     }
 
-    function click_display() {
-      var srDisplayButton = document.getElementById("srDisplayButton");
-      var refreshButton = document.getElementById("refreshButton");
-      srDisplayButton.style.display = "none";
-      refreshButton.style.display = "block";
+    function rmPlaceholderInfo(image, selectText) {
+      // Make placeholder display disappear
+      var nullImage = document.getElementById(image);
+      var plzSelTxt = document.getElementById(selectText);
+      nullImage.style.display = "none";
+      plzSelTxt.style.display = "none";
+    }
+
+    function getSecondPart(str) {
+      return str.split('- ')[1];
+    }
+
+    function display_ds() {
+      rmPlaceholderInfo("image1", "pleaseSelect1");
       var dsStatInfo = document.getElementById("dailyStatTable");
-      var dsRowIndex = 1;
+      var noData = document.getElementById("noData1");
+      noData.style.display = "none";
+      while(dsStatInfo.hasChildNodes()) {
+        dsStatInfo.removeChild(dsStatInfo.firstChild);
+      }
+      var dsRowIndex = 0;
       var cnaKey = "";
       var selectedPatient = $('#DSselectPAT').val()
       var selectedDate = $('#bday').val()
@@ -95,6 +109,11 @@ fbPAT.once("value")
       });
       var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/"+cnaKey+"/daily_status/");
       statusRef.once("value", function(snapshot) {
+// The next line is how you check if there is any data in firebase
+        if(!snapshot.exists()) {
+          // console.log("no data to display");
+          noData.style.display = "block";
+        }
         snapshot.forEach(function(child) {
           console.log("child.key: ");
           console.log(child.key);
@@ -108,19 +127,18 @@ fbPAT.once("value")
           }
         });
       });
-
-      function getSecondPart(str) {
-        return str.split('- ')[1];
-      }
-      $('#patient-info').show();
     }
+
+// Vital Stat Display
     function display_vs() {
-      var vsDisplayButton = document.getElementById("vsDisplayButton");
-      var vsRefreshButton = document.getElementById("vsRefreshButton");
-      vsDisplayButton.style.display = "none";
-      vsRefreshButton.style.display = "block";
+      rmPlaceholderInfo("image2", "pleaseSelect2");
       var vsStatInfo = document.getElementById("vitalStatTable");
-      var vsRowIndex = 1;
+      var noData = document.getElementById("noData2");
+      noData.style.display = "none";
+      while(vsStatInfo.hasChildNodes()) {
+        vsStatInfo.removeChild(vsStatInfo.firstChild);
+      }
+      var vsRowIndex = 0;
       var cnaKey = "";
       var pressuresArr = [];
       var tempsArr = [];
@@ -139,6 +157,10 @@ fbPAT.once("value")
       });
       var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/"+cnaKey+"/vital_status/");
       statusRef.once("value", function(snapshot) {
+        if(!snapshot.exists()) {
+          // console.log("no data to display");
+          noData.style.display = "block";
+        }
         snapshot.forEach(function(child) {
           if (child.key!=="specialrecord") {
             var vsStatRow = vsStatInfo.insertRow(vsRowIndex);
@@ -169,23 +191,16 @@ fbPAT.once("value")
           }
         });
       });
-
-      function getSecondPart(str) {
-        return str.split('- ')[1];
-      }
-// These are the values of the selected date and patient name drop down
-      // console.log($('#selectPAT').val());
-      // console.log($('#bday').val());
-// Display the patient info window
-      $('#patient-info').show();
     }
     function display_ai() {
-      var aiDisplayButton = document.getElementById("aiDisplayButton");
-      var aiRefreshButton = document.getElementById("aiRefreshButton");
-      aiDisplayButton.style.display = "none";
-      aiRefreshButton.style.display = "block";
+      rmPlaceholderInfo("image3", "pleaseSelect3");
+      var noData = document.getElementById("noData3");
+      noData.style.display = "none";
       var aiStatInfo = document.getElementById("aiStatTable");
-      var aiRowIndex = 1;
+      while(aiStatInfo.hasChildNodes()) {
+        aiStatInfo.removeChild(aiStatInfo.firstChild);
+      }
+      var aiRowIndex = 0;
       var cnaKey = "";
       var pressuresArr = [];
       var tempsArr = [];
@@ -205,6 +220,10 @@ fbPAT.once("value")
 //       });
       var categoryRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/AI/");
       categoryRef.once("value", function(snapshot) {
+        if(!snapshot.exists()) {
+          // console.log("no data to display");
+          noData.style.display = "block";
+        }
         snapshot.forEach(function(child) {
           if (child.key!=="HeartRateRecord"
               && child.key!=="Location") {
@@ -222,19 +241,6 @@ fbPAT.once("value")
           }
         });
       });
-
-      function getSecondPart(str) {
-        return str.split('- ')[1];
-      }
-// These are the values of the selected date and patient name drop down
-      // console.log($('#selectPAT').val());
-      // console.log($('#bday').val());
-// Display the patient info window
-      $('#patient-info').show();
-    }
-
-    function refreshPage() {
-      location.reload();
     }
 
     var count = 0;
