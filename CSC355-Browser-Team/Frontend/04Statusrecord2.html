@@ -93,7 +93,7 @@
     }
 
         table th {
-            background-color: #3f9fff;
+            background-color: #66A5AD;
             color: white;
         }
 
@@ -344,8 +344,9 @@
                                   <tr></tr>
                                 </tbody>
                               </table>
-                                <!-- <img src="statics/images/no_doc.jpg" /> -->
-                                <!-- <p> Please Select Date, PatientID and CNAID </p> -->
+                                <img id="image1" style="margin-top:2px;" src="statics/images/no_doc.jpg" />
+                                <p id="pleaseSelect1"> Please Select Date and Patient</p>
+                                <p style="display:none; color:red;" id="noData1"> There is no data for this patient on the selected date. </p>
                             </center>
                         </div>
                     </div>
@@ -361,6 +362,7 @@
                               <!-- add display:none; below when done testing -->
                               <table class="vital-status-table" id="vital-status-table" style="height:100%; width: 75%;">
                                 <tr>
+                                  <th>Time</th>
                                   <th>Measurement</th>
                                   <th>Value</th>
                                 </tr>
@@ -368,8 +370,9 @@
                                   <tr></tr>
                                 </tbody>
                               </table>
-                                <!-- <img src="statics/images/no_doc.jpg" /> -->
-                                <!-- <p> Please Select Date, PatientID and CNAID </p> -->
+                                <img id="image2" style="margin-top:2px;" src="statics/images/no_doc.jpg" />
+                                <p id="pleaseSelect2"> Please Select Date and Patient </p>
+                                <p style="display:none; color:red;" id="noData2"> There is no data for this patient on the selected date. </p>
                             </center>
                         </div>
                     </div>
@@ -391,6 +394,9 @@
                                   <tr></tr>
                                 </tbody>
                               </table>
+                                <img id="image3" style="margin-top:2px;" src="statics/images/no_doc.jpg" />
+                                <p id="pleaseSelect3"> Please Select Date and Patient </p>
+                                <p style="display:none; color:red;" id="noData3"> There is no data for this patient on the selected date. </p>
                             </center>
                         </div>
                     </div>
@@ -403,8 +409,8 @@
                         <div class="no-doc" id="no-doc4">
                             <br><br>
                             <center>
-                                <img src="statics/images/no_doc.jpg" />
-                                <p> Please Select Date, PatientID and CNAID </p>
+                                <img id="image4" style="margin-top:2px;" src="statics/images/no_doc.jpg" />
+                                <p id="pleaseSelect4"> Please Select Date and Patient </p>
                             </center>
                         </div>
                     </div>
@@ -417,8 +423,8 @@
                         <div class="no-doc" id="no-doc5">
                             <br><br>
                             <center>
-                                <img src="statics/images/no_doc.jpg" />
-                                <p> Please Select Date, PatientID and CNAID </p>
+                                <img id="image4" style="margin-top:2px;" src="statics/images/no_doc.jpg" />
+                                <p> Please Select Patient </p>
                             </center>
                         </div>
                     </div>
@@ -459,8 +465,7 @@
                             <br><br><br>
                         </div>
                         <br><br>
-                        <input id="srDisplayButton" class="status_record_display_button" type="button" value="Display" onclick="click_display(this);" style="cursor:pointer;" />
-                        <input id="refreshButton" class="status_record_display_button" type="button" value="Refresh" onclick="refreshPage();" style="cursor:pointer; display:none;" />
+                        <input id="srDisplayButton" class="status_record_display_button" type="button" value="Display" onclick="display_ds(this);" style="cursor:pointer;" />
                     </div>
 <!-- Vital Status Options -->
                     <div id="VsOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
