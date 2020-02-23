@@ -202,39 +202,22 @@ function getFeedbackFromPathCallback(feedback){
 
 /**
  * @function showsf
- * @description gets the staff feedback via the tab
+ * @description gets the contact information via the tab
  */
 function showsf(){
-    document.getElementById("container").style.display = "block";
-    document.getElementById("container1").style.display = "none";
-    document.getElementById("stafffeedbackspan").style.opacity = "1";
-    document.getElementById("patientfeedbackspan").style.opacity = ".8";
+    document.getElementById("contact").style.display = "block";
+    document.getElementById("contact_information").style.opacity = "1";
     document.getElementById("website_instruction").style.opacity = ".8";
     document.getElementById("tutorial").style.display = "none";
   }
 
   /**
-   * @function showpf
-   * @description gets the family(patient) feedback via tab
-   */
-  function showpf(){
-    document.getElementById("container").style.display = "none";
-    document.getElementById("container1").style.display = "block";
-    document.getElementById("stafffeedbackspan").style.opacity = ".8";
-    document.getElementById("patientfeedbackspan").style.opacity = "1";
-    document.getElementById("website_instruction").style.opacity = ".8";
-    document.getElementById("tutorial").style.display = "none";
-  }
-
-  /**
-   * @function showpf
+   * @function showef
    * @description gets the website instructions via tab
    */
   function showef(){
-    document.getElementById("container").style.display = "none";
-    document.getElementById("container1").style.display = "none";
-    document.getElementById("stafffeedbackspan").style.opacity = ".8";
-    document.getElementById("patientfeedbackspan").style.opacity = ".8";
+    document.getElementById("contact").style.display = "none";
+    document.getElementById("contact_information").style.opacity = ".8";
     document.getElementById("website_instruction").style.opacity = "1";
     document.getElementById("tutorial").style.display = "block";
 
@@ -262,27 +245,3 @@ function showsf(){
   });
 
 });
-
-/**Submit feedback function
-*/
-  function submit_feedback(){
-    console.log("feedback submited");
-    var database = firebase.database();
-    console.log(firebase.database().ref('Feedback/-LdeJhhMx-V6SBW2bWi_').key);
-    var post_data = {
-      feedbackText: "testing",
-      feedbackType: "testing",
-      replyId: "testing",
-      replyText: "testing",
-      replyTimestamp: "testing",
-      timestamp: time123,
-      userEmail: user.email,
-      userID: id,
-    }
-
-    var updates = {};
-    updates['Feedback/-LdeJhhMx-V6SBW2bWi_'] = post_data;
-
-    return firebase.database().ref().update(updates);
-
-}

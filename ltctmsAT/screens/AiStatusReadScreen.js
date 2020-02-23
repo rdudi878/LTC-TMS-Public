@@ -34,12 +34,14 @@ class AiStatusReadScreen extends React.Component {
     super();
 
     var now = new Date();
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var day = ("0" + now.getDate()).slice(-2);
 
     this.state = {
       patientList: [],
       patient: '',
-      today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
-      date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
+      today: `${now.getFullYear()}-${month}-${day}`,
+      date: `${now.getFullYear()}-${month}-${day}`,
       fallRecord: '',
       heartRate: null,
       location: null,
@@ -55,13 +57,19 @@ class AiStatusReadScreen extends React.Component {
 
   // This pulls the current logged in users data that was saved in asyncstorage into state
   // begin fetching content (patients) before the component actually mounts
-  componentWillMount() {
+  componentDidMount() {
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
       this.state.userID = data.ID;
       this.state.position = data.Position;
     })
     this._fetchPatients();
+  }
+
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
   }
 
   // render content
@@ -83,7 +91,7 @@ class AiStatusReadScreen extends React.Component {
               date={this.state.date}
               mode="date"
               placeholder="Select Date"
-              format="YYYY-M-D"
+              format="YYYY-MM-DD"
               minDate="2019-1-01"
               maxDate={this.state.today}
               confirmBtnText="Confirm"

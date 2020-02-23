@@ -52,6 +52,7 @@ class PortfolioScreen extends React.Component {
       userID: 'afsdaasfd',
       buttonArray: [],
       user_position:'',
+      //patientSelected:'true'
     };
   }
   
@@ -65,7 +66,7 @@ class PortfolioScreen extends React.Component {
  
   // This pulls the current logged in users data that was saved in asyncstorage into state
 
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
       this.state.userID = data.ID;
@@ -88,6 +89,12 @@ class PortfolioScreen extends React.Component {
     })
 
     this._fetchPatients();
+  }
+
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
   }
 
 
@@ -118,7 +125,9 @@ class PortfolioScreen extends React.Component {
                   <CardItem header bordered>
                     <Text>Patient Status</Text>
                   </CardItem>
-                  <TouchableOpacity onPress={this._showDailyStatusAdd}>
+                  <TouchableOpacity 
+                  //disabled={this.state.patientSelected}
+                   onPress={this._showDailyStatusAdd}>
                   <CardItem>        
                     <Left>
                       <Icon2
@@ -131,6 +140,7 @@ class PortfolioScreen extends React.Component {
                     </Left>
                     <Right>
                       <Icon name="arrow-forward" 
+                      disabled={this.state.patientSelected}
                       onPress={this._showDailyStatusAdd} />
                     </Right>             
                   </CardItem>
@@ -213,7 +223,7 @@ class PortfolioScreen extends React.Component {
                 <CardItem header bordered>
                   <Text>Patient Satus</Text>
                 </CardItem>
-
+                <TouchableOpacity onPress={this._showDailyStatusRead}>
                 <CardItem>        
                   <Left><Icon2
                       active
@@ -227,7 +237,8 @@ class PortfolioScreen extends React.Component {
                     <Icon name="arrow-forward" onPress={this._showDailyStatusRead} />
                   </Right>
                 </CardItem>
-
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this._showAiStatusRead}>
                 <CardItem>        
                   <Left>
                     <Icon2
@@ -242,7 +253,8 @@ class PortfolioScreen extends React.Component {
                     <Icon name="arrow-forward" onPress={this._showAiStatusRead} />
                   </Right>
                 </CardItem>
-
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this._showVitalStatusRead}>
                 <CardItem>        
                   <Left>
                     <Icon2
@@ -251,12 +263,13 @@ class PortfolioScreen extends React.Component {
                       style={{ color: "#DD5044" }}
                       size= {45}
                     />
-                    <Text> Check Vital Status</Text>
+                    <Text>Check Vital Status</Text>
                   </Left>
                   <Right>
                     <Icon name="arrow-forward" onPress={this._showVitalStatusRead} />
                   </Right>
-                </CardItem>
+                </CardItem> 
+                </TouchableOpacity>
               </Card>
             </Content>
           </View>
@@ -296,13 +309,25 @@ class PortfolioScreen extends React.Component {
         patientData.push({
           id: childSnapshot.key,
         })
-      })
+      })/*
+      if(this.state.patient == "patient") {
+        this.state.patientSelected = false;
+      } else {
+        this.state.patientSelected = true;
+        this.setState({
+          patientList: patientData,
+          patient: patientData[0].id,
+          
+        });
+      }*/
       this.setState({
         patientList: patientData,
         patient: patientData[0].id,
         
       });
+      
     });
+        
   }
 
 
@@ -338,7 +363,8 @@ const styles2 = StyleSheet.create({
   },
   
   mb: {
-    marginBottom: 15
+    marginBottom: 15,
+    borderColor: 'black'
   },
   picker:{
     paddingTop:-10

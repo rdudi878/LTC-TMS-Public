@@ -33,14 +33,16 @@ class VitalStatusReadScreen extends React.Component {
   constructor() {
     super();
 
-    const now = new Date();
+    var now = new Date();
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var day = ("0" + now.getDate()).slice(-2);
 
     this.state = {
       patientList: [],
       patientStatus: [],
       patient: '',
-      today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
-      date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
+      today: `${now.getFullYear()}-${month}-${day}`,
+      date: `${now.getFullYear()}-${month}-${day}`,
       status: [],
       CNAList: [],
       CNA: '',
@@ -60,7 +62,7 @@ class VitalStatusReadScreen extends React.Component {
 
   // This pulls the current logged in users data that was saved in asyncstorage into state
   // begin fetching content (patients) before the component actually mounts
-  componentWillMount() {
+  componentDidMount() {
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
       this.state.userID = data.ID;
@@ -88,7 +90,7 @@ class VitalStatusReadScreen extends React.Component {
               date={this.state.date}
               mode="date"
               placeholder="Select Date"
-              format="YYYY-M-D"
+              format="YYYY-MM-DD"
               minDate="2018-1-1"
               maxDate={this.state.today}
               confirmBtnText="Confirm"
