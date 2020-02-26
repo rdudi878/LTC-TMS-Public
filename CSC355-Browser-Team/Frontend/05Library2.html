@@ -168,6 +168,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="../Frontend/12Events.html">
+                        <i class="glyphicon glyphicon-folder-close"></i>
+                        Events
+                    </a>
+                </li>
+                <li>
                     <a href="../Frontend/03Memo2.html">
                         <i class="glyphicon glyphicon-folder-close"></i>
                         Memo
@@ -210,6 +216,11 @@
                         Help and Support
                     </a>
                 </li>
+                <li>
+                    <a href="../Frontend/11Feedback2.html">
+                        <i class="glyphicon glyphicon-comment"></i>
+                    Feedback</a>
+                </li>
             </ul>
         </nav>
         <!-- End of sidebar !-->
@@ -226,7 +237,7 @@
                         <!-- Bootstrap navigation bar -->
                         <div class="container-fluid">
 
-                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="float:left; margin-right: 3ex;padding-top:1.5ex;padding-bottom:1.5ex; background-color:green;outline-color:darkgreen">
+                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="float:left; margin-right: 3ex;padding-top:1.5ex;padding-bottom:1.5ex; background-color:#66A5AD;">
                                 <i class="fas fa-align-left"></i>
                                 <span id="toggleSide">Hide sidebar</span>
                             </button>
@@ -234,7 +245,7 @@
                             <div class="navbar-header">
 
                                 <a href="../Frontend/01Aboutus2.html" style="padding-left:4px">
-                                    <img src="statics/images/v2ltctmslogo.png" height="50" width="60" />
+                                    <!-- <img src="statics/images/v2ltctmslogo.png" height="50" width="60" /> -->
                                 </a>
 
                                 <a href="#" style=" padding-left:20px">
@@ -304,7 +315,7 @@
                             <select class="library_filter" id="filterCategory" onchange="filter_Category()">
                                 <option>Category</option>
                             </select>
-                            
+
                                 <input class="library_search" type="text" name="search" placeholder="Search" id="searchInput" autocomplete="off">
                             </form>
                     <div class="container" id="data1"style="overflow:auto;">
@@ -319,7 +330,7 @@
                                         <th style="width:10%"><input type="checkbox" id="all_checked" onclick="toggleTask(this)"></th>
                                     </tr>
                                 </table>
-                        
+
                             </div>
                         </div>
                     </div>
@@ -345,7 +356,7 @@
             </div>
         </div>
         <div class="library_form-popup" id="form1">
-            <div id="taskHeader"> 
+            <div id="taskHeader">
             </div>
             <div class="sortableContainer" id="sortableContainer">
                 <div class="sortable" id="sort"></div>
@@ -353,7 +364,7 @@
             </div>
         </div>
 
-        
+
         <!-- START COPY FOR SIDEBAR JAVASCRIPT -->
         <!-- jQuery CDN - Slim version (=without AJAX) -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

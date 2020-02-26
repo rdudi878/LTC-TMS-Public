@@ -63,10 +63,15 @@ export default class Feedback extends Component {
 
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     await this._fetchUserInfo();
   }
 
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
+  }
 
   /*************************************************************************/
   /* */

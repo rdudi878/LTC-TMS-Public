@@ -73,13 +73,27 @@ fbPAT.once("value")
         });
     }
 
-    function click_display() {
-      var srDisplayButton = document.getElementById("srDisplayButton");
-      var refreshButton = document.getElementById("refreshButton");
-      srDisplayButton.style.display = "none";
-      refreshButton.style.display = "block";
+    function rmPlaceholderInfo(image, selectText) {
+      // Make placeholder display disappear
+      var nullImage = document.getElementById(image);
+      var plzSelTxt = document.getElementById(selectText);
+      nullImage.style.display = "none";
+      plzSelTxt.style.display = "none";
+    }
+
+    function getSecondPart(str) {
+      return str.split('- ')[1];
+    }
+
+    function display_ds() {
+      rmPlaceholderInfo("image1", "pleaseSelect1");
       var dsStatInfo = document.getElementById("dailyStatTable");
-      var dsRowIndex = 1;
+      var noData = document.getElementById("noData1");
+      noData.style.display = "none";
+      while(dsStatInfo.hasChildNodes()) {
+        dsStatInfo.removeChild(dsStatInfo.firstChild);
+      }
+      var dsRowIndex = 0;
       var cnaKey = "";
       var selectedPatient = $('#DSselectPAT').val()
       var selectedDate = $('#bday').val()
@@ -95,6 +109,11 @@ fbPAT.once("value")
       });
       var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/"+cnaKey+"/daily_status/");
       statusRef.once("value", function(snapshot) {
+// The next line is how you check if there is any data in firebase
+        if(!snapshot.exists()) {
+          // console.log("no data to display");
+          noData.style.display = "block";
+        }
         snapshot.forEach(function(child) {
           console.log("child.key: ");
           console.log(child.key);
@@ -108,19 +127,18 @@ fbPAT.once("value")
           }
         });
       });
-
-      function getSecondPart(str) {
-        return str.split('- ')[1];
-      }
-      $('#patient-info').show();
     }
+
+// Vital Stat Display
     function display_vs() {
-      var vsDisplayButton = document.getElementById("vsDisplayButton");
-      var vsRefreshButton = document.getElementById("vsRefreshButton");
-      vsDisplayButton.style.display = "none";
-      vsRefreshButton.style.display = "block";
+      rmPlaceholderInfo("image2", "pleaseSelect2");
       var vsStatInfo = document.getElementById("vitalStatTable");
-      var vsRowIndex = 1;
+      var noData = document.getElementById("noData2");
+      noData.style.display = "none";
+      while(vsStatInfo.hasChildNodes()) {
+        vsStatInfo.removeChild(vsStatInfo.firstChild);
+      }
+      var vsRowIndex = 0;
       var cnaKey = "";
       var pressuresArr = [];
       var tempsArr = [];
@@ -139,34 +157,50 @@ fbPAT.once("value")
       });
       var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/"+cnaKey+"/vital_status/");
       statusRef.once("value", function(snapshot) {
+        if(!snapshot.exists()) {
+          // console.log("no data to display");
+          noData.style.display = "block";
+        }
         snapshot.forEach(function(child) {
           if (child.key!=="specialrecord") {
             var vsStatRow = vsStatInfo.insertRow(vsRowIndex);
             vsStatRow.setAttribute("class","table-list-row");
-            var cellMeasurementType = vsStatRow.insertCell(0)
-            var cellMeasurementValue = vsStatRow.insertCell(1)
-            cellMeasurementType.appendChild(document.createTextNode(child.key));
-            cellMeasurementValue.appendChild(document.createTextNode(child.val()));
+            var cellMeasurementTime = vsStatRow.insertCell(0)
+            var cellMeasurementType = vsStatRow.insertCell(1)
+            var cellMeasurementValue = vsStatRow.insertCell(2)
+
+        // Split the time and Measurement type by "_" character
+            var splitIt = child.key;
+            var splitArray = splitIt.split('_');
+        // Clean up the way Blood Pressure displays
+            if (splitArray[0]=="BloodPressure") {
+              splitArray[0] = "Blood Pressure";
+            }
+        // Clean up how temperature and blood pressure values display
+            var value = child.val();
+            if (splitArray[0]!=="Blood Pressure") {
+              value = child.val()+"°F";
+            } else {
+              value = value.replace("~", "/");
+            }
+
+        // Append to the table
+            cellMeasurementTime.appendChild(document.createTextNode(splitArray[1]));
+            cellMeasurementType.appendChild(document.createTextNode(splitArray[0]));
+            cellMeasurementValue.appendChild(document.createTextNode(value));
           }
         });
       });
-
-      function getSecondPart(str) {
-        return str.split('- ')[1];
-      }
-// These are the values of the selected date and patient name drop down
-      // console.log($('#selectPAT').val());
-      // console.log($('#bday').val());
-// Display the patient info window
-      $('#patient-info').show();
     }
     function display_ai() {
-      var aiDisplayButton = document.getElementById("aiDisplayButton");
-      var aiRefreshButton = document.getElementById("aiRefreshButton");
-      aiDisplayButton.style.display = "none";
-      aiRefreshButton.style.display = "block";
+      rmPlaceholderInfo("image3", "pleaseSelect3");
+      var noData = document.getElementById("noData3");
+      noData.style.display = "none";
       var aiStatInfo = document.getElementById("aiStatTable");
-      var aiRowIndex = 1;
+      while(aiStatInfo.hasChildNodes()) {
+        aiStatInfo.removeChild(aiStatInfo.firstChild);
+      }
+      var aiRowIndex = 0;
       var cnaKey = "";
       var pressuresArr = [];
       var tempsArr = [];
@@ -186,6 +220,10 @@ fbPAT.once("value")
 //       });
       var categoryRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/AI/");
       categoryRef.once("value", function(snapshot) {
+        if(!snapshot.exists()) {
+          // console.log("no data to display");
+          noData.style.display = "block";
+        }
         snapshot.forEach(function(child) {
           if (child.key!=="HeartRateRecord"
               && child.key!=="Location") {
@@ -203,19 +241,6 @@ fbPAT.once("value")
           }
         });
       });
-
-      function getSecondPart(str) {
-        return str.split('- ')[1];
-      }
-// These are the values of the selected date and patient name drop down
-      // console.log($('#selectPAT').val());
-      // console.log($('#bday').val());
-// Display the patient info window
-      $('#patient-info').show();
-    }
-
-    function refreshPage() {
-      location.reload();
     }
 
     var count = 0;

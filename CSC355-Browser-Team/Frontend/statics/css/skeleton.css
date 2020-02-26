@@ -118,8 +118,9 @@ body {
             CSS for the when mouse is over the sidebar links
         */
             #sidebar ul li a:hover {
-                color: mediumseagreen;
-                background: #fff;
+                color: grey;
+                background: #66a5ad;
+                transition: .8s;
             }
 
         #sidebar ul li.active > a,
@@ -213,19 +214,6 @@ body {
         border-color: white;
     }
 
-    /*
-        CSS to make the LTC-TMS font-color white on the top nav bar
-    */
-    .white-text {
-        color: white;
-    }
-    /*
-        CSS to make the LTC-TMS font-color green when hovered on the top nav bar
-    */
-        .white-text:hover, a:hover {
-            color: springgreen;
-            text-decoration: none;
-        }
 
     .title {
         font-size: 16pt;
@@ -243,7 +231,6 @@ body {
         display: inline-block;
         color: white;
         text-align: center;
-        padding: 14px 16px;
         text-decoration: none;
     }
 
@@ -397,7 +384,7 @@ a:focus {
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: #87CEFA !important;
+    background: #07575B;
     color: #fff;
     transition: all 0.3s;
 }
@@ -413,7 +400,7 @@ a:focus {
 
     #sidebar ul.components {
         padding: 20px 0;
-        border-bottom: 1px solid #87CEFA;
+        border-bottom: 1px solid #66A5AD;
     }
 
     #sidebar ul p {
@@ -433,14 +420,15 @@ a:focus {
         CSS for the when mouse is over the sidebar links
     */
         #sidebar ul li a:hover {
-            color: #3F9FFF;
-            background: #fff;
+            color: grey;
+            background: #07575B;
+            transition: .5s;
         }
 
     #sidebar ul li:active > a,
     a[aria-expanded="true"] {
         color: #fff;
-        background: #3F9FFF;
+        background: #07575B;
     }
 
 a[data-toggle="collapse"] {
@@ -524,7 +512,7 @@ ul.CTAs {
     CSS dealing with the COLOR of the TOP nav bar
 */
 .navbar-default {
-    background-color: #3F9FFF;
+    background-color: #003B46;
     border-color: white;
 }
 
@@ -534,16 +522,32 @@ ul.CTAs {
 .white-text {
     color: white;
 }
+/* effect-shine */
+.white-text:hover {
+-webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+-webkit-mask-size: 200%;
+animation: shine 2s infinite;
+}
+@-webkit-keyframes shine {
+from {
+  -webkit-mask-position: 150%;
+}
+
+to {
+  -webkit-mask-position: -50%;
+}
+}
 /*
     CSS to make the LTC-TMS font-color green when hovered on the top nav bar
 */
-    .white-text:hover, a:hover {
-        color: #87CEFA;
+    /* .white-text:hover, a:hover {
+        color: #66A5AD;
         text-decoration: none;
-    }
+        transition: .5s;
+    } */
 
 .title {
-    font-size: 16pt;
+    font-size: 19pt;
     font-family: Tahoma, Geneva, sans-serif;
     letter-spacing: -0.5px;
     word-spacing: 0px;
@@ -558,38 +562,60 @@ li a, .dropbtn {
     display: inline-block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
 }
 
     li a:hover, .dropdown:hover .dropbtn {
-        background-color: lightseagreen;
+        /* background-color: lightseagreen; */
     }
 
 li.dropdown {
     display: inline-block;
 }
+.sidebarButton {
+  background-color: #003B46;
+  border: 0px solid;
+  color:white;
+}
+
+.sidebarButton:focus {
+  outline: 0;
+}
+
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+  color:white;
+}
+.navbar-inverse .navbar-nav>li>a {
+  color:white;
+}
+
+.profile-image {
+  height:52px;
+  width:52px;
+}
 
 .dropdown-content {
     display: none;
     position: absolute;
-    left: -100px;
-    background-color: #f9f9f9;
+    width: 100%;
+    background-color: #07575B;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    border-radius: 2px;
 }
 
     .dropdown-content a {
-        color: black;
+        color: white;
         padding: 12px 16px;
         text-decoration: none;
         display: block;
         text-align: left;
+        border-bottom: 1px solid black;
     }
 
         .dropdown-content a:hover {
-            background-color: lightgray;
+            background-color: #66a5ad;
         }
 
 .dropdown:hover .dropdown-content {
@@ -609,7 +635,11 @@ li.dropdown {
     background-repeat: repeat-y;
 }
 .current {
-    background-color: #3F9FFF;
+    background-color: #66A5AD;
+}
+
+.navbar-header {
+  margin: 7px;
 }
 
 @media screen and (max-width:768px) {
@@ -647,4 +677,12 @@ li.dropdown {
             transform: translateY(-3px);
         }
     }
+}
+
+/*
+    CSS to fix the google calendar
+*/
+
+iframe{
+  width: 100%;
 }

@@ -51,6 +51,12 @@
                     Schedule</a>
                 </li>
                 <li>
+                    <a href="../Frontend/12Events.html">
+                        <i class="glyphicon glyphicon-folder-close"></i>
+                        Events
+                    </a>
+                </li>
+                <li>
                     <a href="../Frontend/03Memo2.html">
                         <i class="glyphicon glyphicon-folder-close"></i>
                     Memo</a>
@@ -87,6 +93,11 @@
                         <i class="glyphicon glyphicon-question-sign"></i>
                     Help and Support</a>
                 </li>
+                <li>
+                    <a href="../Frontend/11Feedback2.html">
+                        <i class="glyphicon glyphicon-comment"></i>
+                    Feedback</a>
+                </li>
             </ul>
         </nav>
     <!-- End of sidebar !-->
@@ -98,32 +109,38 @@
 
                     <nav class="navbar navbar-inverse navbar-fixed-top navbar-default"><!-- Bootstrap navigation bar -->
                         <div class="container-fluid">
-
-                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="float:left; margin-right: 1.5ex;padding-top:1.5ex;padding-bottom:1.5ex;padding-left:2px;padding-right:2px; background-color:green;outline-color:darkgreen">
-                                <i class="fas fa-align-left"></i>
-                                <span id="toggleSide">Hide sidebar</span>
-                            </button>
-
-                            <div class="navbar-header">
-
-                                <a href="../Frontend/01Aboutus2.html">
-                                    <img src="statics/images/v2ltctmslogo.png" height="50" width="60" />
+                          <ul class="nav navbar-nav navbar-left" style="margin-right:3px">
+                            <li>
+                              <button class="sidebarButton" title="Toggle Sidebar" type="button" id="sidebarCollapse" style="float:left; margin-right: 1.5ex; height:50px;">
+                                  <i class="fas fa-align-left"></i>
+                                  <span class="glyphicon glyphicon-menu-hamburger" id="toggleSide"></span>
+                              </button>
+                            </li>
+                            <li>
+                              <div class="navbar-header">
+                                <a href="#">
+                                  <span class="white-text title"> LTC-TMS</span>
                                 </a>
-
-                                <a href="#" style=" padding-left:20px">
-                                    <span class="white-text title"> LTC-TMS</span>
-                                </a>
-
-                            </div>
+                              </div>
+                            </li>
+                          </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0)" class="dropbtn"><span class="glyphicon glyphicon-cog white-text"></span></a>
-                                    <div class="dropdown-content">
-                                        <a href="#">English</a>
-                                        <a href="/../Frontend-Chinese/01Aboutus2.html">Chinese</a>
-                                        <a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
-                                    </div>
-                                </li>
+                              <li>
+                                  <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
+                              </li>
+                              <li class="dropdown">
+                                  <a href="javascript:void(0)" class="dropbtn">
+                                    <span style="font-size:19px;" id="displayProfileposition"></span>
+                                    <span style="font-size:19px;" id="displayProfilename"></span>
+                                    <span class="glyphicon glyphicon-triangle-bottom"></span>
+                                  </a>
+                                  <div class="dropdown-content">
+                                      <a href="#">English</a>
+                                      <a href="/../Frontend-Chinese/01Aboutus2.html">Chinese</a>
+                                      <a style="cursor:pointer;" onclick="document.getElementById('newPic').click();">Edit Profile Picture</a>
+                                      <a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
+                                  </div>
+                              </li>
                             </ul>
                         </div>
                     </nav>
@@ -132,7 +149,7 @@
                 <!-- Place Holder for header-->
                 <div class="user-info">
                     <!--BACKGROUND PANEL IMAGE-->
-                    <div class="container-fluid">
+                    <div class="container-fluid" style="display:none;">
 
                         <img class="panelimg img-responsive" style="background-color: #fff5ee" />
 
@@ -163,7 +180,7 @@
 
             <div class="main container-fluid wrapper">
                 <!-- START OF MIDDLE CONTENT-->
-                <div class="right"  style="width:800ex; transform:translateY(-9ex); height:800ex;">
+                <div class="right"  style="width:800ex; transform:translateY(-9ex);">
                     <div class="tap">
                         <span id="introductionspan" onclick="showintroductionKU()" style="opacity:1;cursor:pointer;">Introduction</span>
                         <span id="centerinfospan" onclick="showcenterinfoKU()" style="opacity:.8;cursor:pointer;">Center Info</span>
@@ -172,7 +189,7 @@
                     <div class="container" id="data1" style="position:relative;top:0%; left:0%;">
                         <table style="height:100%;width:100%;border-style:hidden;">
                             <tr>
-                                <th style="height:20%;"> About Us <button onclick="aboutus_edit()" style="position:relative;left:40%;height:40%;width:5%;cursor:pointer;">Edit</button></th>
+                                <th style="height:20%;"> About Us <button onclick="aboutus_edit()" style="position:relative;left:40%;height:40%;width:50px;cursor:pointer;">Edit</button></th>
                             </tr>
                             <tr>
                                 <td style="border-style:hidden;"><textarea disabled id="aboutus_text" style="position:absolute; top:25%;left:3%; width:93%; height:200px;background-color:#FFF;font-size:18px;"></textarea></td>

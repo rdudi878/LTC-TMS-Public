@@ -87,7 +87,7 @@ class VitalStatusAddScreen extends React.Component {
       }
     // This pulls the current logged in users data that was saved in asyncstorage into state
     // begin fetching content (patients) before the component actually mounts
-    componentWillMount() {
+    componentDidMount() {
         this._fetchPatients();
         this._fetchUserInfo();
 

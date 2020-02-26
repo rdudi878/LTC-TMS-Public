@@ -63,7 +63,7 @@ class TaskScreen extends React.Component {
 
 
 
-  async componentWillMount() {
+  async componentDidMount() {
     // grab and store user information for use later.
     // it is stored in AsyncStorage upon login.
     const userInfo = await this._fetchUserInfo().then((res) => {
@@ -74,6 +74,7 @@ class TaskScreen extends React.Component {
         // fetch tasks related to/assigned to the currently logged in user
         // the user's ID will be used for the query.
         this._fetchAssignedTasks(res.ID);
+       
       }
     });
   }
