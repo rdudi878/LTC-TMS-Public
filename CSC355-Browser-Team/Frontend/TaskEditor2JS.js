@@ -331,7 +331,7 @@ function injectToDOM(){
      }
     //Task outline
     // console.log(taskDetails["outline"]);
-    htmlInjection += '<div style="text-align:center;"> Task Outline: </div>';
+    htmlInjection += '<div class="words" style="text-align:center;"> Task Outline: </div>';
     if (taskDetails["outline"] == "Type an outline here" || taskDetails["outline"] == ""){
         htmlInjection += '<div>' + '<textarea name="text" class="taskName" id="taskOutline" placeholder="Type an outline here"></textarea>' + '</div>';
     } else {
@@ -339,7 +339,7 @@ function injectToDOM(){
     }
     //Visibility
     htmlInjection += '<center><button type="button" onclick="textToSpeech()" style="float:right;width:15%;text-align:center;"> Text to Voice </button></center>';
-    htmlInjection += '<center><button type="button" onclick="voiceToText()" style="float:right;width:15%;text-align:center;"> Voice to Text </button></center>';
+    htmlInjection += '<center><button type="button" id="startRec" onclick="voiceToText()" style="float:right;width:15%;text-align:center;"> Voice to Text </button></center>';
     htmlInjection += '<div style="text-align:center;"> Task Visibility: </div>';
     htmlInjection += '<div class="radioField">';
     htmlInjection += '<div class="radioChild">';
@@ -426,8 +426,11 @@ function voiceToText() {
   //setting this to true works while you are speaking
   recognition.iterimResults = true;
 
+// creating a new <p> element, where the text is appended
   let p = document.createElement('p');
-  const words = document.querySelector('[name="text"]');
+  p.style.display = "none";
+  // const words = document.querySelector('.words');
+  const words = document.activeElement;
   words.appendChild(p);
 
   recognition.addEventListener('result', e => {
@@ -436,11 +439,43 @@ function voiceToText() {
     .map(result => result[0])
     .map(result => result.transcript)
     .join('')
+
     p.textContent = transcript;
+
+    if(transcript.includes('stop')) {
+      console.log("he said STOP");
+      recognition.abort();
+      recognition.stop();
+      return;
+    }
+
+    if(e.results[0].isFinal) {
+      p = document.createElement('p');
+      p.style.display = "none";
+      words.appendChild(p);
+    }
     console.log(transcript);
+    copyTextOver(transcript);
   });
   recognition.addEventListener('end', recognition.start);
   recognition.start();
+}
+
+function stopRecording() {
+  //set button to start recording again on next click
+  recordButton = document.getElementById('startRec');
+  recordButton.setAttribute('onclick', 'voiceToText()');
+  recognition.stop();
+  console.log("MAN WANTS TO STOP THE RECORDING PLZ");
+}
+
+function copyTextOver(speech) {
+  console.log("SPEEEECHH");
+  console.log(speech);
+  // let textArea = document.getElementById("taskOutline");
+  let textArea = document.activeElement;
+  textArea.value += speech;
+
 }
 
 function textToSpeech() {
