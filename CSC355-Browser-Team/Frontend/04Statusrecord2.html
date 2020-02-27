@@ -418,22 +418,17 @@
                         <div class="no-doc" id="no-doc4">
                             <br><br>
                             <center>
+                              <table class="vital-status-table" id="sc-status-table" style="height:100%; width: 75%;">
+                                <tr>
+                                  <th>Instructions</th>
+                                </tr>
+                                <tbody id="scStatTable">
+                                  <tr></tr>
+                                </tbody>
+                              </table>
                                 <img id="image4" style="margin-top:2px;" src="statics/images/no_doc.jpg" />
                                 <p id="pleaseSelect4"> Please Select Date and Patient </p>
-                            </center>
-                        </div>
-                    </div>
-                    <div id="data5" style="display:none;position:relative;left:22%;width:78%;height:80%;background-color:#fff;border-left:2px solid black;overflow-x:hidden; overflow-y:scroll;">
-                        <table id="Environmenttable" class="environment_table" onclick="sortENV()" style="position:relative;width:100%;border-style:hidden;">
-                            <tr>
-                                <th colspan="3"> Environment Condition </th>
-                            </tr>
-                        </table>
-                        <div class="no-doc" id="no-doc5">
-                            <br><br>
-                            <center>
-                                <img id="image4" style="margin-top:2px;" src="statics/images/no_doc.jpg" />
-                                <p> Please Select Patient </p>
+                                <p style="display:none; color:red;" id="noData4"> There is no data for this patient on the selected date. </p>
                             </center>
                         </div>
                     </div>
@@ -524,23 +519,16 @@
                     <div id="ScOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#C4DFE6;width:22%; height:80%;">
 
                         <h2 id="current_year" style="position:relative;top:-80%"></h2>
-
-                        <div class="status_record_date_option">
-                            <input type="date" id="bday">
-                            <br><br>
-                        </div>
-
                         <div class="status_record_option">
-                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
-                                <option>Special Care - Patient ID</option>
-                            </select>
-                            <select id="selectCNA" style="width:70px;">
-                                <option>CNA ID</option>
+                          <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Patient:</p>
+                            <select id="SCselectPAT" onclick="clearBox()" onchange="selectPatient()" style="float: left; margin-left: 10px; border-radius:5px;">
+                              <option value="none" selected disabled hidden>Special Care - Patient ID</option>
                             </select>
                             <br><br><br>
                         </div>
                         <br><br>
-                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                        <input id="scDisplayButton" class="status_record_display_button" type="button" value="Display" onclick="display_sc(this);" style="cursor:pointer;" />
+                        <input id="scRefreshButton" class="status_record_display_button" type="button" value="Refresh" onclick="refreshPage();" style="cursor:pointer; display:none;" />
                     </div>
                 </div>
             </div>

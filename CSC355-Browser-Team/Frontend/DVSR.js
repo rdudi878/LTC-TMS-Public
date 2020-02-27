@@ -20,15 +20,19 @@ fbPAT.once("value")
             var dsPat = document.getElementById("DSselectPAT");
             var vsPat = document.getElementById("VSselectPAT");
             var aiPat = document.getElementById("AIselectPAT");
+            var scPat = document.getElementById("SCselectPAT");
             var dsOpt = document.createElement("option"); // Creating the drop down options
-            var vsOpt = document.createElement("option"); // Creating the drop down options
             var aiOpt = document.createElement("option"); // Creating the drop down options
+            var vsOpt = document.createElement("option"); // Creating the drop down options
+            var scOpt = document.createElement("option"); // Creating the drop down options
             dsOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
             vsOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
             aiOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
+            scOpt.text = nameArray[index]+" - "+idArray[index]; // format is Name - ID
               dsPat.add(dsOpt); // Appending to the drop down options
               vsPat.add(vsOpt); // Appending to the drop down options
               aiPat.add(aiOpt); // Appending to the drop down options
+              scPat.add(scOpt); // Appending to the drop down options
               index=index+1;
           }
        });
@@ -210,14 +214,6 @@ fbPAT.once("value")
       console.log(selectedDate);
       selectedPatient = getSecondPart(selectedPatient); // Split the string to ignore the name portion of the dropdown selection
       var rootRef = firebase.database().ref();
-// Note: will need to get the CNA ID some other way. Also, the DB format for the date is currently different.
-//       var cnaRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate);
-//       cnaRef.once('value', function(cnaSnap){
-//         cnaSnap.forEach(function(cnaChild) {
-// // Pulling out the CNA ID so that it can be dynamically referenced for getting vital statuses
-//           cnaKey = cnaChild.key;
-//         });
-//       });
       var categoryRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/AI/");
       categoryRef.once("value", function(snapshot) {
         if(!snapshot.exists()) {
@@ -242,6 +238,45 @@ fbPAT.once("value")
         });
       });
     }
+
+    function display_sc() {
+      rmPlaceholderInfo("image4", "pleaseSelect4");
+      var noData = document.getElementById("noData4");
+      noData.style.display = "none";
+      var scStatInfo = document.getElementById("scStatTable");
+      while(scStatInfo.hasChildNodes()) {
+        scStatInfo.removeChild(scStatInfo.firstChild);
+      }
+      var scRowIndex = 0;
+      var cnaKey = "";
+      var pressuresArr = [];
+      var tempsArr = [];
+      var timeArr = [];
+      var selectedPatient = $('#SCselectPAT').val();
+      selectedPatient = getSecondPart(selectedPatient); // Split the string to ignore the name portion of the dropdown selection
+      var rootRef = firebase.database().ref();
+      var categoryRef = rootRef.child("Activities/"+selectedPatient+"/special_care/");
+      categoryRef.once("value", function(snapshot) {
+        if(!snapshot.exists()) {
+          // console.log("no data to display");
+          noData.style.display = "block";
+        }
+        snapshot.forEach(function(child) {
+          var scStatRow = scStatInfo.insertRow(scRowIndex);
+          scStatRow.setAttribute("class","table-list-row");
+          var cellMeasurementValue = scStatRow.insertCell(0);
+          cellMeasurementValue.appendChild(document.createTextNode(child.val()));
+          // var valueRef = categoryRef.child(child.key+"/")
+          // var valueRef = categoryRef.child(child.key+"/")
+          // valueRef.once("value", function(snapshot2) {
+          //   snapshot2.forEach(function(child) {
+          //     cellMeasurementValue.appendChild(document.createTextNode(child.val()));
+          //   });
+          // });
+        });
+      });
+    }
+
 
     var count = 0;
     function display_button(nnn,room){
@@ -842,12 +877,10 @@ function showdsr(){
   document.getElementById("data2").style.display = "none";
   document.getElementById("data3").style.display = "none";
   document.getElementById("data4").style.display = "none";
-  document.getElementById("data5").style.display = "none";
   document.getElementById("dsrspan").style.opacity = "1";
   document.getElementById("vsrspan").style.opacity = ".8";
   document.getElementById("aisspan").style.opacity = ".8";
   document.getElementById("scspan").style.opacity = ".8";
-  document.getElementById("ecspan").style.opacity = ".8";
 }
 function showvsr(){
   document.getElementById("DsOptions").style.display = "none";
@@ -858,12 +891,10 @@ function showvsr(){
   document.getElementById("data2").style.display = "block";
   document.getElementById("data3").style.display = "none";
   document.getElementById("data4").style.display = "none";
-  document.getElementById("data5").style.display = "none";
   document.getElementById("dsrspan").style.opacity = ".8";
   document.getElementById("vsrspan").style.opacity = "1";
   document.getElementById("aisspan").style.opacity = ".8";
   document.getElementById("scspan").style.opacity = ".8";
-  document.getElementById("ecspan").style.opacity = ".8";
 }
 function showais(){
   document.getElementById("DsOptions").style.display = "none";
@@ -874,12 +905,10 @@ function showais(){
   document.getElementById("data2").style.display = "none";
   document.getElementById("data3").style.display = "block";
   document.getElementById("data4").style.display = "none";
-  document.getElementById("data5").style.display = "none";
   document.getElementById("dsrspan").style.opacity = ".8";
   document.getElementById("vsrspan").style.opacity = ".8";
   document.getElementById("aisspan").style.opacity = "1";
   document.getElementById("scspan").style.opacity = ".8";
-  document.getElementById("ecspan").style.opacity = ".8";
 }
 function showsc(){
   document.getElementById("DsOptions").style.display = "none";
@@ -890,12 +919,10 @@ function showsc(){
   document.getElementById("data2").style.display = "none";
   document.getElementById("data3").style.display = "none";
   document.getElementById("data4").style.display = "block";
-  document.getElementById("data5").style.display = "none";
   document.getElementById("dsrspan").style.opacity = ".8";
   document.getElementById("vsrspan").style.opacity = ".8";
   document.getElementById("aisspan").style.opacity = ".8";
   document.getElementById("scspan").style.opacity = "1";
-  document.getElementById("ecspan").style.opacity = ".8";
 }
 function showec(){
   document.getElementById("data1").style.display = "none";
