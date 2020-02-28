@@ -200,15 +200,18 @@ class DailyStatusReadScreen extends React.Component {
   }
 
   _fetchStatus = () => {
+    console.log(this.state.position);
+    console.log(this.state.userID);
     patient = ""
     if (this.state.position == "Patient") {
       patient = this.state.userID;
+      
     } else {
       patient = this.state.patient;
     }
     const patientStatus = [];
     console.log("Patient : ", this.state.patient);
-    firebase.database().ref(`Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.date}/daily_status/`).once('value').then((snapshot) => {
+    firebase.database().ref(`Activities/${(this.state.position == "Patient" ? patient : this.props.navigation.getParam('patientID','0'))}/${this.state.date}/daily_status/`).once('value').then((snapshot) => {
       var status = snapshot.toJSON();
       var shower = status.shower;
       var shampoo = status.shampoo;

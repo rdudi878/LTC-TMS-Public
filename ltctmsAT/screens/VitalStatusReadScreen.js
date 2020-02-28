@@ -167,7 +167,7 @@ class VitalStatusReadScreen extends React.Component {
       patient = this.state.patient;
     }
     console.log(`Activities/${patient}/${this.state.date}/vital_status`)
-    firebase.database().ref(`Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.date}/vital_status`).once('value').then((snapshot) => {
+    firebase.database().ref(`Activities/${(this.state.position == "Patient" ? patient : this.props.navigation.getParam('patientID','0'))}/${this.state.date}/vital_status`).once('value').then((snapshot) => {
       console.log("snapshot" + snapshot.val())
       snapshot.forEach((childSnapshot) => {
         if (childSnapshot.val() == null) {

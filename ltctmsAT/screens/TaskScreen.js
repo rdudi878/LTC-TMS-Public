@@ -23,12 +23,13 @@ import {
   Dimensions,
   Image,
   Linking,
+  Picker,
   
   
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { createStackNavigator, createSwitchNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
-import {  Text,Content,Container, Header,  Icon, Item, Input} from 'native-base'
+import {  Text,Content,Container, Header,  Icon, Item, Input, Card} from 'native-base'
 import firebase from 'react-native-firebase';
 import styles from '../styles/styles';
 import { ForceTouchGestureHandler } from 'react-native-gesture-handler';
@@ -47,36 +48,63 @@ class TaskScreen extends React.Component {
     }
   };
 
-  state = {
-    userInfo: {},
-    tasks: [],
-    catList: [],
-    fixedTasks: [],
-    refreshing: false
-  };
-
   constructor(props) {
     super(props);
     //setting default state
     this.arrayholder = [];
+    
+    this.state = {
+      userInfo: {},
+      userID:'',
+      userPosition:'',
+      tasks: [],
+      catList: [],
+      fixedTasks: [],
+      refreshing: true,
+      patientList: [],
+      patient:'',
+      default: true
+    }
   }
 
 
-
   async componentDidMount() {
+    //this._fetchPatients(this.state.userID);
     // grab and store user information for use later.
     // it is stored in AsyncStorage upon login.
     const userInfo = await this._fetchUserInfo().then((res) => {
       if (res) {
         this.setState({
-          userInfo: res
+          userInfo: res,
+          userID: res.ID,
+          userPosition: res.Position
         });
         // fetch tasks related to/assigned to the currently logged in user
-        // the user's ID will be used for the query.
+        // the user's ID will be used for the query.\
+        console.log(res.Position);
         this._fetchAssignedTasks(res.ID);
-       
+        
+        if (this.state.userPosition == "CNA") {
+          this._fetchPatients(res.ID);
+        }
       }
     });
+   
+  }
+
+
+
+  handleChange(e) {
+    if (e == "patient") {
+      Alert.alert("Please Select a Patient");
+    }
+    this.setState({
+      fixedTasks: [],
+      patient: e,
+    default: false});
+    this._fetchAssignedTasks();
+    
+    
   }
 
   // simple retrieval from AsyncStorage.
@@ -86,6 +114,7 @@ class TaskScreen extends React.Component {
     try {
       const userInfo = await AsyncStorage.getItem('userInfo');
       return JSON.parse(userInfo);
+      
     } catch (err) {
       console.log(err);
       return null;
@@ -100,20 +129,50 @@ class TaskScreen extends React.Component {
     var taskCategories = [];
     var fixedTasks = [];
     var position = this.state.userInfo.Position;
-    console.log("hello" + userId)
+    //console.log("hello" + userId)
     // pulls all the task categories from firebase and puts them in taskCategories array
     firebase.database().ref("TaskInstruction").once('value').then((snapshot) => {
       snapshot.forEach(function (categories) {
         var cat = categories.key;
         taskCategories.push(cat);
       })
+
+      
+
+      if (this.state.userPosition == "Patient") {
+        firebase.database().ref(`Patient/${this.state.userID}/AssignedTasks`).once('value').then((snapshot2) => {
+          snapshot2.forEach((assigned) => {
+            var assignedDef = assigned.val();
+            // iterates over the taskCategories and assigned tasks and pulls the task objects 
+            for (var index in taskCategories) {
+              //firebase.database().ref(`TaskInstruction/${taskCategories[index]}/${assignedDef}`).once('value').then((snapshot3) => {
+                firebase.database().ref(`TaskInstruction/${taskCategories[index]}/${assignedDef}`).once('value').then((snapshot3) => {
+                if (snapshot3.val() != null) {
+                  const child = snapshot3.val();
+                  child.collapsed = true;
+                  child.collapsedStep = true;
+                  this.populateArray(child)
+                } else {
+  
+                }
+              }).catch((error) => {
+                console.error(error);
+                return null;
+              });
+            }
+          })
+        })
+      } 
+
+      
       // pulls all the task ID's assigned to the logged in user
-      firebase.database().ref(`${position}/${userId}/AssignedTasks`).once('value').then((snapshot2) => {
+        firebase.database().ref(`Patient/${this.state.patient}/AssignedTasks`).once('value').then((snapshot2) => {
         snapshot2.forEach((assigned) => {
           var assignedDef = assigned.val();
           // iterates over the taskCategories and assigned tasks and pulls the task objects 
           for (var index in taskCategories) {
-            firebase.database().ref(`TaskInstruction/${taskCategories[index]}/${assignedDef}`).once('value').then((snapshot3) => {
+            //firebase.database().ref(`TaskInstruction/${taskCategories[index]}/${assignedDef}`).once('value').then((snapshot3) => {
+              firebase.database().ref(`TaskInstruction/${taskCategories[index]}/${assignedDef}`).once('value').then((snapshot3) => {
               if (snapshot3.val() != null) {
                 const child = snapshot3.val();
                 child.collapsed = true;
@@ -234,6 +293,30 @@ class TaskScreen extends React.Component {
    
   }
 
+  _fetchPatients = (userId) => {
+    // fetch content
+    const patientData = [];
+    firebase.database().ref(`CNA/${userId}/AssignedPatients`).once('value').then((snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        patientData.push({
+          id: childSnapshot.key,
+        })
+      })
+      this.setState({
+        patientList: patientData,
+        patient: patientData[0].id,
+        
+      });
+      console.log(userId);
+      console.log(patientData);
+      console.log(this.state.patientList);
+      console.log(patientData[0].id);
+      
+      
+    });
+        
+  }
+
 
 
   //search function
@@ -334,8 +417,7 @@ class TaskScreen extends React.Component {
                     onPress={this.toggleCollapseStep.bind(this, item)}
                   >
                     <Text style={styles.itemTask, 
-                      {textAlign: 'center', textTransform: 'uppercase', fontSize: 23, color: '#004dcf', fontWeight: 'bold', paddingLeft: 2, paddingTop: 15}}>
-                      {item.name}</Text>
+                      {textAlign: 'center', textTransform: 'uppercase', fontSize: 23, color: '#004dcf', fontWeight: 'bold', paddingLeft: 2, paddingTop: 15}}>{item.name}</Text>
                   </TouchableOpacity>
                   {item.collapsedStep ?
                     <View /> :
@@ -362,7 +444,8 @@ class TaskScreen extends React.Component {
   _renderHeader() {
     return (
       <View style={styles.header}>
-        <Text style={styles.headerText}>Your Assigned Tasks</Text>
+        <Text style={styles.headerText}>Assigned Tasks</Text>
+        
       </View>
     )
   }
@@ -372,6 +455,9 @@ class TaskScreen extends React.Component {
   // renders the flatlist and passes the data elements from state into _renderItem
   render() {
     return (
+      <View>
+        
+      
       <ScrollView style={{ backgroundColor: '#fff' }}>
         <View style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
@@ -387,26 +473,43 @@ class TaskScreen extends React.Component {
           onPressCancel={text => this.filterlist('')}
           value={this.state.search}
         />
-
+        
+        {(this.state.userPosition == "CNA") ? 
+        
+        <Card style={{padding:10, margin:50, marginLeft:30, marginRight:30}}>
+        <View>             
+              <Picker
+                mode='anchor'
+                style={{height:150, width: 300, alignSelf:'center', borderColor:'#ff5722', backgroundColor:'', marginTop:0, justifyContent:'flex-end'}}
+                selectedValue={(this.state.default == true) ? 0 : this.state.patient}
+                onValueChange={(itemValue) => this.handleChange(itemValue)}>
+                
+                {<Picker.Item label = "Select Patient" color="#1976d2" value="patient"/>} 
+                {this.state.patientList.map((item, index) => {
+                  return (<Picker.Item label={item.id} color="#1976d2" value={item.id} key={index}/>)
+                })
+              }
+              </Picker>
+            </View ></Card> : console.log("hi")} 
+          <Card style={{padding:10, margin:50, marginLeft:30, marginRight:30}}>
           <FlatList
             style={{ flexGrow: 1 }}
             ref="listRef"
             data={this.state.fixedTasks}
             keyExtractor={(item, index) => index.toString()}
             renderItem={this._renderItem}
-            ListHeaderComponent={this._renderHeader}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                enabled={true}
-              />}
+            ListHeaderComponent={this._renderHeader()}
             extraData={this.state}
 
-          />
+          /></Card>
         </View>
       </ScrollView>
+      
+      </View>
     );
   }
+  
+
 
 }
 

@@ -138,7 +138,7 @@ class AiStatusReadScreen extends React.Component {
       patient = this.state.patient;
     }
     const patientStatus = [];
-    firebase.database().ref(`Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.date}`).once('value').then((snapshot) => {
+    firebase.database().ref(`Activities/${(this.state.position == "Patient" ? patient : this.props.navigation.getParam('patientID','0'))}/${this.state.date}`).once('value').then((snapshot) => {
 
       const data = snapshot.toJSON();
 

@@ -14,6 +14,7 @@ import {
   View,
   Alert,
   Dimensions,
+  TouchableOpacity,
   Image,
   ImageBackground,
   FlatList,
@@ -25,6 +26,7 @@ import firebase from 'react-native-firebase';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/styles';
 import { scale } from '../styles/scaling';
+import Icon from 'react-native-vector-icons/AntDesign';
 import AnnouncementList from '../components/AnnouncementList';
 import {
   Container,
@@ -32,7 +34,7 @@ import {
   Title,
   Content,
   Button,
-  Icon,
+  
   Card,
   CardItem,
   Text,
@@ -45,6 +47,7 @@ const deviceWidth = Dimensions.get("window").width;
 
 
 class HomeScreen extends React.Component {
+  
   static navigationOptions = {
     title: 'Home',
     headerStyle: {
@@ -62,12 +65,55 @@ class HomeScreen extends React.Component {
       announcements: [],
       
     }
+    console.disableYellowBox = true;
+  }
+
+   
+  static navigationOptions=({navigation,screenProps}) => {
+    console.log("here");
+    const { params ={} }= navigation.state;
+    const headerRight = ( 
+      <TouchableOpacity onPress={()=>navigation.state.params.navigatePress()}>
+        <View style={styles2.iconstyle}>
+        <Icon 
+            name='logout'
+            size= {20}
+            color='#FFF'
+            
+            />
+       </View>
+      </TouchableOpacity>
+    );
+    return { title: navigation.getParam('otherParam', 'User Portfolio') ,
+      headerRight,
+      headerStyle: {
+        backgroundColor: '#3f9fff',
+      },
+      headerTintColor: '#fff',
+      
+      };
+  };
+
+  LogoutButton=()=>{
+    Alert.alert('Log out','Are you sure?',
+    [
+      {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+      {text: 'OK', onPress: () => this._logout ()},
+    ],
+    )
+  }
+  
+  _logout (){
+    AsyncStorage.removeItem('userInfo');
+    this.props.navigation.navigate('Auth');
   }
 
   // begin fetching content (announcements) before the component actually mounts
   componentDidMount() {
     this._fetchAnnouncements();
+    this.props.navigation.setParams({navigatePress:this.LogoutButton});
   }
+
 
   /*componentWillUnmount() {
     if (this._asyncRequest) {
@@ -218,6 +264,10 @@ class HomeScreen extends React.Component {
 }
 
 const styles2 = StyleSheet.create({
+  iconstyle:{
+    paddingRight:20
+
+  },
   mb15: {
     marginBottom: 15,
     paddingHorizontal:20,
