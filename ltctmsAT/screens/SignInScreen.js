@@ -40,6 +40,7 @@ class SignInScreen extends React.Component {
       password: '',
       showPassword: true,
     };
+    console.disableYellowBox = true;
   };
 
   toggleSwitch() {
@@ -86,7 +87,7 @@ class SignInScreen extends React.Component {
           <Switch
             onValueChange = {this.toggleSwitch}
             value = {!this.state.showPassword}
-            style = {{marginBottom: 10, alignSelf: 'flex-start'} }
+            style = {{marginBottom: 10, marginLeft: 10, alignSelf: 'center'} }
             trackColor={{ true: 'green', false: 'red' }}
           />
           <TouchableHighlight style={[styles_2.buttonContainer, styles_2.loginButton]} onPress={this._signIn}>
@@ -151,11 +152,13 @@ const styles_2 = StyleSheet.create({
       backgroundColor: '#FFFFFF',
       borderRadius:30,
       borderBottomWidth: 1,
-      width:WIDTH - 50,
+      width:350 ,
       height:45,
       marginBottom:10,
       flexDirection: 'row',
-      alignItems:'center'
+      alignItems:'center',
+      alignSelf:'center',
+     
   },
   inputs:{
       height:45,
@@ -175,10 +178,11 @@ const styles_2 = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     marginTop: 20,
     marginBottom:20,
-    marginLeft: 40,
-    width:WIDTH - 120,
+  
+    width:300,
     borderRadius:7,
   },
   loginButton: {
@@ -189,6 +193,8 @@ const styles_2 = StyleSheet.create({
   },
   simpleText: {
     color: 'black',
+    alignSelf:'center',
+    marginLeft: 10
   },
 });
 

@@ -8,14 +8,10 @@
 /**********************************************************************************************/
 import React from 'react';
 import {
-    ActivityIndicator,
-    StatusBar,
     StyleSheet,
     View,
-    TextInput,
     Alert,
     ScrollView,
-    Picker,
     KeyboardAvoidingView,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -31,35 +27,24 @@ import Moment from 'moment';
 
 class VitalStatusAddScreen extends React.Component {
     static navigationOptions = {
-        title: 'Add Vital Status',
+        title: 'Add Special Care',
     };
 
-    constructor() {
-        super();
-
-        var now = new Date();
-        var month = ("0" + (now.getMonth() + 1)).slice(-2);
-        var day = ("0" + now.getDate()).slice(-2);
-
+    constructor(props) {
+        super(props);
+        var patientID = props.navigation.state.params.patientID;
         this.state = {
             patientList: [],
-            patient: '',         
-            today: `${now.getFullYear()}-${month}-${day}`,
-            date: `${now.getFullYear()}-${month}-${day}`,
-            CNA: '',
-            diastolic: '',
-            systolic: '',
-            temperature: '',
+            patient: patientID,         
             specialrecord:'',
             userInfo: null,
-            
         };
+        
     }
 
 
-    updatePatient = (patient) => {
-        this.setState({ patient: patient })
-    }
+   
+    
 
     async _fetchUserInfo() {
         const userInfo = await AsyncStorage.getItem("userInfo");
@@ -72,7 +57,6 @@ class VitalStatusAddScreen extends React.Component {
     componentDidMount() {
         this._fetchPatients();
         this._fetchUserInfo();
-        console.log("EEE" + this.state.patient);
     }
 
     // render content
@@ -85,36 +69,12 @@ class VitalStatusAddScreen extends React.Component {
             <KeyboardAvoidingView behavior='position' style={{backgroundColor:'#fff', flex:1}} >
             <View style={{backgroundColor:'#fff'}}>
                 <ScrollView style={styles2.container}>
-                    <View>
-
-                        <ListRow title='Enter Systolic Pressure' style={padding=10}        
-                        detail={
-                            <Input
-                            style={{width: 100,  textAlign: 'right',height: 30,borderColor: '#b2d1f1', borderWidth: 2}}
-                            onChangeText={(systolic) => this.setState({ systolic })}
-                            value={this.state.systolic}/>                      
-                        }
-                        />
-                        
-                        <ListRow title='Enter Diastolic Pressure' detail={
-                            <Input
-                            style={{width: 100,  textAlign: 'right',height: 30,borderColor: '#b2d1f1', borderWidth: 2}}
-                            onChangeText={(diastolic) => this.setState({ diastolic })}
-                            value={this.state.diastolic}/>
-                        }/>
-
-                        <ListRow title='Enter Temperature in Celcius' detail={
-                            <Input
-                            style={{width: 100,  textAlign: 'right',height: 30,borderColor: '#b2d1f1', borderWidth: 2}}
-                            onChangeText={(temperature) => this.setState({ temperature })}
-                            value={this.state.temperature}/>
-                        }/>
-                    </View>
-                    <View style={{paddingTop:20}}>
+                   
+                    <View style={{paddingTop:5}}>
                     <Content padder>
                         <Card style={styles.mb}>
                         <CardItem header bordered>
-                            <Text>Special Case Record</Text>
+                            <Text>Special Care Record</Text>
                         </CardItem>
                         <CardItem> 
                         <Form style={{flex:1,flexDirection:"column"}}>
@@ -146,46 +106,30 @@ class VitalStatusAddScreen extends React.Component {
 
     // submits patient vital status to the firebase database, fires an alert if successful
     _submitStatus = async () => {
-        if (this.props.navigation.getParam('patientID','0') == null){
-            Alert.alert("Please select a patient")
-        } else {
-        const systolic = this.state.systolic
-        const diastolic = this.state.diastolic
-        // adding tilde delimiter between systolic and diastolic
-        heart = systolic + "~" + diastolic;
-        const temperature = this.state.temperature
+        
         const specialrecord=this.state.specialrecord
-        const CNA = this.state.userInfo.ID;
-        const baseRef = `Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.today}/vital_status/`;
+    
+        const baseRef = `Activities/${this.props.navigation.getParam('patientID', '0')}/special_care`;
         console.log(baseRef)
+        console.log(this.state.patient + " hi");
         const ref = firebase.database().ref(baseRef);
-        const user = this.state.userInfo;
-        const now = new Date();
+    
         // grabs current time and adds a suffix of 0 to minutes if it's only a single digit
-        time = (now.getHours()+":"+ String(now.getMinutes()).padStart(2, "0"));
         // heartKey and tempKey are necessary to assemble our key strings because we can't construct
         // them within the update function
-        heartKey = "BloodPressure_"+time;
-        tempKey = "Temperature_"+time;
+
         // variables as keys must be enclosed in brackets for firebase
         await ref.update({
-            [heartKey]: heart,
-            [tempKey]: temperature,
             specialrecord:specialrecord
         });
         this._showPatientRecords();
-        Alert.alert('Vital Status Add', 'Successful!');
-    }
+        Alert.alert('Special Care Add', 'Successful!');
+    
     }
 
 _showPatientRecords = () => {
     this.props.navigation.goBack();
 };
-
-_submit() {
-    this._submitStatus();
-    this._showPatientRecordsScreen();
-}
 
 // fetch content (patients)
 _fetchPatients() {

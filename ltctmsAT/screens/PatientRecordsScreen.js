@@ -52,6 +52,7 @@ class PortfolioScreen extends React.Component {
       userID: 'afsdaasfd',
       buttonArray: [],
       user_position:'',
+      default:true
       //patientSelected:'true'
     };
   }
@@ -69,6 +70,15 @@ class PortfolioScreen extends React.Component {
   async UNSAFE_componentWillMount() {
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
+      this.setState ({
+        userID : data.ID,
+        position : data.Position,
+        address : data.Address,
+        name : data.Name,
+        room : data.patientRoomNo,
+      });
+
+      /*
       this.state.userID = data.ID;
       this.state.position = data.Position;
       console.log(this.state.position)
@@ -85,7 +95,7 @@ class PortfolioScreen extends React.Component {
       this.state.medicalRecord = data.MedicalRecord;
       this.state.profile_Pic = data.profilePic;
 
-      this.forceUpdate();
+      this.forceUpdate();*/
     })
 
     this._fetchPatients();
@@ -107,17 +117,18 @@ class PortfolioScreen extends React.Component {
           <View>
             <View>             
               <Text style={styles2.text}>Select Patient:</Text>
+              <Card style={{padding:10, margin:50, marginLeft:12, marginRight:12}}>
               <Picker
                 mode='anchor'
                 style={styles2.picker, {color:'black'}}
-                selectedValue={this.state.patient}
-                onValueChange={(itemValue, itemIndex) => {this.setState({ patient: itemValue, isLoading:true})}}
+                selectedValue={(this.state.default == true) ? 0 : this.state.patient}
+                onValueChange={(itemValue, itemIndex) => {this.handleChange(itemValue)}}
               >
-                <Picker.Item  label = "Select Patient" value="patient"/>
+                {<Picker.Item  label = "Select Patient" value="patient"/>}
                 {this.state.patientList.map((item, index) => {
                   return (<Picker.Item label={item.id} value={item.id} key={index}/>)
                 })}
-              </Picker>
+              </Picker></Card>
             </View >
             <View>
               <Content padder>
@@ -199,7 +210,7 @@ class PortfolioScreen extends React.Component {
                     <Left>
                       <Icon2
                         active
-                        name="page"
+                        name="graph-trend"
                         style={{ color: "#DD5044" }}
                         size= {45}
                       />
@@ -211,6 +222,39 @@ class PortfolioScreen extends React.Component {
                     
                   </CardItem>
                   </TouchableOpacity>
+                  <TouchableOpacity onPress={this._showSpecialCareAdd}>
+                  <CardItem>        
+                    <Left>
+                      <Icon2
+                        active
+                        name="page-add"
+                        style={{ color: "#DD5044" }}
+                        size= {45}
+                      />
+                      <Text> Add Special Care</Text>
+                    </Left>
+                    <Right>
+                      <Icon name="arrow-forward" onPress={this._showSpecialCareAdd} />
+                    </Right>
+                    
+                  </CardItem>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={this._showVitalStatusRead}>
+                <CardItem>        
+                  <Left>
+                    <Icon2
+                      active
+                      name="page"
+                      style={{ color: "#DD5044" }}
+                      size= {45}
+                    />
+                    <Text>View Special Care Instructions</Text>
+                  </Left>
+                  <Right>
+                    <Icon name="arrow-forward" onPress={this._showVitalStatusRead} />
+                  </Right>
+                </CardItem> 
+                </TouchableOpacity>
                     </Card>
               </Content>  
             </View>
@@ -259,11 +303,27 @@ class PortfolioScreen extends React.Component {
                   <Left>
                     <Icon2
                       active
-                      name="page"
+                      name="graph-trend"
                       style={{ color: "#DD5044" }}
                       size= {45}
                     />
                     <Text>Check Vital Status</Text>
+                  </Left>
+                  <Right>
+                    <Icon name="arrow-forward" onPress={this._showVitalStatusRead} />
+                  </Right>
+                </CardItem> 
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this._showVitalStatusRead}>
+                <CardItem>        
+                  <Left>
+                    <Icon2
+                      active
+                      name="page"
+                      style={{ color: "#DD5044" }}
+                      size= {45}
+                    />
+                    <Text>View Special Care Instructions</Text>
                   </Left>
                   <Right>
                     <Icon name="arrow-forward" onPress={this._showVitalStatusRead} />
@@ -281,26 +341,53 @@ class PortfolioScreen extends React.Component {
 
   // handler to navigate to the Portfolio page
   _showDailyStatusRead = () => {
-    this.props.navigation.navigate('DailyStatusRead',{patientID:this.state.patient});
+    if ((this.state.patient == "patient" || this.state.patient == "") && this.state.position == "CNA") {
+      Alert.alert("You Have Not Select a Patient");
+    } else {
+      this.props.navigation.navigate('DailyStatusRead',{patientID:this.state.patient});
+    }
   };
 
   _showDailyStatusAdd = () => {
-    this.props.navigation.navigate('DailyStatusAdd',{patientID:this.state.patient})
-    
+    if ((this.state.patient == "patient" || this.state.patient == "") && this.state.position == "CNA") {
+      Alert.alert("You Have Not Select a Patient");
+    } else {
+      this.props.navigation.navigate('DailyStatusAdd',{patientID:this.state.patient});
+    }
   }
 
   _showAiStatusRead = () => {
-    this.props.navigation.navigate('AiStatusRead',{patientID:this.state.patient});
+    if ((this.state.patient == "patient" || this.state.patient == "") && this.state.position == "CNA") {
+      Alert.alert("You Have Not Select a Patient");
+    } else {
+      this.props.navigation.navigate('AiStatusRead',{patientID:this.state.patient});
+    }
   }
 
   _showVitalStatusRead = () => {
-    this.props.navigation.navigate('VitalStatusRead',{patientID:this.state.patient});
+    if ((this.state.patient == "patient" || this.state.patient == "") && this.state.position == "CNA") {
+      Alert.alert("You Have Not Select a Patient");
+    } else {
+      this.props.navigation.navigate('VitalStatusRead',{patientID:this.state.patient});
+    }
   }
 
   _showVitalStatusAdd = () => {
-
-    this.props.navigation.navigate('VitalStatusAdd',{patientID:this.state.patient});
+    if ((this.state.patient == "patient" || this.state.patient == "") && this.state.position == "CNA") {
+      Alert.alert("You Have Not Select a Patient");
+    } else {
+      this.props.navigation.navigate('VitalStatusAdd',{patientID:this.state.patient});
+    }
   }
+
+  _showSpecialCareAdd = () => {
+    if ((this.state.patient == "patient" || this.state.patient == "") && this.state.position == "CNA") {
+      Alert.alert("You Have Not Select a Patient");
+    } else {
+      this.props.navigation.navigate('SpecialCareAdd',{patientID:this.state.patient});
+    }
+  }
+
   _fetchPatients() {
     // fetch content
     const patientData = [];
@@ -309,25 +396,29 @@ class PortfolioScreen extends React.Component {
         patientData.push({
           id: childSnapshot.key,
         })
-      })/*
-      if(this.state.patient == "patient") {
-        this.state.patientSelected = false;
-      } else {
-        this.state.patientSelected = true;
-        this.setState({
-          patientList: patientData,
-          patient: patientData[0].id,
-          
-        });
-      }*/
+      })
       this.setState({
         patientList: patientData,
-        patient: patientData[0].id,
+        //patient: patientData[0].id,
         
       });
       
     });
         
+  }
+
+  handleChange(e) {
+    if (e == "patient") {
+      Alert.alert("Please Select a Patient")
+    }
+    console.log("e"+e);
+    this.setState({
+      patient: e,
+      default:false
+    })
+    console.log(this.state.patient);
+    this.forceUpdate();
+    console.log(this.state.patient);
   }
 
 

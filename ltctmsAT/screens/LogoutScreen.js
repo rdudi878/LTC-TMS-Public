@@ -60,7 +60,7 @@ class LogoutScreen extends React.Component {
   }
 /*************************************************************************/
   /* */
-  /* Function name: componentWillMount */
+  /* Function name: componentDidMount */
   /* Description: call _fetchUserInfo function before render() */
   /* Parameters: none */
   /* Return Value: none */
