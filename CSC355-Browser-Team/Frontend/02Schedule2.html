@@ -224,6 +224,9 @@
                     </div> <!--end div class="container" id="data3" style="display:none;"-->
                     <!-- Working schedule tab contents "data4"-->
                     <div class="container" id="data4" style="display:none;overflow:scroll;">
+                      <br>
+                      <button type="button" onclick="AddNewWS()" class="add_button" style="cursor:pointer;">Add New CNA</button>
+                      <br><br>
                       <table id='WStable' style="width:100%; border: 1px solid black;">
                           <tr>
                               <th style="width:11%">CNA</th>
@@ -297,14 +300,14 @@
     </div>
     <!--</div>-->
 
-    <div id="newWSBlock">
+    <!--<div id="newWSBlock">
         <div class="create_new_center_schedule_form">
             <input type="text" id="fileButton3"/>
 
             &nbsp&nbsp&nbsp<button id="btnSubmitCS" style="cursor:pointer;">Submit</button> &nbsp&nbsp
             <button id="Ecancel" onclick="document.getElementById('newWSBlock').style.display='none';" style="cursor:pointer;">Cancel</button>
         </div>
-    </div>
+    </div>-->
     <!--</div>-->
 
 
@@ -452,6 +455,54 @@
             </div>
         </div>
     </div><!--end div id="editWorkBlock-->
+
+    <div id="newWSBlock">
+        <div class="create_new_center_schedule_form">
+            <h2><center>New CNA Schedule</center></h2>
+            <hr class="schedule_hr">
+            <div style="padding:2%">
+                <table style="border:none; width: 50%;">
+                    <tr>
+                        <td style="border:none">CNA:</td>
+                        <td style="border:none"><input type="text" id="NewCNA" /><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Sunday</td>
+                        <td style="border:none"><input type="text" id="NewWSSun"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Monday</td>
+                        <td style="border:none"><input type="text" id="NewWSMon"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Tuesday</td>
+                        <td style="border:none"><input type="text" id="NewWSTue"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Wednesday</td>
+                        <td style="border:none"><input type="text" id="NewWSWed"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Thursday</td>
+                        <td style="border:none"><input type="text" id="NewWSThu"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Friday</td>
+                        <td style="border:none"><input type="text" id="NewWSFri"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Saturday</td>
+                        <td style="border:none"><input type="text" id="NewWSSat"><br></td>
+                    </tr>
+                </table>
+                <br>
+
+                <button id="btnSubmitWS" style="cursor:pointer;" onclick="createNewWorkingSchedule()">Submit</button> &nbsp&nbsp
+                <button id="Ecancel" onclick="document.getElementById('newWSBlock').style.display='none';" style="cursor:pointer;">Cancel</button>
+            </div>
+        </div>
+    </div> <!--end div id="newWSBlock-->
+
     <!--</div>-->
 
     <!--</div>-->
