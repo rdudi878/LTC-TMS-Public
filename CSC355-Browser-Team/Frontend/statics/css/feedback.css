@@ -1,0 +1,40 @@
+table, th, td {
+    padding: 10px;
+    border: 1px solid black;
+    width: 600px;
+    text-align: center;
+    word-wrap: break-word;
+}
+    table th {
+        background-color: #B0C4DE;
+        color: #000;
+    }
+    table td {
+        text-shadow: 2px 2px #FFFFFF;
+    }
+    .view_Feedback {
+        border-radius: 10px;
+        font-family: raleway;
+        background-color: #fff;
+        position: absolute;
+        left: 12%;
+        top: 1%;
+        width: 75%;
+        height: 75%;
+        overflow:scroll;
+    }
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+    80% {
+        -webkit-transform: translateY(-3px);
+        transform: translateY(-3px);
+    }
+}
