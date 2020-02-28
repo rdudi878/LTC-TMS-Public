@@ -299,6 +299,7 @@ function injectToDOM(){
     //var $AddToDom = $('<div>Task Name: </div>');
     htmlInjection = "";
     //Task name
+    htmlInjection += '<div style="text-align:center;"><button id="startRec" onclick="voiceToText()" type="button" class="btn btn-primary record"><span class="glyphicon glyphicon-record"></span> Voice Recognition</button></div>'
     htmlInjection += '<div style="text-align:center;"> Task Name: </div>';
     if (taskDetails["name"] == "New Task"){
         htmlInjection += '<input style="text-align:center;" type="text" id="nameInput" placeholder="' + taskDetails["name"] + '"> </input>';
@@ -338,8 +339,8 @@ function injectToDOM(){
         htmlInjection += '<div>' + '<textarea id="theOutline" class="taskName" id="taskOutline" >' + taskDetails["outline"] + ' </textarea>' + '</div>';
     }
     //Visibility
-    htmlInjection += '<center><button type="button" onclick="textToSpeech()" style="float:right;width:15%;text-align:center;"> Text to Voice </button></center>';
-    htmlInjection += '<center><button type="button" id="startRec" onclick="voiceToText()" style="float:right;width:15%;text-align:center;"> Voice to Text </button></center>';
+    htmlInjection += '<center><button id="outlineBtn" class="btn btn-primary" type="button" onclick="textToSpeech(this)" style="float:right;width:15%;text-align:center;"><span class="glyphicon glyphicon-volume-up"></span> Play </button></center>';
+    // htmlInjection += '<center><button type="button" id="startRec" onclick="voiceToText()" style="float:right;width:15%;text-align:center;"> Voice to Text </button></center>';
     htmlInjection += '<div style="text-align:center;"> Task Visibility: </div>';
     htmlInjection += '<div class="radioField">';
     htmlInjection += '<div class="radioChild">';
@@ -391,9 +392,13 @@ function injectToDOM(){
         //Step description
         htmlInjection += "<div class='inputFieldLeft' width='100%'>";
         if (steps[i].description == "step description" || steps[i].description == "" || steps[i].description == "description"){
-            htmlInjection += "Description: <div class='containerDiv'> <div class='desDiv'> <textarea class = 'stepDescriptionInput' id='" + i + "' placeholder='Type a step description here.'></textarea></div>";
+            htmlInjection += "Description: <div class='containerDiv'> <div class='desDiv'> <textarea class = 'stepDescriptionInput' id='" + i + "' name='description" + i + "' placeholder='Type a step description here.'></textarea></div>";
+            htmlInjection += "<br>";
+            htmlInjection += '<center><button id="description'+i+'" class="btn btn-primary" type="button" onclick="textToSpeech(this)" style="float:right;margin-top:4pc;margin-left:.5pc;text-align:center;"><span class="glyphicon glyphicon-volume-up"></span> Play </button></center>';
         } else {
             htmlInjection += "Description: <div class='containerDiv'> <div class='desDiv'> <textarea class = 'stepDescriptionInput' id='" + i + "'>"+ steps[i].description + "</textarea></div>";
+            htmlInjection += "<br>";
+            htmlInjection += '<center><button id="description'+i+'" class="btn btn-primary" type="button" onclick="textToSpeech(this)" style="float:right;margin-top:4pc;margin-left:.5pc;text-align:center;"><span class="glyphicon glyphicon-volume-up"></span> Play </button></center>';
         }
         htmlInjection += '<div class = "stepImageContainer">';
         //Add in image upload button and image preview
@@ -478,11 +483,20 @@ function copyTextOver(speech) {
 
 }
 
-function textToSpeech() {
+function textToSpeech(btn) {
+  console.log(btn.id);
+  var selector = "";
+  if (btn.id == "outlineBtn") {
+    selector = '[name="text"]';
+  } else {
+    var descriptionName = btn.id;
+    selector = '[name="'+descriptionName+'"]'
+    console.log(selector);
+  }
   var synth = window.speechSynthesis;
   var msg = new SpeechSynthesisUtterance();
-  var textToSpeak = document.querySelector('[name="text"]').value;
-  msg.text = document.querySelector('[name="text"]').value;
+  var textToSpeak = document.querySelector(selector).value;
+  msg.text = document.querySelector(selector).value;
   console.log("msg");
   console.log(msg);
 
