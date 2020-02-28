@@ -270,38 +270,42 @@
             <div class="header">
                 <!-- DIV CONTAINER OF OUR HEADER-->
 
-                <div class="bar">
-                    <!-- PlaceHolder for top bar -->
+                <div class="bar"><!-- PlaceHolder for top bar -->
 
-                    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
-                        <!-- Bootstrap navigation bar -->
+                    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default"><!-- Bootstrap navigation bar -->
                         <div class="container-fluid">
-
-                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="float:left; margin-right: 1.5ex;padding-top:1.5ex;padding-bottom:1.5ex;padding-left:2px;padding-right:2px; background-color:#66A5AD;">
-                                <i class="fas fa-align-left"></i>
-                                <span id="toggleSide">Hide sidebar</span>
-                            </button>
-
-                            <div class="navbar-header">
-
-                                <a href="../Frontend/01Aboutus2.html">
-                                    <!-- <img src="statics/images/v2ltctmslogo.png" height="50" width="60" /> -->
+                          <ul class="nav navbar-nav navbar-left" style="margin-right:3px">
+                            <li>
+                              <button class="sidebarButton" title="Toggle Sidebar" type="button" id="sidebarCollapse" style="float:left; margin-right: 1.5ex; height:50px;">
+                                  <i class="fas fa-align-left"></i>
+                                  <span class="glyphicon glyphicon-menu-hamburger" id="toggleSide"></span>
+                              </button>
+                            </li>
+                            <li>
+                              <div class="navbar-header">
+                                <a href="#">
+                                  <span class="white-text title"> LTC-TMS</span>
                                 </a>
-
-                                <a href="#" style=" margin-left:20px; padding:5px;">
-                                    <span class="white-text title"> LTC-TMS</span>
-                                </a>
-
-                            </div>
+                              </div>
+                            </li>
+                          </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0)" class="dropbtn"><span class="glyphicon glyphicon-cog white-text"></span></a>
-                                    <div class="dropdown-content">
-                                        <a href="#">English</a>
-                                        <a href="/../Frontend-Chinese/04Statusrecord2.html">Chinese</a>
-                                        <a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
-                                    </div>
-                                </li>
+                              <li>
+                                  <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
+                              </li>
+                              <li class="dropdown">
+                                  <a href="javascript:void(0)" class="dropbtn">
+                                    <span style="font-size:19px;" id="displayProfileposition"></span>
+                                    <span style="font-size:19px;" id="displayProfilename"></span>
+                                    <span class="glyphicon glyphicon-triangle-bottom"></span>
+                                  </a>
+                                  <div class="dropdown-content">
+                                      <a href="#">English</a>
+                                      <a href="/../Frontend-Chinese/01Aboutus2.html">Chinese</a>
+                                      <a style="cursor:pointer;" onclick="document.getElementById('newPic').click();">Edit Profile Picture</a>
+                                      <a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
+                                  </div>
+                              </li>
                             </ul>
                         </div>
                     </nav>
@@ -414,22 +418,17 @@
                         <div class="no-doc" id="no-doc4">
                             <br><br>
                             <center>
+                              <table class="vital-status-table" id="sc-status-table" style="height:100%; width: 75%;">
+                                <tr>
+                                  <th>Instructions</th>
+                                </tr>
+                                <tbody id="scStatTable">
+                                  <tr></tr>
+                                </tbody>
+                              </table>
                                 <img id="image4" style="margin-top:2px;" src="statics/images/no_doc.jpg" />
                                 <p id="pleaseSelect4"> Please Select Date and Patient </p>
-                            </center>
-                        </div>
-                    </div>
-                    <div id="data5" style="display:none;position:relative;left:22%;width:78%;height:80%;background-color:#fff;border-left:2px solid black;overflow-x:hidden; overflow-y:scroll;">
-                        <table id="Environmenttable" class="environment_table" onclick="sortENV()" style="position:relative;width:100%;border-style:hidden;">
-                            <tr>
-                                <th colspan="3"> Environment Condition </th>
-                            </tr>
-                        </table>
-                        <div class="no-doc" id="no-doc5">
-                            <br><br>
-                            <center>
-                                <img id="image4" style="margin-top:2px;" src="statics/images/no_doc.jpg" />
-                                <p> Please Select Patient </p>
+                                <p style="display:none; color:red;" id="noData4"> There is no data for this patient on the selected date. </p>
                             </center>
                         </div>
                     </div>
@@ -452,7 +451,7 @@
                         <button type="button" class="btn cancel" onclick="close_form()"><p style="position:relative;top:-15px;left:-6px;font-size:20px;"> x </p></button>
                     </div>
 <!-- Daily Status Options -->
-                    <div id="DsOptions" style="position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+                    <div id="DsOptions" style="position:relative; top:-84%; left:0%; background-color:#C4DFE6;width:22%; height:80%;">
 
                         <h2 id="current_year" style="position:relative;top:-80%"></h2>
 
@@ -473,7 +472,7 @@
                         <input id="srDisplayButton" class="status_record_display_button" type="button" value="Display" onclick="display_ds(this);" style="cursor:pointer;" />
                     </div>
 <!-- Vital Status Options -->
-                    <div id="VsOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+                    <div id="VsOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#C4DFE6;width:22%; height:80%;">
 
                         <h2 id="current_year" style="position:relative;top:-80%"></h2>
 
@@ -495,7 +494,7 @@
                         <input id="vsRefreshButton" class="status_record_display_button" type="button" value="Refresh" onclick="refreshPage();" style="cursor:pointer; display:none;" />
                     </div>
 <!-- AI Status Options -->
-                    <div id="AiOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+                    <div id="AiOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#C4DFE6;width:22%; height:80%;">
 
                         <h2 id="current_year" style="position:relative;top:-80%"></h2>
 
@@ -517,26 +516,19 @@
                         <input id="aiRefreshButton" class="status_record_display_button" type="button" value="Refresh" onclick="refreshPage();" style="cursor:pointer; display:none;" />
                     </div>
 <!-- Special Care Options -->
-                    <div id="ScOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#ddd;width:22%; height:80%;">
+                    <div id="ScOptions" style="display:none; position:relative; top:-84%; left:0%; background-color:#C4DFE6;width:22%; height:80%;">
 
                         <h2 id="current_year" style="position:relative;top:-80%"></h2>
-
-                        <div class="status_record_date_option">
-                            <input type="date" id="bday">
-                            <br><br>
-                        </div>
-
                         <div class="status_record_option">
-                            <select id="selectPAT" onclick="clearBox()" onchange="selectPatient()">
-                                <option>Special Care - Patient ID</option>
-                            </select>
-                            <select id="selectCNA" style="width:70px;">
-                                <option>CNA ID</option>
+                          <p style="color:black; font-weight:bold; text-align: left; margin-left: 10px; margin-bottom:-5px;">Patient:</p>
+                            <select id="SCselectPAT" onclick="clearBox()" onchange="selectPatient()" style="float: left; margin-left: 10px; border-radius:5px;">
+                              <option value="none" selected disabled hidden>Special Care - Patient ID</option>
                             </select>
                             <br><br><br>
                         </div>
                         <br><br>
-                        <input class="status_record_display_button" type="button" value="Display" onclick=" display_button (this);" style="cursor:pointer;" />
+                        <input id="scDisplayButton" class="status_record_display_button" type="button" value="Display" onclick="display_sc(this);" style="cursor:pointer;" />
+                        <input id="scRefreshButton" class="status_record_display_button" type="button" value="Refresh" onclick="refreshPage();" style="cursor:pointer; display:none;" />
                     </div>
                 </div>
             </div>

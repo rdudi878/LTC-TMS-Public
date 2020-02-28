@@ -299,6 +299,7 @@ function injectToDOM(){
     //var $AddToDom = $('<div>Task Name: </div>');
     htmlInjection = "";
     //Task name
+    htmlInjection += '<div style="text-align:center;"><button id="startRec" onclick="voiceToText()" type="button" class="btn btn-primary record"><span class="glyphicon glyphicon-record"></span> Voice Recognition</button></div>'
     htmlInjection += '<div style="text-align:center;"> Task Name: </div>';
     if (taskDetails["name"] == "New Task"){
         htmlInjection += '<input style="text-align:center;" type="text" id="nameInput" placeholder="' + taskDetails["name"] + '"> </input>';
@@ -331,15 +332,15 @@ function injectToDOM(){
      }
     //Task outline
     // console.log(taskDetails["outline"]);
-    htmlInjection += '<div style="text-align:center;"> Task Outline: </div>';
+    htmlInjection += '<div class="words" style="text-align:center;"> Task Outline: </div>';
     if (taskDetails["outline"] == "Type an outline here" || taskDetails["outline"] == ""){
         htmlInjection += '<div>' + '<textarea name="text" class="taskName" id="taskOutline" placeholder="Type an outline here"></textarea>' + '</div>';
     } else {
         htmlInjection += '<div>' + '<textarea id="theOutline" class="taskName" id="taskOutline" >' + taskDetails["outline"] + ' </textarea>' + '</div>';
     }
     //Visibility
-    htmlInjection += '<center><button type="button" onclick="textToSpeech()" style="float:right;width:15%;text-align:center;"> Text to Voice </button></center>';
-    htmlInjection += '<center><button type="button" onclick="voiceToText()" style="float:right;width:15%;text-align:center;"> Voice to Text </button></center>';
+    htmlInjection += '<center><button id="outlineBtn" class="btn btn-primary" type="button" onclick="textToSpeech(this)" style="float:right;width:15%;text-align:center;"><span class="glyphicon glyphicon-volume-up"></span> Play </button></center>';
+    // htmlInjection += '<center><button type="button" id="startRec" onclick="voiceToText()" style="float:right;width:15%;text-align:center;"> Voice to Text </button></center>';
     htmlInjection += '<div style="text-align:center;"> Task Visibility: </div>';
     htmlInjection += '<div class="radioField">';
     htmlInjection += '<div class="radioChild">';
@@ -391,9 +392,13 @@ function injectToDOM(){
         //Step description
         htmlInjection += "<div class='inputFieldLeft' width='100%'>";
         if (steps[i].description == "step description" || steps[i].description == "" || steps[i].description == "description"){
-            htmlInjection += "Description: <div class='containerDiv'> <div class='desDiv'> <textarea class = 'stepDescriptionInput' id='" + i + "' placeholder='Type a step description here.'></textarea></div>";
+            htmlInjection += "Description: <div class='containerDiv'> <div class='desDiv'> <textarea class = 'stepDescriptionInput' id='" + i + "' name='description" + i + "' placeholder='Type a step description here.'></textarea></div>";
+            htmlInjection += "<br>";
+            htmlInjection += '<center><button id="description'+i+'" class="btn btn-primary" type="button" onclick="textToSpeech(this)" style="float:right;margin-top:4pc;margin-left:.5pc;text-align:center;"><span class="glyphicon glyphicon-volume-up"></span> Play </button></center>';
         } else {
             htmlInjection += "Description: <div class='containerDiv'> <div class='desDiv'> <textarea class = 'stepDescriptionInput' id='" + i + "'>"+ steps[i].description + "</textarea></div>";
+            htmlInjection += "<br>";
+            htmlInjection += '<center><button id="description'+i+'" class="btn btn-primary" type="button" onclick="textToSpeech(this)" style="float:right;margin-top:4pc;margin-left:.5pc;text-align:center;"><span class="glyphicon glyphicon-volume-up"></span> Play </button></center>';
         }
         htmlInjection += '<div class = "stepImageContainer">';
         //Add in image upload button and image preview
@@ -426,8 +431,11 @@ function voiceToText() {
   //setting this to true works while you are speaking
   recognition.iterimResults = true;
 
+// creating a new <p> element, where the text is appended
   let p = document.createElement('p');
-  const words = document.querySelector('[name="text"]');
+  p.style.display = "none";
+  // const words = document.querySelector('.words');
+  const words = document.activeElement;
   words.appendChild(p);
 
   recognition.addEventListener('result', e => {
@@ -436,18 +444,59 @@ function voiceToText() {
     .map(result => result[0])
     .map(result => result.transcript)
     .join('')
+
     p.textContent = transcript;
+
+    if(transcript.includes('stop')) {
+      console.log("he said STOP");
+      recognition.abort();
+      recognition.stop();
+      return;
+    }
+
+    if(e.results[0].isFinal) {
+      p = document.createElement('p');
+      p.style.display = "none";
+      words.appendChild(p);
+    }
     console.log(transcript);
+    copyTextOver(transcript);
   });
   recognition.addEventListener('end', recognition.start);
   recognition.start();
 }
 
-function textToSpeech() {
+function stopRecording() {
+  //set button to start recording again on next click
+  recordButton = document.getElementById('startRec');
+  recordButton.setAttribute('onclick', 'voiceToText()');
+  recognition.stop();
+  console.log("MAN WANTS TO STOP THE RECORDING PLZ");
+}
+
+function copyTextOver(speech) {
+  console.log("SPEEEECHH");
+  console.log(speech);
+  // let textArea = document.getElementById("taskOutline");
+  let textArea = document.activeElement;
+  textArea.value += speech;
+
+}
+
+function textToSpeech(btn) {
+  console.log(btn.id);
+  var selector = "";
+  if (btn.id == "outlineBtn") {
+    selector = '[name="text"]';
+  } else {
+    var descriptionName = btn.id;
+    selector = '[name="'+descriptionName+'"]'
+    console.log(selector);
+  }
   var synth = window.speechSynthesis;
   var msg = new SpeechSynthesisUtterance();
-  var textToSpeak = document.querySelector('[name="text"]').value;
-  msg.text = document.querySelector('[name="text"]').value;
+  var textToSpeak = document.querySelector(selector).value;
+  msg.text = document.querySelector(selector).value;
   console.log("msg");
   console.log(msg);
 
