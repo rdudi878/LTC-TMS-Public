@@ -72,7 +72,7 @@ a:focus {
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: #87CEFA;
+    background: #07575B;
     color: #fff;
     transition: all 0.3s;
 }
@@ -108,8 +108,9 @@ a:focus {
         CSS for the when mouse is over the sidebar links
     */
         #sidebar ul li a:hover {
-            color: black;
-            background: #fff;
+            color: grey;
+            transition: .5s;
+            background: #07575B;
         }
 
     #sidebar ul li.active > a,
@@ -199,7 +200,7 @@ ul.CTAs {
     CSS dealing with the COLOR of the TOP nav bar
 */
 .navbar-default {
-    background-color: #3F9FFF;
+    background-color: #003B46;
     border-color: white;
 }
 
@@ -238,7 +239,7 @@ li a, .dropbtn {
 }
 
     li a:hover, .dropdown:hover .dropbtn {
-        background-color: lightseagreen;
+        background-color: #003B46;
     }
 
 li.dropdown {
@@ -284,7 +285,7 @@ li.dropdown {
     background-repeat: repeat-y;
 }
 .current {
-    background-color: #3F9FFF;
+    background-color: #66A5AD;
 }
 
 @media screen and (max-width:768px) {
