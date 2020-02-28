@@ -6,8 +6,9 @@ table, th, td {
     word-wrap: break-word;
 }
     table th {
-        background-color: #B0C4DE;
+        background-color: #C4DFE6;
         color: #000;
+        text-align: center !important;
     }
     table td {
         text-shadow: 2px 2px #FFFFFF;
