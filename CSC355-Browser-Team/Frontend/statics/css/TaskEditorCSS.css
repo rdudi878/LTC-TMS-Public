@@ -39,7 +39,6 @@
     background-color: #C4DFE6;
     margin: 10px;
     min-height:200px;
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -67,6 +66,10 @@
     margin-left: 12.5%;
     margin-right: 12.5;
     position: center;
+}
+
+.detailedStepContainer {
+  text-align: center;
 }
 
 .detailedStepButtonContainer{
@@ -232,4 +235,27 @@ label {
     text-align: center;
     align-content: center;
     align-items: center;
+}
+
+.record {
+  float:right;
+  background: red;
+  border: solid 1px red;
+}
+
+.record:hover {
+  transition: .5s;
+  color:black;
+  background:red;
+  border: solid 1px red;
+}
+
+.record:active {
+  background: red;
+  border: solid 1px red;
+}
+
+.record:focus {
+  background: red;
+  border: solid 1px red;
 }
