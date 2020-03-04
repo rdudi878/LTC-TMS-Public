@@ -859,18 +859,18 @@ function injectToDOM(){
       //Task steps
       htmlInjection += "<div  class = ''>";
 
-      htmlInjection += '<br><div style="flex:3; align-content:left;">' + '<b>Task Step </b>' + (parseInt(i)+1) + '</div>';
+      htmlInjection += '<br><div style="flex:3; align-content:left; font-size: 150%;">' + 'Task Step ' + (parseInt(i)+1) + '</div>';
       //htmlInjection += '<div style="flex:15;"></div>';
       htmlInjection += '</div>';
       htmlInjection += "</div>";
       //Task name
       htmlInjection += "<div class='inputField'>";
-      htmlInjection += "<div><b>Step Name: </b>"+ steps[i].name +"</div>";
+      htmlInjection += "<div style='text-indent: 2em;'><b>Step Name: </b>"+ steps[i].name +"</div>";
       htmlInjection += "</div>";
 
       //Task description
-      htmlInjection += "<div><b>Step Description: </b>"+ steps[i].description +"</div>";
-      htmlInjection += '<div class = "stepImageContainer">';
+      htmlInjection += "<div style='text-indent: 2em;'><b>Step Description: </b>"+ steps[i].description +"</div>";
+      htmlInjection += '<div class = "stepImageContainer" style="margin-left: 30px;">';
       //Add in image upload button and image preview
 
       if(steps[i]["image"] != "https://i.imgur.com/d0H6zwB.png") {
@@ -916,7 +916,7 @@ function getDetailedStepHTML(steps, stepNum){
             //Right side of detailed step
             detailHTML += '<div class="detailedStepRightContainer" id= "' + i + '">';
             temp = j+1;
-            detailHTML += "<div><b>Detail Step </b>" + temp +": "+ steps[i]["detailedSteps"][j] +"</div>";
+            detailHTML += "<div style='text-indent: 2em;'><b>Detail Step " + temp +": </b>"+ steps[i]["detailedSteps"][j] +"</div>";
             detailHTML += '</div>';
 
             detailHTML += '</div>'
