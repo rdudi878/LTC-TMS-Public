@@ -29,6 +29,7 @@
     <script type='text/javascript' src='Config.js'></script>
     <script type='text/javascript' src='AboutusKU.js'></script>
     <script type='text/javascript' src='Profile.js'></script>
+    <script type='text/javascript' src='Notifications.js'></script>
 </head>
 	<style>
         span.hidden{
@@ -126,7 +127,16 @@
                           </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
                               <li>
-                                  <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
+                                <div class="dropdown">
+                                  <span onclick="testProf()" style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
+                                  <div style="margin-top:40px;" class="dropdown-content">
+                                    <a>Patient Yen fell at 2:53PM</a>
+                                    <a>Patient Yen has a high heart rate of 110 BPM</a>
+                                  </div>
+                                </div>
+                              </li>
+                              <li>
+                                  <img class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
                               </li>
                               <li class="dropdown">
                                   <a href="javascript:void(0)" class="dropbtn">
