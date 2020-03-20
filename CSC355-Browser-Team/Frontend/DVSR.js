@@ -230,10 +230,30 @@ fbPAT.once("value")
             valueRef.once("value", function(snapshot2) {
               snapshot2.forEach(function(child) {
                 var cellMeasurementValue = aiStatRow.insertCell(1);
-                cellMeasurementValue.appendChild(document.createTextNode(child.val()));
+          // Fix how data is printing to make more legible
+                var illegibleValue = child.val();
+                var legibleValue = illegibleValue.replace(/~/g, ':');
+                legibleValue = legibleValue.replace(/\?/g, '');
+                legibleValue = legibleValue.replace(/→/g, ' ');
+                legibleValue = legibleValue.replace(/steps/g, ' steps');
+                console.log(child.key);
+                if (child.key == 'Fell') {
+                  legibleValue = legibleValue.substr(0,legibleValue.indexOf(' '));
+                }
+                if (child.key == 'Step') {
+                  legibleValue = legibleValue.substr(legibleValue.indexOf(' ')+1);
+                }
+                cellMeasurementValue.appendChild(document.createTextNode(legibleValue));
               });
             });
-            cellMeasurementType.appendChild(document.createTextNode(child.key));
+          // Fix Measurement Type information
+            if (child.key == "FallRecord") {
+              cellMeasurementType.appendChild(document.createTextNode("Fall Record"));
+            } else if (child.key == "Step") {
+              cellMeasurementType.appendChild(document.createTextNode("Step Count"));
+            } else {
+              cellMeasurementType.appendChild(document.createTextNode(child.key));
+            }
           }
         });
       });
