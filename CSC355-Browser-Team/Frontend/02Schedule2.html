@@ -110,47 +110,51 @@
             <div class="header">
                 <!-- DIV CONTAINER OF OUR HEADER-->
 
-                <div class="bar">
-                    <!-- PlaceHolder for top bar -->
+                <div class="bar"><!-- PlaceHolder for top bar -->
 
-                    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
-                        <!-- Bootstrap navigation bar -->
+                    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default"><!-- Bootstrap navigation bar -->
                         <div class="container-fluid">
-
-                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="float:left; margin-right: 1.5ex;padding-top:1.5ex;padding-bottom:1.5ex;padding-left:2px;padding-right:2px; background-color:#66A5AD;">
-                                <i class="fas fa-align-left"></i>
-                                <span id="toggleSide">Hide sidebar</span>
-                            </button>
-
-                            <div class="navbar-header">
-
-                                <a href="../Frontend/01Aboutus2.html">
-                                    <!-- <img src="statics/images/v2ltctmslogo.png" height="50" width="60" /> -->
+                          <ul class="nav navbar-nav navbar-left" style="margin-right:3px">
+                            <li>
+                              <button class="sidebarButton" title="Toggle Sidebar" type="button" id="sidebarCollapse" style="float:left; margin-right: 1.5ex; height:50px;">
+                                  <i class="fas fa-align-left"></i>
+                                  <span class="glyphicon glyphicon-menu-hamburger" id="toggleSide"></span>
+                              </button>
+                            </li>
+                            <li>
+                              <div class="navbar-header">
+                                <a href="#">
+                                  <span class="white-text title"> LTC-TMS</span>
                                 </a>
-
-                                <a href="#" style=" padding-left:20px">
-                                    <span class="white-text title"> LTC-TMS</span>
-                                </a>
-
-                            </div> <!--end div class="navbar-header"-->
+                              </div>
+                            </li>
+                          </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0)" class="dropbtn"><span class="glyphicon glyphicon-cog white-text"></span></a>
-                                    <div class="dropdown-content">
-                                        <a href="#">English</a>
-                                        <a href="/../Frontend-Chinese/02Schedule2.html">Chinese</a>
-                                        <a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
-                                    </div> <!--end div class="dropdown-content"-->
-                                </li>
+                              <li>
+                                  <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
+                              </li>
+                              <li class="dropdown">
+                                  <a href="javascript:void(0)" class="dropbtn">
+                                    <span style="font-size:19px;" id="displayProfileposition"></span>
+                                    <span style="font-size:19px;" id="displayProfilename"></span>
+                                    <span class="glyphicon glyphicon-triangle-bottom"></span>
+                                  </a>
+                                  <div class="dropdown-content">
+                                      <a href="#">English</a>
+                                      <a href="/../Frontend-Chinese/01Aboutus2.html">Chinese</a>
+                                      <a style="cursor:pointer;" onclick="document.getElementById('newPic').click();">Edit Profile Picture</a>
+                                      <a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
+                                  </div>
+                              </li>
                             </ul>
-                        </div> <!--end div class="container-fluid"-->
+                        </div>
                     </nav>
-                </div> <!--end div class="bar"-->
+                </div>
                 <!-- TOP BAR ENDS-->
                 <!-- Place Holder for header-->
                 <div class="user-info">
                     <!--BACKGROUND PANEL IMAGE-->
-                    <div class="container-fluid">
+                    <div class="container-fluid" style="display:none">
                         <img class="panelimg img-responsive" style="background-color: #fff5ee" />
                         <div class="container" style="transform:translateY(-8.5ex)">
                         <!-- CIRCLE IMAGE THING-->
@@ -224,6 +228,9 @@
                     </div> <!--end div class="container" id="data3" style="display:none;"-->
                     <!-- Working schedule tab contents "data4"-->
                     <div class="container" id="data4" style="display:none;overflow:scroll;">
+                      <br>
+                      <button type="button" onclick="AddNewWS()" class="add_button" style="cursor:pointer;">Add New CNA</button>
+                      <br><br>
                       <table id='WStable' style="width:100%; border: 1px solid black;">
                           <tr>
                               <th style="width:11%">CNA</th>
@@ -297,14 +304,14 @@
     </div>
     <!--</div>-->
 
-    <div id="newWSBlock">
+    <!--<div id="newWSBlock">
         <div class="create_new_center_schedule_form">
             <input type="text" id="fileButton3"/>
 
             &nbsp&nbsp&nbsp<button id="btnSubmitCS" style="cursor:pointer;">Submit</button> &nbsp&nbsp
             <button id="Ecancel" onclick="document.getElementById('newWSBlock').style.display='none';" style="cursor:pointer;">Cancel</button>
         </div>
-    </div>
+    </div>-->
     <!--</div>-->
 
 
@@ -452,6 +459,54 @@
             </div>
         </div>
     </div><!--end div id="editWorkBlock-->
+
+    <div id="newWSBlock">
+        <div class="create_new_center_schedule_form">
+            <h2><center>New CNA Schedule</center></h2>
+            <hr class="schedule_hr">
+            <div style="padding:2%">
+                <table style="border:none; width: 50%;">
+                    <tr>
+                        <td style="border:none">CNA:</td>
+                        <td style="border:none"><input type="text" id="NewCNA" /><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Sunday</td>
+                        <td style="border:none"><input type="text" id="NewWSSun"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Monday</td>
+                        <td style="border:none"><input type="text" id="NewWSMon"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Tuesday</td>
+                        <td style="border:none"><input type="text" id="NewWSTue"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Wednesday</td>
+                        <td style="border:none"><input type="text" id="NewWSWed"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Thursday</td>
+                        <td style="border:none"><input type="text" id="NewWSThu"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Friday</td>
+                        <td style="border:none"><input type="text" id="NewWSFri"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none">Saturday</td>
+                        <td style="border:none"><input type="text" id="NewWSSat"><br></td>
+                    </tr>
+                </table>
+                <br>
+
+                <button id="btnSubmitWS" style="cursor:pointer;" onclick="createNewWorkingSchedule()">Submit</button> &nbsp&nbsp
+                <button id="Ecancel" onclick="document.getElementById('newWSBlock').style.display='none';" style="cursor:pointer;">Cancel</button>
+            </div>
+        </div>
+    </div> <!--end div id="newWSBlock-->
+
     <!--</div>-->
 
     <!--</div>-->

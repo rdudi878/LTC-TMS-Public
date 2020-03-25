@@ -42,12 +42,12 @@ fbGet.once("value")
     var c = 0;
 
 /**
-* @description grabs the information from firebase under the "Task Instruction" node and outputs 
+* @description grabs the information from firebase under the "Task Instruction" node and outputs
 * it into the table in the Library by rows
 */
 snapshot.forEach(function(childSnapshot1){
       var catChild = childSnapshot1.key;
-      if (catChild == "LastID" || catChild == "on"){  
+      if (catChild == "LastID" || catChild == "on"){
         return; //Exit when we're done looping through the categories
       }
       catSnapshot.push(catChild);
@@ -61,7 +61,7 @@ snapshot.forEach(function(childSnapshot1){
       childSnapshot1.forEach(function(childSnapshot2){
         var taskChild = childSnapshot2.key;
         //$(tr).css("display","none");
-      
+
         //.table(taskID);
         taskID.push(taskChild);
         var filterTask = document.getElementById("filterTaskList");
@@ -81,23 +81,23 @@ snapshot.forEach(function(childSnapshot1){
         var row = assigningTask.insertRow(-1);
         c++;
         tr[c].style.display = "table-row";
-      
+
         var cellCategory = row.insertCell(-1);
         cellCategory.appendChild(document.createTextNode(childSnapshot1.key));
-            
+
         var cellName = row.insertCell(-1);
         cellName.appendChild(document.createTextNode(childSnapshot2.val()["Info"]["Title"]));
-            
+
         //Put the ID in a hidden cell in the table to access later
         var cellID = row.insertCell(-1);
         cellID.setAttribute("id","id_holder["+num+"]");
         cellID.appendChild(document.createTextNode(childSnapshot2.val()["TaskID"]));
         cellID.setAttribute("hidden", true);
         button.innerHTML="Detail";
-            
+
         var cellButton= row.insertCell(-1);
         cellButton.appendChild(button);
-            
+
         var cellCheckbox = row.insertCell(-1);
         cellCheckbox.appendChild(checkBox);
         if (childSnapshot2.val()["Info"]["Visible"] === false || childSnapshot2.val()["Info"]["Published"] === false){
@@ -615,14 +615,14 @@ function closeclose_form(){
 /**
  * @function display_Detail
  * @description show task description and steps
- * @param {*} num 
+ * @param {*} num
  */
 function display_Detail(num){
   taskDetails=[];
   categories=[];
   steps=[];
   goodPath = "";
-  
+
   var table = document.getElementById("assigningTask");
   var tr = table.getElementsByTagName("tr");
   var cat = tr[num+1].cells[0].innerText;
@@ -641,7 +641,7 @@ function display_Detail(num){
 
   //Start the process of loading the task
   if (goodPath != null) {
-    getTaskFromPath(goodPath, getTaskFromPathCallback); 
+    getTaskFromPath(goodPath, getTaskFromPathCallback);
   }
   document.getElementById('form1').style.display ='block';
 }
@@ -668,7 +668,7 @@ function getTaskFromPath(taskPath, callback){
 
 /**
  * @function getTaskFromPathCallback
- * @param {*} task 
+ * @param {*} task
  */
 function getTaskFromPathCallback(task){
   getCategories(categories, task, populateArray);
@@ -733,7 +733,7 @@ function populateArray(task){
   if (taskDetails["visible"] == null){
       taskDetails["visible"] = false;
   }
-  
+
 
   //(taskData);
   while (true){   // Loop through the steps
@@ -764,7 +764,7 @@ function populateArray(task){
           }
           //(stepsData);
           steps[counter-1] = stepsData;
-          steps[counter-1]['detailedSteps'] = detailedSteps;   
+          steps[counter-1]['detailedSteps'] = detailedSteps;
       } else {
           break;
       }
@@ -775,13 +775,13 @@ function populateArray(task){
 
 /**
  * @function getStepImage
- * @description Recursively iterates through each step and gets its image. 
+ * @description Recursively iterates through each step and gets its image.
  * @param {*} task Details about the task original task.
  * @param {*} steps Task step descriptions
  * @param {*} stepNum The step num whose image is to be received from the database.  This controls the recursion's termination as well.
  */
 function getStepImage(task, steps, stepNum){
-    
+
   if (steps[stepNum] == undefined){
       //(steps);
       //("returning at stepNum" + stepNum);
@@ -805,7 +805,7 @@ function getStepImage(task, steps, stepNum){
       //alert("No image @ " + stepNum);
       var storageRef = firebase.storage().ref();
       var imageRef = storageRef.child(imageLink);
-      //steps[counter-1]["image"] = 
+      //steps[counter-1]["image"] =
 
           imageRef.getDownloadURL().then(function(snapshot){
               //(snapshot);
@@ -818,7 +818,7 @@ function getStepImage(task, steps, stepNum){
               //(err);
               getStepImage(task,steps,stepNum+1);
           });
-      
+
       //promises.push(getImageURL);
   } else {    //image link is null
       steps["image"] = defImage;
@@ -838,19 +838,19 @@ function injectToDOM(){
   htmlInjection = "";
 
   htmlInjection += '<br><div style="text-align:left;"><button type="button" onclick="closeclose_form()">Close Task</button></div><br>';
-  
+
   //Task name
-  htmlInjection += '<div style="text-align:left;"> Task Name: '+taskDetails["name"]+'</div>';
-  
+  htmlInjection += '<div style="text-align:left;"> <b>Task Name: </b>'+taskDetails["name"]+'</div>';
+
   //Task Category
-  htmlInjection += '<div style="text-align:left;"> Category: '+taskDetails["category"]+'</div>';
+  htmlInjection += '<div style="text-align:left;"> <b>Category: </b>'+taskDetails["category"]+'</div>';
 
   //Task Video
-  htmlInjection += '<div style="text-align:left;"> Video URL: '+taskDetails["videoURL"]+'</div>';
+  htmlInjection += '<div style="text-align:left;"> <b>Video URL:</b> '+taskDetails["videoURL"]+'</div>';
 
   //Task outline
-  htmlInjection += '<div style="text-align:left;"> Task Outline: '+taskDetails["outline"]+'</div>';
-  
+  htmlInjection += '<div style="text-align:left;"> <b>Task Outline: </b>'+taskDetails["outline"]+'</div>';
+
   htmlInjection += '<div style="text-align:left;"> Click <button onClick = "showDetails()" type="button">HERE</button> for more details.</div>';
   $("#taskHeader").html(htmlInjection);
   htmlInjection = "";
@@ -859,22 +859,22 @@ function injectToDOM(){
       //Task steps
       htmlInjection += "<div  class = ''>";
 
-      htmlInjection += '<br><div style="flex:3; align-content:left;">' + 'Task Step ' + (parseInt(i)+1) + '</div>';
+      htmlInjection += '<br><div style="flex:3; align-content:left; font-size: 150%;">' + 'Task Step ' + (parseInt(i)+1) + '</div>';
       //htmlInjection += '<div style="flex:15;"></div>';
       htmlInjection += '</div>';
       htmlInjection += "</div>";
       //Task name
       htmlInjection += "<div class='inputField'>";
-      htmlInjection += "<div>Step Name: "+ steps[i].name +"</div>";
+      htmlInjection += "<div style='text-indent: 2em;'><b>Step Name: </b>"+ steps[i].name +"</div>";
       htmlInjection += "</div>";
 
       //Task description
-      htmlInjection += "<div>Step Description: "+ steps[i].description +"</div>";
-      htmlInjection += '<div class = "stepImageContainer">';
+      htmlInjection += "<div style='text-indent: 2em;'><b>Step Description: </b>"+ steps[i].description +"</div>";
+      htmlInjection += '<div class = "stepImageContainer" style="margin-left: 30px;">';
       //Add in image upload button and image preview
-      
+
       if(steps[i]["image"] != "https://i.imgur.com/d0H6zwB.png") {
-        htmlInjection += '<img class="picPreview" name="stepImage' + i + '" src="' + steps[i]["image"] + '"/>';
+        htmlInjection += '<img class="picPreview" name="<b>stepImage</b>' + i + '" src="' + steps[i]["image"] + '"/>';
   }
       htmlInjection += "</div>"   //Close stepImageContainer Div
       htmlInjection += "</div>";  //Close desDevi
@@ -885,7 +885,7 @@ function injectToDOM(){
 
       htmlInjection += '</div>';   // close taskStep div
   }   //End loop
-  
+
   $("#taskFooter").html(htmlInjection); //Insert the HTML for the tasks into the DOM
 }   // end injectToDom
 
@@ -897,14 +897,14 @@ function showDetails() {
   var taskFooter = document.getElementById("taskFooter");
       taskFooter.style.display = "block";
       //.log(taskFooter);
-      
+
 }
 
 /**
  * @function getDetailedStepHTML
  * @description return the HTML to render detailed steps to teh DOM
- * @param {*} steps 
- * @param {*} stepNum 
+ * @param {*} steps
+ * @param {*} stepNum
  */
 function getDetailedStepHTML(steps, stepNum){
     var i = parseInt(stepNum);
@@ -912,15 +912,15 @@ function getDetailedStepHTML(steps, stepNum){
     detailHTML += '<div class = "detailedStepContainer">';
     for (var j = 0; j < steps[i]["detailedSteps"].length; j++){ //Loop through the detailed steps, insert them into the page
         detailHTML += '<div class = "detailedStep">';
-            
+
             //Right side of detailed step
             detailHTML += '<div class="detailedStepRightContainer" id= "' + i + '">';
             temp = j+1;
-            detailHTML += "<div>Detail Step " + temp +": "+ steps[i]["detailedSteps"][j] +"</div>";
+            detailHTML += "<div style='text-indent: 2em;'><b>Detail Step " + temp +": </b>"+ steps[i]["detailedSteps"][j] +"</div>";
             detailHTML += '</div>';
 
             detailHTML += '</div>'
-    }   
+    }
     detailHTML += '</div>'  // End detailed steps
     return detailHTML;
 }
@@ -1052,7 +1052,7 @@ function createTaskCopy(){
 
 function copyTask(checked, index, count){
 
-  
+
   var userID = $("#displayProfileid").html();
 
   //alert("Index " + index + " count " + count);
@@ -1077,12 +1077,12 @@ function copyTask(checked, index, count){
     var postRef = firebase.database().ref('TaskInstruction/LastID');
     //Start the process of getting the new ID
     postRef.transaction(function(data) {
-    
+
       if (data != null){
-       
+
         return (data+1); //If everything is succesful, reinsert the data to the database
       } else {
-          return 0; 
+          return 0;
       }
 
     }, function(error, commited, TIDSnap){
@@ -1116,24 +1116,24 @@ function copyTask(checked, index, count){
               uAccount["MyTaskList"] = {};
               uAccount["MyTaskList"]["MyListTID1"] = TID;
               uAccount["MyTaskIndex"]={};
-              uAccount["MyTaskIndex"]["Number"]=1; 
+              uAccount["MyTaskIndex"]["Number"]=1;
               //(uAccount);
 
               //Insert task to my task list.
               firebase.database().ref('uAccount/'+userID).update(uAccount, copyTask(checked, (index+1), count));
-    
+
 
             } else {  //myTaskList already exists
               //(Object.keys(uAccount["MyTaskList"]).length);
               var num = uAccount["MyTaskIndex"]["Number"] + 1;
-              //("NUM"+num); 
+              //("NUM"+num);
               uAccount["MyTaskIndex"]["Number"] = num;
               uAccount["MyTaskList"]["MyListTID" + num] = TID;
               //(uAccount);
               firebase.database().ref('uAccount/'+userID).update(uAccount, copyTask(checked, (index+1), count));
-                
 
-            } 
+
+            }
           });
 
         } else {
@@ -1142,7 +1142,7 @@ function copyTask(checked, index, count){
         }
         //(newTask);
       }
-      
+
     });
   });
 }

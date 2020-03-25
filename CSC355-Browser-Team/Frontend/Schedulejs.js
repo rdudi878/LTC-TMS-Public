@@ -371,6 +371,70 @@ function submitEditWorkingSchedule(){
   } //end else
 } //end function submitEditCenterSchedule
 
+function AddNewWS(){
+  document.getElementById("NewWSSun").value = "";
+  document.getElementById("NewWSMon").value = "";
+  document.getElementById("NewWSTue").value = "";
+  document.getElementById("NewWSWed").value = "";
+  document.getElementById("NewWSThu").value = "";
+  document.getElementById("NewWSFri").value = "";
+  document.getElementById("NewWSSat").value = "";
+  //document.getElementById("selected_date").value = year+"-"+mm+"-"+dd;
+  document.getElementById('newWSBlock').style.display ='block';
+}
+
+function createNewWorkingSchedule(){
+  var cna = $("#NewCNA").val();
+
+  var SunData = $("#NewWSSun").val();
+  var MonData = $("#NewWSMon").val();
+  var TueData = $("#NewWSTue").val();
+  var WedData = $("#NewWSWed").val();
+  var ThuData = $("#NewWSThu").val();
+  var FriData = $("#NewWSFri").val();
+  var SatData = $("#NewWSSat").val();
+
+  //create alert message
+  var fields = "";
+  if(cna == ""){fields += "CNA\n";}
+  if(SunData == ""){fields += "Sunday\n";}
+  if(MonData == ""){fields += "Monday\n";}
+  if(TueData == ""){fields += "Tuesday\n";}
+  if(WedData == ""){fields += "Wednesday\n";}
+  if(ThuData == ""){fields += "Thursday\n";}
+  if(FriData == ""){fields += "Friday\n";}
+  if(SatData == ""){fields += "Saturday\n";}
+
+  if(cna == "" || SunData == "" || MonData == "" ||
+  TueData == "" || WedData == "" || ThuData == "" ||
+  FriData == "" || SatData == "") {
+    alert ("Please enter the following data:\n"+fields);
+  }
+
+  else {
+    var r = confirm("Are you sure you want to create a new Center Schedule?");
+    if (r == true) {
+
+      var data = {
+        Sunday : SunData,
+        Monday : MonData,
+        Tuesday : TueData,
+        Wednesday : WedData,
+        Thursday : ThuData,
+        Friday : FriData,
+        Saturday : SatData
+      }
+
+      var updates = {};
+      updates['WorkingSchedule/'+cna] = data;
+      firebase.database().ref().update(updates);
+      document.getElementById('newWSBlock').style.display ='none';
+      location.href ="./02Schedule2.html";
+    }
+  }
+} //end function createNewCenterSchedule
+
+
 
 
 

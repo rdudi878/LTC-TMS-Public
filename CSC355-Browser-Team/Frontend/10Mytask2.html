@@ -263,38 +263,42 @@
             <div class="header">
                 <!-- DIV CONTAINER OF OUR HEADER-->
 
-                <div class="bar">
-                    <!-- PlaceHolder for top bar -->
+                <div class="bar"><!-- PlaceHolder for top bar -->
 
-                    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default">
-                        <!-- Bootstrap navigation bar -->
+                    <nav class="navbar navbar-inverse navbar-fixed-top navbar-default"><!-- Bootstrap navigation bar -->
                         <div class="container-fluid">
-
-                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="float:left; margin-right: 3ex;padding-top:1.5ex;padding-bottom:1.5ex; background-color:#66A5AD;">
-                                <i class="fas fa-align-left"></i>
-                                <span id="toggleSide">Hide sidebar</span>
-                            </button>
-
-                            <div class="navbar-header">
-
-                                <a href="../Frontend/01Aboutus2.html" style="padding-left:4px">
-                                    <!-- <img src="statics/images/v2ltctmslogo.png" height="50" width="60" /> -->
+                          <ul class="nav navbar-nav navbar-left" style="margin-right:3px">
+                            <li>
+                              <button class="sidebarButton" title="Toggle Sidebar" type="button" id="sidebarCollapse" style="float:left; margin-right: 1.5ex; height:50px;">
+                                  <i class="fas fa-align-left"></i>
+                                  <span class="glyphicon glyphicon-menu-hamburger" id="toggleSide"></span>
+                              </button>
+                            </li>
+                            <li>
+                              <div class="navbar-header">
+                                <a href="#">
+                                  <span class="white-text title"> LTC-TMS</span>
                                 </a>
-
-                                <a href="#" style=" padding-left:20px">
-                                    <span class="white-text title"> LTC-TMS</span>
-                                </a>
-
-                            </div>
+                              </div>
+                            </li>
+                          </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
-                                <li class="dropdown">
-                                    <a href="javascript:void(0)" class="dropbtn"><span class="glyphicon glyphicon-cog white-text"></span></a>
-                                    <div class="dropdown-content">
-                                        <a href="#">English</a>
-                                        <a href="/../Frontend-Chinese/10Mytask2.html">Chinese</a>
-                                        <a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
-                                    </div>
-                                </li>
+                              <li>
+                                  <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
+                              </li>
+                              <li class="dropdown">
+                                  <a href="javascript:void(0)" class="dropbtn">
+                                    <span style="font-size:19px;" id="displayProfileposition"></span>
+                                    <span style="font-size:19px;" id="displayProfilename"></span>
+                                    <span class="glyphicon glyphicon-triangle-bottom"></span>
+                                  </a>
+                                  <div class="dropdown-content">
+                                      <a href="#">English</a>
+                                      <a href="/../Frontend-Chinese/01Aboutus2.html">Chinese</a>
+                                      <a style="cursor:pointer;" onclick="document.getElementById('newPic').click();">Edit Profile Picture</a>
+                                      <a onClick="Logout(); return false;" href="../Frontend/00Login2.html">Logout</a>
+                                  </div>
+                              </li>
                             </ul>
                         </div>
                     </nav>
@@ -303,7 +307,7 @@
                 <!-- Place Holder for header-->
                 <div class="user-info">
                     <!--BACKGROUND PANEL IMAGE-->
-                    <div class="container-fluid">
+                    <div class="container-fluid" style="display:none">
 
                             <img class="panelimg img-responsive" style="background-color: #fff5ee" />
 

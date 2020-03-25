@@ -41,6 +41,6 @@ a{text-decoration: none;}
 /* E-Portfolio CSS */
 .portfolio_display_table th {cursor: pointer; background:#C4DFE6; color:white}
 .portfolio_display_table th:hover {
-  color:#DDDDDD;
+  color:#737373;
   transition: .5s;
 }

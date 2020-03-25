@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     fontFamily: "SFNS Display",
     fontWeight: "bold",
     padding: 20,
-    color: 'black',
+    color: '#1976d2',
   },
 
   signInHeader: {

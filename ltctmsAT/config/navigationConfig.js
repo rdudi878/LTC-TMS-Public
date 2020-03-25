@@ -33,6 +33,7 @@ import DailyStatusAddScreen from '../screens/DailyStatusAddScreen';
 import DailyStatusReadScreen from '../screens/DailyStatusReadScreen';
 import VitalStatusReadScreen from '../screens/VitalStatusReadScreen';
 import VitalStatusAddScreen from '../screens/VitalStatusAddScreen';
+import SpecialCareAddScreen from '../screens/SpecialCareAddScreen'
 import FeedbackScreen from '../screens/FeedbackScreen';
 import LogoutScreen from '../screens/LogoutScreen';
 
@@ -72,15 +73,16 @@ const AppMiddleStack = createStackNavigator({
   AiStatusRead: AiStatusReadScreen,
   VitalStatusRead: VitalStatusReadScreen,
   VitalStatusAdd: VitalStatusAddScreen,
+  SpecialCareAdd: SpecialCareAddScreen,
 }, {
     initialRouteKey: 'Record'
   });
 
 //Changed Task to Library
 const AppTaskStack = createStackNavigator({
-  Library: TaskScreen
+  Tasks: TaskScreen
 }, {
-    initialRouteKey: 'Library'
+    initialRouteKey: 'Tasks'
   });
 
 const AppRightStack = createStackNavigator({
@@ -114,7 +116,7 @@ const getTabBarIcon = (navigation, tintColor) => {
     iconName = `ios-home`;
   } else if (routeName === 'Record') {
     iconName = `ios-create`;
-  } else if (routeName === 'Library') {
+  } else if (routeName === 'Tasks') {
     iconName = `ios-book`;
   } else if (routeName === 'Center Info') {
     iconName = `ios-information-circle`;
@@ -132,7 +134,7 @@ const getTabBarIcon = (navigation, tintColor) => {
 const AppBottomTabNavigation = createBottomTabNavigator({
   Home: AppLeftStack,
   Record: AppMiddleStack,
-  Library: AppTaskStack,
+  Tasks: AppTaskStack,
   //CenterInfo: AppScheduleStack,
   'Center Info': AppScheduleStack,
   Portfolio: AppRightStack

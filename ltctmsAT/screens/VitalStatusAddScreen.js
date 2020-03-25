@@ -56,24 +56,6 @@ class VitalStatusAddScreen extends React.Component {
         };
     }
 
-    checkDate() {
-        const now = new Date();
-        if(now.getDate() < 10) {
-            return "0"+ now.getDate();
-        } else {
-            return now.getDate();
-        }
-    }
-
-    checkMonth() {
-        const now = new Date();
-        if(now.getMonth() < 10) {
-            //return month;
-            return "0" + now.getMonth();
-        } else{
-            return now.getDate();
-        }
-    }
 
     updatePatient = (patient) => {
         this.setState({ patient: patient })
@@ -90,7 +72,7 @@ class VitalStatusAddScreen extends React.Component {
     componentDidMount() {
         this._fetchPatients();
         this._fetchUserInfo();
-
+        console.log("EEE" + this.state.patient);
     }
 
     // render content

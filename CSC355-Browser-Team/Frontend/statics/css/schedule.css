@@ -8,6 +8,7 @@ table, th, td {
     table th {
         background-color: #C4DFE6;
         color: #000;
+        text-align: center !important;
     }
     table td {
         text-shadow: 2px 2px #FFFFFF;
