@@ -257,7 +257,7 @@ function injectToWS(work){
 
   htmlInjection = '<table style="width:100%; border: 1px solid black;">';
   for (var i = work.length-1; i >= 0; i--){
-    var weekSched = firebase.database().ref('CNA/'+work[i]);
+    var weekSched = firebase.database().ref('CNA/'+work[i]+'/');
     let cnaID = weekSched.key;
     var temp = weekSched.child('Schedule/');
     temp.once('value',function(days){
