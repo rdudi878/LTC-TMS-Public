@@ -205,31 +205,31 @@ function fastMonth() {
 // generates the actual report and places it on the server.
 // Displays a URL link to where the report can be found.
 function generateReport(){
-var startDate = document.getElementById("startDate").value;
-var endDate = document.getElementById("endDate").value;
-var patientID = document.getElementById("patientID").value;
-var name = document.getElementById("selectPatName").value;
-var rURL = "http://acad.kutztown.edu/ltctms/" + name + "_" + startDate + "_" + endDate + ".pdf";
-var Success = "false";
-var randoDate = new Date();
-var randoTime = randoDate.getTime();
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+    var patientID = document.getElementById("patientID").value;
+    var name = document.getElementById("selectPatName").value;
+    var rURL = "http://acad.kutztown.edu/ltctms/" + name + "_" + startDate + "_" + endDate + ".pdf";
+    var Success = "false";
+    var randoDate = new Date();
+    var randoTime = randoDate.getTime();
 
-  firebase.database().ref('Reports/StartDate/').set(startDate);
-  firebase.database().ref('Reports/EndDate/').set(endDate);
-  firebase.database().ref('Reports/IDvalue/').set(patientID);
-  firebase.database().ref('Reports/ReportLink/').set(rURL);
-  firebase.database().ref('Reports/Success/').set(Success);
-  firebase.database().ref('Reports/Time/').set(randoTime);
+    firebase.database().ref('Reports/StartDate/').set(startDate);
+    firebase.database().ref('Reports/EndDate/').set(endDate);
+    firebase.database().ref('Reports/IDvalue/').set(patientID);
+    firebase.database().ref('Reports/ReportLink/').set(rURL);
+    firebase.database().ref('Reports/Success/').set(Success);
+    firebase.database().ref('Reports/Time/').set(randoTime);
 
-  var stringURL = rURL;
-  var HLReport = stringURL.link(rURL);
+    var stringURL = rURL;
+    var HLReport = stringURL.link(rURL);
 
 
-  var successRef = firebase.database().ref('Reports');
+    var successRef = firebase.database().ref('Reports');
 
-document.getElementById("ReportURL").innerHTML = "Please wait a moment while your report is generated.";
+    document.getElementById("ReportURL").innerHTML = "Please wait a moment while your report is generated.";
 
-console.log(Success);
+    console.log(Success);
 
     function check() {
 
@@ -244,10 +244,24 @@ console.log(Success);
           else {
             document.getElementById("ReportURL").innerHTML = "Report Generation Failed. Please try again or contact support.";
           }});
-        };
-
-    setTimeout(check, 30000);
-
+    };
+    
+    var a = new Date(startDate);
+    var b = new Date(endDate);
+    var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+    var diffTime = Math.round(utc2-utc1);
+    var diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)); 
+	
+    if (diffDays<5){
+        setTimeout(check, 25000);
+    }
+    else if (diffDays<20){
+        setTimeout(check, 35000);
+    }
+    else{
+        setTimeout(check, 45000);
+    }  
 }
 
 window.onload=function(){
