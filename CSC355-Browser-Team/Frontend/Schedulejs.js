@@ -258,22 +258,25 @@ function injectToWS(work){
   htmlInjection = '<table style="width:100%; border: 1px solid black;">';
   for (var i = work.length-1; i >= 0; i--){
     var weekSched = firebase.database().ref('CNA/'+work[i]+'/');
+    let cnaID = weekSched.key;
     var temp = weekSched.child('Schedule/');
     temp.once('value',function(days){
 
       times = [];
       times = days.val();
 
-      htmlInjection += '<tr><td style="width:10%; font-weight:bold;">'+weekSched.key+'</td>';
-      htmlInjection += '<td style="width:10%;">'+times["Sunday"]+'</td>';
-      htmlInjection += '<td style="width:10%">'+times["Monday"]+'</td>';
-      htmlInjection += '<td style="width:10%">'+times["Tuesday"]+'</td>';
-      htmlInjection += '<td style="width:10%">'+times["Wednesday"]+'</td>';
-      htmlInjection += '<td style="width:10%">'+times["Thursday"]+'</td>';
-      htmlInjection += '<td style="width:10%">'+times["Friday"]+'</td>';
-      htmlInjection += '<td style="width:10%">'+times["Saturday"]+'</td>';
-      htmlInjection += '<td style="width:10%"><button id="edit'+weekSched.key+'" onclick="editWorkingSchedule(\''+weekSched.key+'\')" style="cursor:pointer;">Edit</button></td>';
-      htmlInjection += '</tr>';
+      if (times !== null) {
+        htmlInjection += '<tr><td style="width:10%; font-weight:bold;">'+cnaID+'</td>';
+        htmlInjection += '<td style="width:10%;">'+times["Sunday"]+'</td>';
+        htmlInjection += '<td style="width:10%">'+times["Monday"]+'</td>';
+        htmlInjection += '<td style="width:10%">'+times["Tuesday"]+'</td>';
+        htmlInjection += '<td style="width:10%">'+times["Wednesday"]+'</td>';
+        htmlInjection += '<td style="width:10%">'+times["Thursday"]+'</td>';
+        htmlInjection += '<td style="width:10%">'+times["Friday"]+'</td>';
+        htmlInjection += '<td style="width:10%">'+times["Saturday"]+'</td>';
+        htmlInjection += '<td style="width:10%"><button id="edit'+weekSched.key+'" onclick="editWorkingSchedule(\''+weekSched.key+'\')" style="cursor:pointer;">Edit</button></td>';
+        htmlInjection += '</tr>';
+      }
 
       if(count = work.length) //if reached the end of the list of weeks
       {
