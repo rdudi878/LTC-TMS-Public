@@ -234,7 +234,7 @@ function injectToDOM(weeks){
 //Display Working Schedule table !!!!!Still in progress!!!!!!!!!!!
 var ws = [];
 var rowIndexWS = 1;
-var fbWS = firebase.database().ref('WorkingSchedule')
+var fbWS = firebase.database().ref('CNA/')
 var work = [];
 
 //get weeks stored in an array
@@ -254,18 +254,17 @@ fbWS.once('value',function(snapshot){
 */
 function injectToWS(work){
   var htmlInjection = "";
-  count = 0;
 
   htmlInjection = '<table style="width:100%; border: 1px solid black;">';
   for (var i = work.length-1; i >= 0; i--){
-    var weekSched = firebase.database().ref('WorkingSchedule/'+work[i]+'/');
-    weekSched.once('value',function(days){
-      count++;
+    var weekSched = firebase.database().ref('CNA/'+work[i]+'/');
+    var temp = weekSched.child('Schedule/');
+    temp.once('value',function(days){
 
       times = [];
       times = days.val();
 
-      htmlInjection += '<tr><td style="width:10%; font-weight:bold;">'+days.key+'</td>';
+      htmlInjection += '<tr><td style="width:10%; font-weight:bold;">'+weekSched.key+'</td>';
       htmlInjection += '<td style="width:10%;">'+times["Sunday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Monday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Tuesday"]+'</td>';
@@ -273,7 +272,7 @@ function injectToWS(work){
       htmlInjection += '<td style="width:10%">'+times["Thursday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Friday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Saturday"]+'</td>';
-      htmlInjection += '<td style="width:10%"><button id="edit'+days.key+'" onclick="editWorkingSchedule(\''+days.key+'\')" style="cursor:pointer;">Edit</button></td>';
+      htmlInjection += '<td style="width:10%"><button id="edit'+weekSched.key+'" onclick="editWorkingSchedule(\''+weekSched.key+'\')" style="cursor:pointer;">Edit</button></td>';
       htmlInjection += '</tr>';
 
       if(count = work.length) //if reached the end of the list of weeks
