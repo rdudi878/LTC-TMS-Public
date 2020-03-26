@@ -257,14 +257,15 @@ function injectToWS(work){
 
   htmlInjection = '<table style="width:100%; border: 1px solid black;">';
   for (var i = work.length-1; i >= 0; i--){
-    var weekSched = firebase.database().ref('CNA/'+work[i]+'/');
+    var weekSched = firebase.database().ref('CNA/'+work[i]);
+    let cnaID = weekSched.key;
     var temp = weekSched.child('Schedule/');
     temp.once('value',function(days){
 
       times = [];
       times = days.val();
 
-      htmlInjection += '<tr><td style="width:10%; font-weight:bold;">'+weekSched.key+'</td>';
+      htmlInjection += '<tr><td style="width:10%; font-weight:bold;">'+cnaID+'</td>';
       htmlInjection += '<td style="width:10%;">'+times["Sunday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Monday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Tuesday"]+'</td>';
@@ -272,7 +273,7 @@ function injectToWS(work){
       htmlInjection += '<td style="width:10%">'+times["Thursday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Friday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Saturday"]+'</td>';
-      htmlInjection += '<td style="width:10%"><button id="edit'+weekSched.key+'" onclick="editWorkingSchedule(\''+weekSched.key+'\')" style="cursor:pointer;">Edit</button></td>';
+      htmlInjection += '<td style="width:10%"><button id="edit'+cnaID+'" onclick="editWorkingSchedule(\''+cnaID+'\')" style="cursor:pointer;">Edit</button></td>';
       htmlInjection += '</tr>';
 
       if(count = work.length) //if reached the end of the list of weeks
@@ -288,14 +289,14 @@ function injectToWS(work){
  * @description queries for selected center schedule, calls to fill form
  * @param {*} date selected center schedule to be edited
  */
-function editWorkingSchedule(date) {
+function editWorkingSchedule(cnaID) {
   document.getElementById('editWorkBlock').style.display ='block';
-  console.log(date);
-  var fbB= firebase.database().ref('WorkingSchedule/'+date);
+  var temp = firebase.database().ref('CNA/'+cnaID+'/');
+  var fbB = temp.child('Schedule/');
   fbB.on('value', function(WSsnapshot){
     var times = [];
     times = WSsnapshot.val();
-    setWSEditFields(WSsnapshot.key, times);
+    setWSEditFields(cnaID, times);
   });
 } //end editCenterSchedule
 
@@ -305,8 +306,8 @@ function editWorkingSchedule(date) {
  * @param {*} weekOf week selected
  * @param {*} times array of times for 7 days of the selected week
  */
-function setWSEditFields(weekOf, times) {
-  document.getElementById('editCNAws').innerHTML = weekOf;
+function setWSEditFields(cnaID, times) {
+  document.getElementById('editCNAws').innerHTML = cnaID;
   document.getElementById('editWSSun').value = times["Sunday"];
   document.getElementById('editWSMon').value = times["Monday"];
   document.getElementById('editWSTue').value = times["Tuesday"];
@@ -362,7 +363,7 @@ function submitEditWorkingSchedule(){
       }
 
       var updates = {};
-      updates['WorkingSchedule/'+ymd] = data;
+      updates['CNA/'+ymd+'/Schedule/'] = data;
       firebase.database().ref().update(updates);
       document.getElementById('editWorkBlock').style.display ='none';
       location.href ="./02Schedule2.html";
