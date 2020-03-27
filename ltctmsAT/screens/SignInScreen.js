@@ -25,6 +25,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import firebase from 'react-native-firebase';
 import { Button, ThemeProvider, Icon } from 'react-native-elements';
 import styles from '../styles/styles';
+//import { Header } from 'react-native/Libraries/NewAppScreen';
+import { Header } from 'react-navigation-stack';
 
 const { width: WIDTH} = Dimensions.get('window')
 
@@ -57,7 +59,8 @@ class SignInScreen extends React.Component {
   // toggle, and buttons
   render() {
     return (
-      <KeyboardAvoidingView behavior='padding' style={{ flex: 1, backgroundColor: '#BAE7FF' }}>
+      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-510}
+      style={{ flex: 1, backgroundColor: '#BAE7FF' }}>
         <View style={styles.containerSignIn}>
           <Image style={styles.logo} source={require('../assets/img/logofinal.png')} />
           <View style={styles_2.inputContainer}>
@@ -94,6 +97,7 @@ class SignInScreen extends React.Component {
             <Text style={styles_2.loginText}>Login</Text>
           </TouchableHighlight>
         </View>
+      
       </KeyboardAvoidingView>
     );
   }

@@ -43,6 +43,7 @@ import {
   Right,
   Body
 } from "native-base";
+import { ScrollView } from 'react-native-gesture-handler';
 const deviceWidth = Dimensions.get("window").width;
 
 
@@ -70,7 +71,6 @@ class HomeScreen extends React.Component {
 
    
   static navigationOptions=({navigation,screenProps}) => {
-    console.log("here");
     const { params ={} }= navigation.state;
     const headerRight = ( 
       <TouchableOpacity onPress={()=>navigation.state.params.navigatePress()}>
@@ -78,19 +78,18 @@ class HomeScreen extends React.Component {
         <Icon 
             name='logout'
             size= {20}
-            color='#FFF'
+            color='#c4dfe6'
             
             />
        </View>
       </TouchableOpacity>
     );
-    return { title: navigation.getParam('otherParam', 'User Portfolio') ,
+    return { title: navigation.getParam('otherParam', 'Home') ,
       headerRight,
       headerStyle: {
-        backgroundColor: '#3f9fff',
+        backgroundColor: '#003b46',
       },
-      headerTintColor: '#fff',
-      
+      headerTintColor: '#c4dfe6',
       };
   };
 
@@ -160,7 +159,9 @@ class HomeScreen extends React.Component {
     // render content
   render() {
     return (
+
       <View>
+        
         <FlatList
           data={this.state.announcements}
           ItemSeparatorComponent={this.FlatListItemSeparator}
@@ -175,12 +176,14 @@ class HomeScreen extends React.Component {
   }
   _renderItem = () => {
     return (
+   
       <View style ={styles.basicView} >
+        
           <ImageBackground style={{ flex: 1 }}
           source={{uri: 'https://i.ibb.co/dMgXdR8/DSC-8578.jpg'}}
           opacity={0.5}>
 
-        <Content padder >   
+        <Content padder >  
         
             <CardItem style={{marginHorizontal: 24}} >
               <Left>              
@@ -238,6 +241,7 @@ class HomeScreen extends React.Component {
         
         </View> 
         </ImageBackground >
+        
       </View>
     );
   }

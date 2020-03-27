@@ -40,7 +40,7 @@ class TaskScreen extends React.Component {
   static navigationOptions = {
     title: 'Task Library',
     headerStyle: {
-      backgroundColor: '#3f9fff',
+      backgroundColor: '#003b46',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
@@ -63,7 +63,10 @@ class TaskScreen extends React.Component {
       refreshing: true,
       patientList: [],
       patient:'',
-      default: true
+      default: true,
+      room: [],
+      rm: '',
+      defaultRoom: true
     }
   }
 
@@ -77,16 +80,15 @@ class TaskScreen extends React.Component {
         this.setState({
           userInfo: res,
           userID: res.ID,
-          userPosition: res.Position
+          userPosition: res.Position,
+          
         });
         // fetch tasks related to/assigned to the currently logged in user
         // the user's ID will be used for the query.\
         console.log(res.Position);
         this._fetchAssignedTasks(res.ID);
+        this._fetchRoom();
         
-        if (this.state.userPosition == "CNA") {
-          this._fetchPatients(res.ID);
-        }
       }
     });
    
@@ -101,9 +103,26 @@ class TaskScreen extends React.Component {
     this.setState({
       fixedTasks: [],
       patient: e,
-    default: false});
+      default: false});
+
     this._fetchAssignedTasks();
-    
+  }
+
+  handleChangeRoom(e) {
+
+    if (e == "room") {
+      this.setState({rm: 0, 
+        patientList: [], 
+        fixedTasks: []});
+      
+      Alert.alert("Please Select a Room");
+    }else{
+      this.setState({
+        rm: e,
+        fixedTasks: [],
+        defaultRoom: false},this._fetchPatients);
+      
+  }
     
   }
 
@@ -121,6 +140,18 @@ class TaskScreen extends React.Component {
     }
   }
 
+  _fetchRoom() {
+    var rooms = [];
+    firebase.database().ref("Room").once('value').then((snapshot4) => {
+      snapshot4.forEach(function (room) {
+        var rm = room.key;
+        rooms.push(rm);
+      })
+       this.setState({room : rooms});
+    })
+   
+  }
+
   // fetches the tasks assigned to the user currently logged in
   _fetchAssignedTasks(userId) {
     // due to the nature of the database design, some data massaging must be done
@@ -129,6 +160,9 @@ class TaskScreen extends React.Component {
     var taskCategories = [];
     var fixedTasks = [];
     var position = this.state.userInfo.Position;
+  
+
+
     //console.log("hello" + userId)
     // pulls all the task categories from firebase and puts them in taskCategories array
     firebase.database().ref("TaskInstruction").once('value').then((snapshot) => {
@@ -137,38 +171,14 @@ class TaskScreen extends React.Component {
         taskCategories.push(cat);
       })
 
-      
-
-      if (this.state.userPosition == "Patient") {
-        firebase.database().ref(`Patient/${this.state.userID}/AssignedTasks`).once('value').then((snapshot2) => {
-          snapshot2.forEach((assigned) => {
-            var assignedDef = assigned.val();
-            // iterates over the taskCategories and assigned tasks and pulls the task objects 
-            for (var index in taskCategories) {
-              //firebase.database().ref(`TaskInstruction/${taskCategories[index]}/${assignedDef}`).once('value').then((snapshot3) => {
-                firebase.database().ref(`TaskInstruction/${taskCategories[index]}/${assignedDef}`).once('value').then((snapshot3) => {
-                if (snapshot3.val() != null) {
-                  const child = snapshot3.val();
-                  child.collapsed = true;
-                  child.collapsedStep = true;
-                  this.populateArray(child)
-                } else {
-  
-                }
-              }).catch((error) => {
-                console.error(error);
-                return null;
-              });
-            }
-          })
-        })
-      } 
 
       
       // pulls all the task ID's assigned to the logged in user
-        firebase.database().ref(`Patient/${this.state.patient}/AssignedTasks`).once('value').then((snapshot2) => {
+        //firebase.database().ref(`Patient/${this.state.patient}/AssignedTasks`).once('value').then((snapshot2) => {
+        firebase.database().ref(`Patient/${ (this.state.userPosition == "Patient") ? this.state.userID : this.state.patient}/AssignedTasks`).once('value').then((snapshot2) => {
         snapshot2.forEach((assigned) => {
           var assignedDef = assigned.val();
+          console.log(assignedDef);
           // iterates over the taskCategories and assigned tasks and pulls the task objects 
           for (var index in taskCategories) {
             //firebase.database().ref(`TaskInstruction/${taskCategories[index]}/${assignedDef}`).once('value').then((snapshot3) => {
@@ -189,7 +199,11 @@ class TaskScreen extends React.Component {
         })
       })
     })
+
+    
   }
+
+  
 
   // sets the state with the promised state from the task fetching function
   promisedSetState = (newState) => {
@@ -291,30 +305,23 @@ class TaskScreen extends React.Component {
       fixedTasks: this.state.fixedTasks.concat(taskData)
     })
    
-  }
+  }  
 
-  _fetchPatients = (userId) => {
-    // fetch content
-    const patientData = [];
-    firebase.database().ref(`CNA/${userId}/AssignedPatients`).once('value').then((snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        patientData.push({
-          id: childSnapshot.key,
-        })
-      })
-      this.setState({
-        patientList: patientData,
-        patient: patientData[0].id,
-        
-      });
-      console.log(userId);
-      console.log(patientData);
-      console.log(this.state.patientList);
-      console.log(patientData[0].id);
-      
-      
-    });
-        
+  _fetchPatients = () => {
+    var patientListt = [];
+  
+  firebase.database().ref(`Room/${this.state.rm}`).once('value').then((snapshot5) => {
+    snapshot5.forEach(function (patient) {
+      var pat = patient.key;
+      patientListt.push(pat);
+    })
+    this.setState({patientList: patientListt});
+  }).catch((error) => {
+    console.error(error);
+    return null;
+  });
+  
+  
   }
 
 
@@ -349,7 +356,7 @@ class TaskScreen extends React.Component {
   createStepText(text, step) {
     return (
       <View key={text.toString()}>
-        <Text style={{ fontSize: 20, color: '#1976d2', paddingLeft: 15, paddingTop: 15, textTransform:'uppercase'}}>Main Step {step} : {text}</Text>
+        <Text style={{ fontSize: 20, color: '#07575b', paddingLeft: 15, paddingTop: 15, textTransform:'uppercase'}}>Main Step {step} : {text}</Text>
         </View>
     );
    
@@ -364,18 +371,12 @@ class TaskScreen extends React.Component {
       </View>
     );
   }
-/*
-  createStepimage(text, step) {
-    return (
-      <View key={text.toString()}><Text style={{ fontSize: 22, color: '#1976d2', paddingLeft: 5}}>   Step {step} : {text}</Text></View>
-    );
-  }
-*/
+
   createStepimage(text, step) {
     return (
       <View key={text.toString()}>
-        <Image style={{width: 50, height: 50}}></Image>
-        
+        <Image style={{width: 400, height: 200}} source={{uri: text.toString()}}></Image>
+        <Text>{console.log(text.toString())}</Text>
       </View>
     );
   }
@@ -417,7 +418,7 @@ class TaskScreen extends React.Component {
                     onPress={this.toggleCollapseStep.bind(this, item)}
                   >
                     <Text style={styles.itemTask, 
-                      {textAlign: 'center', textTransform: 'uppercase', fontSize: 23, color: '#004dcf', fontWeight: 'bold', paddingLeft: 2, paddingTop: 15}}>{item.name}</Text>
+                      {textAlign: 'center', textTransform: 'uppercase', fontSize: 23, color: '#07575b', fontWeight: 'bold', paddingLeft: 2, paddingTop: 15}}>{item.name}</Text>
                   </TouchableOpacity>
                   {item.collapsedStep ?
                     <View /> :
@@ -444,8 +445,7 @@ class TaskScreen extends React.Component {
   _renderHeader() {
     return (
       <View style={styles.header}>
-        <Text style={styles.headerText}>Assigned Tasks</Text>
-        
+        <Text style={styles.headerText}>Assigned Tasks</Text>  
       </View>
     )
   }
@@ -455,9 +455,7 @@ class TaskScreen extends React.Component {
   // renders the flatlist and passes the data elements from state into _renderItem
   render() {
     return (
-      <View>
-        
-      
+      <View>       
       <ScrollView style={{ backgroundColor: '#fff' }}>
         <View style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}
@@ -475,22 +473,41 @@ class TaskScreen extends React.Component {
         />
         
         {(this.state.userPosition == "CNA") ? 
-        
-        <Card style={{padding:10, margin:50, marginLeft:30, marginRight:30}}>
-        <View>             
-              <Picker
+        <Content>
+        <Card style={styles2.card} marginBottom={5}>
+          <View>
+          <Picker
                 mode='anchor'
-                style={{height:150, width: 300, alignSelf:'center', borderColor:'#ff5722', backgroundColor:'', marginTop:0, justifyContent:'flex-end'}}
-                selectedValue={(this.state.default == true) ? 0 : this.state.patient}
-                onValueChange={(itemValue) => this.handleChange(itemValue)}>
+                style={styles2.picker}
+                selectedValue={(this.state.defaultRoom == true) ? 0 : this.state.rm}
+                onValueChange={(itemValue) => this.handleChangeRoom(itemValue)}>
                 
-                {<Picker.Item label = "Select Patient" color="#1976d2" value="patient"/>} 
-                {this.state.patientList.map((item, index) => {
-                  return (<Picker.Item label={item.id} color="#1976d2" value={item.id} key={index}/>)
+                {<Picker.Item label = "Select Room" color="#07575a" value="room"/>} 
+                {this.state.room.map((item, index) => {
+                  return (<Picker.Item label={item} color="#07575a" value={item} key={index}/>)
                 })
               }
               </Picker>
-            </View ></Card> : console.log("hi")} 
+          </View>
+        </Card>
+
+        
+        <Card style={styles2.card}>
+          <View>   
+              
+            <Picker
+              mode='anchor'
+              style={styles2.picker}
+              selectedValue={(this.state.default == true) ? 0 : this.state.patient}
+              onValueChange={(itemValue) => this.handleChange(itemValue)}>
+              
+              {<Picker.Item label = "Select Patient" color="#07575a" value="patient"/>} 
+                {this.state.patientList.map((item, index) => {
+                return (<Picker.Item label={item} color="#07575a" value={item} key={index}/>)
+                })
+              }
+            </Picker>
+            </View ></Card></Content> : console.log("hi")} 
           <Card style={{padding:10, margin:50, marginLeft:30, marginRight:30}}>
           <FlatList
             style={{ flexGrow: 1 }}
@@ -504,15 +521,32 @@ class TaskScreen extends React.Component {
           /></Card>
         </View>
       </ScrollView>
-      
       </View>
     );
   }
   
-
-
 }
 
+
+const styles2 = StyleSheet.create({
+  picker: {
+    height:150, 
+    width: 300, 
+    alignSelf:'center', 
+    borderColor:'#ff5722', 
+    marginTop:0, 
+    justifyContent:'flex-end',
+  },
+  card: {
+    padding:10, 
+    margin:50, 
+    marginLeft:30, 
+    marginRight:30, 
+    marginTop: 20,
+    marginBottom: 20
+  }
+
+});
 
 export default TaskScreen;
 
