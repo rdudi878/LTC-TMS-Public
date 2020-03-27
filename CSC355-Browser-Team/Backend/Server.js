@@ -112,3 +112,11 @@ exports.updateUser=functions.database.ref('uAccount/{sid}')
     }
 
   });
+
+// //check for new notifications
+// exports.createNotification= functions.database.ref('Notifications/{nid}')
+//   .onCreate((snapshot, context)=>{
+//     var id = context.params.nid;
+//     console.log("Notification ID:");
+//     console.log(nid);
+//   }
