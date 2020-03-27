@@ -55,13 +55,13 @@ function injectToDOM(weeks){
 
 
 function ViewFeedback(date) {
-  document.getElementById('viewFeedback').style.display ='block';
+  document.getElementById('viewABlock').style.display ='block';
   console.log(date);
-  var fbB= firebase.database().ref('Feedback/'+date);
+  var fbB= firebase.database().ref('Feedback/'+date+'/');
   fbB.on('value', function(WSsnapshot){
     var times = [];
     times = WSsnapshot.val();
-    setWSEditFields(WSsnapshot.key, times);
+    setWSEditFields(times);
   });
 } //end editCenterSchedule
 
@@ -71,11 +71,7 @@ function ViewFeedback(date) {
  * @param {*} weekOf week selected
  * @param {*} times array of times for 7 days of the selected week
  */
-function setWSEditFields(weekOf, times) {
-  document.getElementById('editCNAws').innerHTML = weekOf;
-  document.getElementById('editWSSun').value = times["userID"];
-  document.getElementById('editWSMon').value = times["userEmail"];
-  document.getElementById('editWSTue').value = times["timestamp"];
-  document.getElementById('editWSWed').value = times["feedbackText"];
+function setWSEditFields(times) {
+  document.getElementById('viewMessage').value = times["feedbackText"];
 
 } //end setCSEditFields

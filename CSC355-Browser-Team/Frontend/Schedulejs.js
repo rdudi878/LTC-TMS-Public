@@ -265,7 +265,9 @@ function injectToWS(work){
       times = [];
       times = days.val();
 
-      htmlInjection += '<tr><td style="width:10%; font-weight:bold;">'+cnaID+'</td>';
+      htmlInjection += '<tr>';
+      htmlInjection += '<td style="width:10%"><button id="edit'+cnaID+'" onclick="editWorkingSchedule(\''+cnaID+'\')" style="cursor:pointer;">Edit</button></td>';
+      htmlInjection += '<td style="width:10%; font-weight:bold;">'+cnaID+'</td>';
       htmlInjection += '<td style="width:10%;">'+times["Sunday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Monday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Tuesday"]+'</td>';
@@ -273,7 +275,6 @@ function injectToWS(work){
       htmlInjection += '<td style="width:10%">'+times["Thursday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Friday"]+'</td>';
       htmlInjection += '<td style="width:10%">'+times["Saturday"]+'</td>';
-      htmlInjection += '<td style="width:10%"><button id="edit'+cnaID+'" onclick="editWorkingSchedule(\''+cnaID+'\')" style="cursor:pointer;">Edit</button></td>';
       htmlInjection += '</tr>';
 
       if(count = work.length) //if reached the end of the list of weeks
