@@ -24,6 +24,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
 </head>
 <style>
     .portfolio_display {
@@ -330,7 +331,7 @@ span.hidden{
         }
     }
 </style>
-<body>
+<body onload="displayNotifications()">
     <div class="wrapper">
         <!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
         <nav id="sidebar">
@@ -431,6 +432,13 @@ span.hidden{
                             </li>
                           </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
+                              <li>
+                                <div class="dropdown">
+                                  <span style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
+                                  <div id="notificationDropdown"style="margin-top:40px;" class="dropdown-content">
+                                  </div>
+                                </div>
+                              </li>
                               <li>
                                   <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
                               </li>
@@ -969,6 +977,8 @@ span.hidden{
     <script type='text/javascript' src='Config.js'></script>
     <script type='text/javascript' src='PortfolioJS.js'></script>
     <script type='text/javascript' src='Profile.js'></script>
+    <script type='text/javascript' src='Notifications.js'></script>
+    
     <!-- START COPY FOR SIDEBAR JAVASCRIPT -->
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

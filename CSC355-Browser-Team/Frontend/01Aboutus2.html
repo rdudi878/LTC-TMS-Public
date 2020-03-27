@@ -36,7 +36,7 @@
         display: none;
     }
     </style>
-<body>
+<body onload="displayNotifications()">
     <div class="wrapper"><!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
         <nav id="sidebar"><!-- SIDEBAR -->
             <ul class="list-unstyled components">
@@ -128,10 +128,8 @@
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
                               <li>
                                 <div class="dropdown">
-                                  <span onclick="testProf()" style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
-                                  <div style="margin-top:40px;" class="dropdown-content">
-                                    <a>Patient Yen fell at 2:53PM</a>
-                                    <a>Patient Yen has a high heart rate of 110 BPM</a>
+                                  <span style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
+                                  <div id="notificationDropdown"style="margin-top:40px;" class="dropdown-content">
                                   </div>
                                 </div>
                               </li>

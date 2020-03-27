@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" href="statics/css/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="statics/css/style.css" />
     <link rel="stylesheet" type="text/css" href="statics/css/schedule.css" />
+    <script type='text/javascript' src='Notifications.js'></script>
+    
     <!-- IMPORTING BOOTSTRAP!!-->
     <!-- Importing BOOTSTRAP!!! -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -27,7 +29,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 </head>
-<body>
+<body onload="displayNotifications()">
 
     <div class="wrapper">
         <!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
@@ -130,6 +132,13 @@
                             </li>
                           </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
+                              <li>
+                                <div class="dropdown">
+                                  <span style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
+                                  <div id="notificationDropdown"style="margin-top:40px;" class="dropdown-content">
+                                  </div>
+                                </div>
+                              </li>
                               <li>
                                   <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
                               </li>
