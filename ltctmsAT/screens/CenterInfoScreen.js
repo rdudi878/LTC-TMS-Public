@@ -40,7 +40,7 @@ class CenterInfo extends React.Component {
   static navigationOptions = {
     title: 'Center Information',
     headerStyle: {
-      backgroundColor: '#3f9fff',
+      backgroundColor: '#003b46',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {

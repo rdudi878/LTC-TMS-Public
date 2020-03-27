@@ -25,7 +25,7 @@ import { ListRow,Input } from 'teaset';
 import{Form, Textarea,Card,Content,CardItem}from'native-base'
 import Moment from 'moment';
 
-class VitalStatusAddScreen extends React.Component {
+class SpecialCareAddScreen extends React.Component {
     static navigationOptions = {
         title: 'Add Special Care',
     };
@@ -42,7 +42,15 @@ class VitalStatusAddScreen extends React.Component {
         
     }
 
-
+    static navigationOptions=({navigation,screenProps}) => {
+  
+        return { title: navigation.getParam('otherParam', 'Special Care Add') ,
+          headerStyle: {
+            backgroundColor: '#003b46',
+          },
+          headerTintColor: '#c4dfe6',
+          };
+      };
    
     
 
@@ -196,4 +204,4 @@ const styles2 = StyleSheet.create({
 
 
 
-export default VitalStatusAddScreen;
+export default SpecialCareAddScreen;
