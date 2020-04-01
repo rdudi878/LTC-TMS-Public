@@ -238,7 +238,7 @@ fbPAT.once("value")
                 legibleValue = legibleValue.replace(/steps/g, ' steps');
                 console.log(child.key);
                 if (child.key == 'Fell') {
-                  legibleValue = legibleValue.substr(0,legibleValue.indexOf(' '));
+                  legibleValue = "Fell at " + legibleValue.substr(0,legibleValue.indexOf(' '));
                 }
                 if (child.key == 'Step') {
                   legibleValue = legibleValue.substr(legibleValue.indexOf(' ')+1);
