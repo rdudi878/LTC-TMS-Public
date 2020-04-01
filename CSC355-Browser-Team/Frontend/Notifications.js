@@ -8,7 +8,12 @@ function displayNotifications() {
       var patientID = notificationSnap.child(notificationKey+"/PatientID");
       var status = notificationSnap.child(notificationKey+"/Status");
       var time = notificationSnap.child(notificationKey+"/Datetime");
-      $("div#notificationDropdown").append('<a>' + "Patient "+patientID.val()+" fell at "+time.val() + '</a>');
+      var legibleTime = time.val();
+      var date = legibleTime.split('_')[0];
+      var time = legibleTime.split('_')[1];
+      legibleTime = time.replace(/~/g, ":")
+
+      $("div#notificationDropdown").append('<a>' + "Patient "+patientID.val()+" fell on "+date +" at "+legibleTime+ '</a>');
 
       // var startListening = function() {
         // rootRef.on('value', function(snapshot) {
