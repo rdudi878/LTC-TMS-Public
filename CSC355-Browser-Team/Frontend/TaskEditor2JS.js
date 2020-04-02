@@ -299,7 +299,8 @@ function injectToDOM(){
     //var $AddToDom = $('<div>Task Name: </div>');
     htmlInjection = "";
     //Task name
-    htmlInjection += '<div style="text-align:center;"><button id="startRec" onclick="voiceToText()" type="button" class="btn btn-primary record"><span class="glyphicon glyphicon-record"></span> Voice Recognition</button></div>'
+    htmlInjection += '<div style="text-align:center;"><button id="startRec" onclick="voiceToText()" type="button" class="btn btn-primary record"><span class="glyphicon glyphicon-record"></span> Start Voice Recognition</button></div>'
+    htmlInjection += '<div style="text-align:center;"><button style="margin-top: 2px;" id="abortBtn" type="button" class="btn btn-primary record">Stop Voice Recognition</button></div>'
     htmlInjection += '<div style="text-align:center;"> Task Name: </div>';
     if (taskDetails["name"] == "New Task"){
         htmlInjection += '<input style="text-align:center;" type="text" id="nameInput" placeholder="' + taskDetails["name"] + '"> </input>';
@@ -426,6 +427,7 @@ function injectToDOM(){
 
 function voiceToText() {
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recordingStop = false;
 
   const recognition = new SpeechRecognition();
   //setting this to true works while you are speaking
@@ -460,10 +462,19 @@ function voiceToText() {
       words.appendChild(p);
     }
     console.log(transcript);
-    copyTextOver(transcript);
+    if (recordingStop==false) {
+      copyTextOver(transcript);
+    }
   });
   recognition.addEventListener('end', recognition.start);
   recognition.start();
+
+  var abortBtn = document.getElementById("abortBtn");
+  abortBtn.onclick = function() {
+    recordingStop = true;
+    recognition.abort();
+    console.log('Speech recognition aborted.');
+  }
 }
 
 function stopRecording() {
@@ -495,7 +506,7 @@ function textToSpeech(btn) {
   }
   var synth = window.speechSynthesis;
   var msg = new SpeechSynthesisUtterance();
-  var textToSpeak = document.querySelector(selector).value;
+  // var textToSpeak = document.querySelector(selector).value;
   msg.text = document.querySelector(selector).value;
   console.log("msg");
   console.log(msg);
