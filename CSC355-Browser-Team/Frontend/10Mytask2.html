@@ -27,6 +27,7 @@
     <script type='text/javascript' src="Config.js"></script>
     <script type='text/javascript' src='Mytask.js'></script>
     <script type='text/javascript' src='Profile.js'></script>
+    <script type='text/javascript' src='Notifications.js'></script>
 </head>
 <style>
     table, th, td {
@@ -182,7 +183,7 @@
 </style>
 
 
-<body>
+<body onload="displayNotifications()">
     <div class="wrapper">
         <!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
         <nav id="sidebar">
@@ -283,6 +284,13 @@
                             </li>
                           </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
+                              <li>
+                                <div class="dropdown">
+                                  <span style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
+                                  <div id="notificationDropdown"style="margin-top:40px;" class="dropdown-content">
+                                  </div>
+                                </div>
+                              </li>
                               <li>
                                   <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
                               </li>

@@ -28,6 +28,7 @@
     <script type='text/javascript' src="Config.js"></script>
     <script type='text/javascript' src='HelpandSupport.js'></script>
     <script type='text/javascript' src='Profile.js'></script>
+    <script type='text/javascript' src='Notifications.js'></script>
 </head>
 <style>
     span.hidden{
@@ -218,7 +219,7 @@
 
     }
 </style>
-<body style="height:900px;">
+<body onload="displayNotifications()" style="height:900px;">
     <div class="wrapper">
         <!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
         <nav id="sidebar">
@@ -319,6 +320,13 @@
                             </li>
                           </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
+                              <li>
+                                <div class="dropdown">
+                                  <span style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
+                                  <div id="notificationDropdown"style="margin-top:40px;" class="dropdown-content">
+                                  </div>
+                                </div>
+                              </li>
                               <li>
                                   <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
                               </li>
@@ -500,7 +508,7 @@
                             </ol>
                               <h2>Add Announcments</h2>
                             <ol>
-                                <li>Click the green plus button.</li>
+                                <li>Click the add announcments button.</li>
                                 <li>Enter in the announcment title and the announcment itself.</li>
                                 <li>Click submit.</li>
                             </ol>
@@ -686,7 +694,7 @@
                           </div>
                           <div id="option22" class="size_chart">
                             <h1><u>Library</u></h1>
-                            <h2>Filter</h2>
+                            <h2>Filter and Search</h2>
                             <ol>
                                 <li>Click the drop down to select the category of task you want to appear.</li>
                                 <li>Click the search bar and enter in the category or the task name you want to appear.</li>
@@ -720,7 +728,7 @@
                             </ol>
                             <h2>Add</h2>
                             <ol>
-                              <li>Click the green plus button to add a E-Portfolio.</li>
+                              <li>Click the add new portfolio button to add a E-Portfolio.</li>
                               <li>Select the position of the person you want to add.</li>
                               <li>Enter in all the information for the persons E-Portfolio.</li>
                               <li>Click submit.</li>

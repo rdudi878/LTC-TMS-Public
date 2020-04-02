@@ -57,6 +57,16 @@ class DailyStatusAddScreen extends React.Component {
     };
   }
 
+  static navigationOptions=({navigation,screenProps}) => {
+  
+    return { title: navigation.getParam('otherParam', 'Daily Status Add') ,
+      headerStyle: {
+        backgroundColor: '#003b46',
+      },
+      headerTintColor: '#c4dfe6',
+      };
+  };
+
 
   async _fetchUserInfo() {
     const userInfo = await AsyncStorage.getItem("userInfo");
@@ -425,10 +435,29 @@ class DailyStatusAddScreen extends React.Component {
   }
 
   _submitDailyStatus = async () => {
-    const baseRef = `Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.today}/daily_status/`;
+
+    const baseRef = `Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.today}/${this.state.userInfo.ID}/daily_status/`;
     const ref = firebase.database().ref(baseRef);
     const user = this.state.userInfo;
     const now = new Date();
+
+    await ref.remove({
+      date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      submittedBy: user.ID,
+      shower: this.state.shower,
+      breakfast:this.state.breakfast,
+      lunch:this.state.lunch,
+      dinner:this.state.dinner,
+      brushTeeth:this.state.brushTeeth,
+      poop: this.state.poop,
+      urinate: this.state.urinate,
+      face:this.state.face,
+      shampoo:this.state.shampoo,
+      Haircut:this.state.Haircut,
+      Turnover:this.state.Turnover,
+      Shave:this.state.Shave
+    });
     
     await ref.update({
       date: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,

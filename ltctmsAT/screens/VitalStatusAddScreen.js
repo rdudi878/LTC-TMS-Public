@@ -56,6 +56,16 @@ class VitalStatusAddScreen extends React.Component {
         };
     }
 
+    static navigationOptions=({navigation,screenProps}) => {
+  
+        return { title: navigation.getParam('otherParam', 'Vital Status Add') ,
+          headerStyle: {
+            backgroundColor: '#003b46',
+          },
+          headerTintColor: '#c4dfe6',
+          };
+      };
+
 
     updatePatient = (patient) => {
         this.setState({ patient: patient })
@@ -156,7 +166,8 @@ class VitalStatusAddScreen extends React.Component {
         const temperature = this.state.temperature
         const specialrecord=this.state.specialrecord
         const CNA = this.state.userInfo.ID;
-        const baseRef = `Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.today}/vital_status/`;
+       
+        const baseRef = `Activities/${this.props.navigation.getParam('patientID','0')}/${this.state.today}/${CNA}/vital_status/`;
         console.log(baseRef)
         const ref = firebase.database().ref(baseRef);
         const user = this.state.userInfo;
@@ -168,6 +179,11 @@ class VitalStatusAddScreen extends React.Component {
         heartKey = "BloodPressure_"+time;
         tempKey = "Temperature_"+time;
         // variables as keys must be enclosed in brackets for firebase
+        await ref.remove({
+            [heartKey]: heart,
+            [tempKey]: temperature,
+            specialrecord:specialrecord
+        });
         await ref.update({
             [heartKey]: heart,
             [tempKey]: temperature,
