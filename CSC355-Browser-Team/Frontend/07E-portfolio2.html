@@ -175,7 +175,6 @@ span.hidden{
 
     .add_button {
         position: relative;
-        left: 22%;
     }
 
     #newPortfolioSeletion {
@@ -560,6 +559,9 @@ span.hidden{
                             </div>
                         </div>
                         <div class="portfolio_display" id="shortportfolio">
+                          <br>
+                          <button id="newPortfolio" style="cursor:pointer;display:none;" type="button" onclick="addNewPortfolio()" class="add_button">Add New Portfolio</button>
+                          <br><br>
                             <table class="portfolio_display_table">
                                 <tr>
                                     <th title="Sort by I.D." style="width:15%"> I.D. </th>
@@ -568,7 +570,7 @@ span.hidden{
                                     <th title="Sort by Contact number" style="width:25%"> Contact number</th>
                                     <th title="Sort by Email" style="width:15%"> Email</th>
                                     <th title="Sort by Role" style="width:6%"> Role</th>
-                                    <th style="width:6%"> <button id="newPortfolio" style="cursor:pointer;display:none;" type="button" onclick="addNewPortfolio()" class="add_button"><img src="statics\images\add.png" height="15px" width="15px" /></button> </th>
+                                    <th style="width:6%"></th>
                                 </tr>
                                 <tbody id="briefPortfolio">
                                     <tr></tr>
