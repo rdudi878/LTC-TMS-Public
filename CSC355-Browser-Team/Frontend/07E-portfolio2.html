@@ -24,7 +24,6 @@
 
     <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-
 </head>
 <style>
     .portfolio_display {
@@ -45,8 +44,6 @@
         border-style: hidden;
         overflow-x: auto;
         border: solid black 1px;
-        position:relative;
-        top:-160px;
     }
 span.hidden{
         display: none;
@@ -177,7 +174,7 @@ span.hidden{
 
     .add_button {
         position: relative;
-        left: auto;
+        left: 22%;
     }
 
     #newPortfolioSeletion {
@@ -282,6 +279,30 @@ span.hidden{
         overflow: auto;
     }
 
+    .library_form {
+        display: none;
+        position: relative;
+        top: -124px;
+        left: 0%;
+        border-style: hidden;
+        z-index: 9;
+        padding: 10px;
+        background-color: white;
+        height: 101%;
+        width: 21%;
+        animation: library_pop 2s;
+    }
+
+    @keyframes library_pop {
+        from {
+            left: -20%;
+        }
+
+        to {
+            left: 0%;
+        }
+    }
+
     @keyframes portfolio_pop {
         from {
             left: 0%;
@@ -309,7 +330,7 @@ span.hidden{
         }
     }
 </style>
-<body onload="displayNotifications()">
+<body>
     <div class="wrapper">
         <!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
         <nav id="sidebar">
@@ -411,13 +432,6 @@ span.hidden{
                           </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
                               <li>
-                                <div class="dropdown">
-                                  <span style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
-                                  <div id="notificationDropdown"style="margin-top:40px;" class="dropdown-content">
-                                  </div>
-                                </div>
-                              </li>
-                              <li>
                                   <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
                               </li>
                               <li class="dropdown">
@@ -484,53 +498,60 @@ span.hidden{
                         <p class="selected" style="margin-top:3px;margin-bottom:3px;cursor:pointer;" onclick="window.location.href='/../Frontend-Chinese/07E-portfolio2.html'">&nbsp 中文<br></p>
                         <p class="logoutselected" onclick="Logout()">&nbsp<i class="icon iconfont icon-dianyuan" style="margin-right:5px;"></i>Logout</p>
                     </div>
-                    <div class="container" style="padding-top:110px">
+                    <div class="container">
 
-                        <div class="portfolio_display" id="shortportfolio">
-                            <br>
-                            <button type="button" onclick="addNewPortfolio()" class="add_button" style="cursor:pointer;">Add New Portfolio</button>
-                            <br><br>
-                                <input type="text" name="search" placeholder="Search" id="searchInput" class="portfolio_keyword_search">
-                                  <div id="Position" style="display:block; position:relative; left:200px; bottom:82px;">
+                        <div style="position:relative;top:135px;left:0px;z-index:3;width:50px;" id="portfoliofilter">
+                            <button type="button" onclick="viewportfoliofilter()" style="width:20px; height:120px;background-color:white;border-top:5px solid gray;border-bottom:5px solid gray;border-left:hidden; border-right:hidden;cursor:pointer;">
+                            <p style="transform:scaleX(1.5);font-size:11px;font-weight:bold;position:relative;left:-0.5px;color:lawngreen;">F<br>I<br>L<br>T<br>E<br>R</p>
+                            </button>
+                        </div>
+
+                        <div class="library_form" id="form">
+                            <button style="position:relative;cursor:pointer; left:175px; background-color:white; border-style:none;" onclick="closefilter()" class="xfilter">X</button>
+                            <input type="text" name="search" placeholder="Search" id="searchInput" class="portfolio_keyword_search">
+                            <div class="portfolio_search_position">
+                                <div class="portfolio_search_background">
+                                    <div class="portfolio_search_word">
+                                        <h3> Position: </h3>
+                                    </div>
+                                </div>
+                                <select id="filterPosition">
+                                    <option value="all">All</option>
+                                    <option value="DIR">Director</option>
+                                    <option value="CNO">CNO</option>
+                                    <option value="CNA">CNA</option>
+                                    <option value="Patient">Patient</option>
+                                </select>
+                                <br><br>
+                                <div id='Roomhide' style='display:none;'>
                                     <div class="portfolio_search_background">
                                         <div class="portfolio_search_word">
-                                            <h3> Position: </h3>
+                                            <h3> Room No. </h3>
                                         </div>
                                     </div>
-                                    <select id="filterPosition">
-                                        <option value="all">All</option>
-                                        <option value="DIR">Director</option>
-                                        <option value="CNO">CNO</option>
-                                        <option value="CNA">CNA</option>
-                                        <option value="Patient">Patient</option>
+                                    <select id="filterRoomNo" onchange="filterRoomNo()">
+                                        <option value="all"> All </option>
                                     </select>
-                                    </div>
-
-                                    <div id="Roomhide" style="display:block; position:relative; left:600px; bottom:162px;">
-                                        <div class="portfolio_search_background">
-                                            <div class="portfolio_search_word">
-                                                <h3> Room No. </h3>
-                                            </div>
+                                </div>
+                                <br>
+                                <div id='Genderhide' style='display:block;'>
+                                    <div class="portfolio_search_background">
+                                        <div class="portfolio_search_word">
+                                            <h3> Gender </h3>
                                         </div>
-                                        <select id="filterRoomNo" onchange="filterRoomNo()">
-                                            <option value="all"> All </option>
-                                        </select>
                                     </div>
-
-                                    <div id='Genderhide' style="display:block; position:relative; left:400px; bottom:240px;">
-                                        <div class="portfolio_search_background">
-                                            <div class="portfolio_search_word">
-                                                <h3> Gender </h3>
-                                            </div>
-                                        </div>
-                                        <select id="filterGender">
-                                            <option value="all"> All </option>
-                                            <option value="M">Male</option>
-                                            <option value="F">Female</option>
-                                            <option value="Others">Others</option>
-                                        </select>
-                                    </div>
-
+                                    <select id="filterGender">
+                                        <option value="all"> All </option>
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <button onclick='Cancel()' style="cursor:pointer;"> Refresh</button>
+                            </div>
+                        </div>
+                        <div class="portfolio_display" id="shortportfolio">
                             <table class="portfolio_display_table">
                                 <tr>
                                     <th title="Sort by I.D." style="width:15%"> I.D. </th>
@@ -539,7 +560,7 @@ span.hidden{
                                     <th title="Sort by Contact number" style="width:25%"> Contact number</th>
                                     <th title="Sort by Email" style="width:15%"> Email</th>
                                     <th title="Sort by Role" style="width:6%"> Role</th>
-                                    <th style="width:6%"></th>
+                                    <th style="width:6%"> <button id="newPortfolio" style="cursor:pointer;display:none;" type="button" onclick="addNewPortfolio()" class="add_button"><img src="statics\images\add.png" height="15px" width="15px" /></button> </th>
                                 </tr>
                                 <tbody id="briefPortfolio">
                                     <tr></tr>
@@ -948,8 +969,6 @@ span.hidden{
     <script type='text/javascript' src='Config.js'></script>
     <script type='text/javascript' src='PortfolioJS.js'></script>
     <script type='text/javascript' src='Profile.js'></script>
-    <script type='text/javascript' src='Notifications.js'></script>
-    
     <!-- START COPY FOR SIDEBAR JAVASCRIPT -->
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
