@@ -101,7 +101,7 @@ class LogoutScreen extends React.Component {
         <Icon 
             name='logout'
             size= {20}
-            color='#FFF'
+            color='#c4dfe6'
             />
        </View>
       </TouchableOpacity>
@@ -109,9 +109,9 @@ class LogoutScreen extends React.Component {
     return { title: navigation.getParam('otherParam', 'User Portfolio') ,
       headerRight,
       headerStyle: {
-        backgroundColor: '#3f9fff',
+        backgroundColor: '#003b46',
       },
-      headerTintColor: '#fff',
+      headerTintColor: '#c4dfe6',
       
       };
   };

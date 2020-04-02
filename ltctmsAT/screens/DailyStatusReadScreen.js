@@ -60,18 +60,31 @@ class DailyStatusReadScreen extends React.Component {
       date: `${now.getFullYear()}-${month}-${day}`,
       status: [],
       userID: '',
-      position: ''
+      position: '',
+      CNA:''
     };
   }
 
   updatePatient = (patient) => {
     this.setState({ patient: patient })
   }
+  _fetchCNA() {
+    var cna = [];
+    
+    firebase.database().ref(`Activities/${(this.state.position == "Patient") ? this.state.userID: this.props.navigation.getParam('patientID','0')}/${this.state.date}`).once('value').then((snapshot4) => {
+      snapshot4.forEach(function (child) {
+        var c = child.key;
+        cna.push(c);       
+      })
+       this.setState({CNA : cna[0]});
+    })
+  }
 
   // This pulls the current logged in users data that was saved in asyncstorage into state
   // begin fetching content (patients) before the component actually mounts
   componentDidMount() {
     this._fetchPatients();
+    
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
       this.state.userID = data.ID;
@@ -200,18 +213,11 @@ class DailyStatusReadScreen extends React.Component {
   }
 
   _fetchStatus = () => {
-    console.log(this.state.position);
-    console.log(this.state.userID);
-    patient = ""
-    if (this.state.position == "Patient") {
-      patient = this.state.userID;
-      
-    } else {
-      patient = this.state.patient;
-    }
+    
+  
     const patientStatus = [];
-    console.log("Patient : ", this.state.patient);
-    firebase.database().ref(`Activities/${(this.state.position == "Patient" ? patient : this.props.navigation.getParam('patientID','0'))}/${this.state.date}/daily_status/`).once('value').then((snapshot) => {
+    this._fetchCNA();
+    firebase.database().ref(`Activities/${(this.state.position == "Patient" ? this.state.userID : this.props.navigation.getParam('patientID','0'))}/${this.state.date}/${this.state.CNA}/daily_status/`).once('value').then((snapshot) => {
       var status = snapshot.toJSON();
       var shower = status.shower;
       var shampoo = status.shampoo;
@@ -245,7 +251,15 @@ class DailyStatusReadScreen extends React.Component {
     });
     this.forceUpdate();
   }
-
+    static navigationOptions=({navigation,screenProps}) => {
+  
+      return { title: navigation.getParam('otherParam', 'Daily Status Read') ,
+        headerStyle: {
+         backgroundColor: '#003b46',
+        },
+        headerTintColor: '#c4dfe6',
+      };
+    };
 
   //       console.log("this.state.status dump")
   //       console.log(this.state.status)

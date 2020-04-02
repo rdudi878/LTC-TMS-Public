@@ -49,7 +49,19 @@ class VitalStatusReadScreen extends React.Component {
       userID: '',
       position: '',
       header: '',
+      
     };
+  }
+
+  _fetchCNA() {
+    var cna = [];
+    firebase.database().ref(`Activities/${(this.state.position == "Patient") ? this.state.userID: this.props.navigation.getParam('patientID','0')}/${this.state.date}`).once('value').then((snapshot4) => {
+      snapshot4.forEach(function (child) {
+        var c = child.key;
+        cna.push(c);       
+      })
+       this.setState({CNA : cna[0]});
+    })
   }
 
   updatePatient = (patient) => {
@@ -69,7 +81,6 @@ class VitalStatusReadScreen extends React.Component {
       this.state.position = data.Position;
     })
     this._fetchPatients();
-    this._fetchCNAs();
   }
 
   // render content
@@ -155,20 +166,30 @@ class VitalStatusReadScreen extends React.Component {
 
   }
 
+  static navigationOptions=({navigation,screenProps}) => {
+  
+    return { title: navigation.getParam('otherParam', 'Vital Status Read') ,
+      headerStyle: {
+        backgroundColor: '#003b46',
+      },
+      headerTintColor: '#c4dfe6',
+      };
+  };
+
   _fetchStatus = () => {
+    
     // clears this.state.status so we don't endlessly concat to array with every button press
     this.setState({
       status: ""
-    })
-    patient = ""
-    if (this.state.position == "Patient"){
-      patient = this.state.userID;
-    } else {
-      patient = this.state.patient;
-    }
-    console.log(`Activities/${patient}/${this.state.date}/vital_status`)
-    firebase.database().ref(`Activities/${(this.state.position == "Patient" ? patient : this.props.navigation.getParam('patientID','0'))}/${this.state.date}/vital_status`).once('value').then((snapshot) => {
-      console.log("snapshot" + snapshot.val())
+    })    
+    this._fetchCNA();
+    firebase.database().ref(`Activities/${(this.state.position == "Patient" ? this.state.userID : this.props.navigation.getParam('patientID','0'))}/${this.state.date}/${this.state.CNA}/vital_status`).once('value').then((snapshot) => {
+      console.log("snapshot" + snapshot.val());/*
+      if (snapshot.val() == null) {
+        Alert.alert('Unable to find data for the specified date and patient combination. Please try another one.')
+      } else {
+        snapshot.forEach(child)
+      }*/
       snapshot.forEach((childSnapshot) => {
         if (childSnapshot.val() == null) {
           Alert.alert("Data not found, try again.");
@@ -195,11 +216,13 @@ class VitalStatusReadScreen extends React.Component {
         patientData.push({
           id: childSnapshot.key,
         })
-      })
-      this.setState({
+        this.setState({
         patientList: patientData,
         patient: patientData.id
       })
+      })
+
+      
     });
   }
 

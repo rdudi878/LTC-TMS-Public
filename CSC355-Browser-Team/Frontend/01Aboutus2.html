@@ -29,13 +29,14 @@
     <script type='text/javascript' src='Config.js'></script>
     <script type='text/javascript' src='AboutusKU.js'></script>
     <script type='text/javascript' src='Profile.js'></script>
+    <script type='text/javascript' src='Notifications.js'></script>
 </head>
 	<style>
         span.hidden{
         display: none;
     }
     </style>
-<body>
+<body onload="displayNotifications()">
     <div class="wrapper"><!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
         <nav id="sidebar"><!-- SIDEBAR -->
             <ul class="list-unstyled components">
@@ -89,14 +90,14 @@
                     E-Portfolio</a>
                 </li>
                 <li>
-                    <a href="../Frontend/08Helpandsupport2.html">
-                        <i class="glyphicon glyphicon-question-sign"></i>
-                    Help and Support</a>
-                </li>
-                <li>
                     <a href="../Frontend/11Feedback2.html">
                         <i class="glyphicon glyphicon-comment"></i>
                     Feedback</a>
+                </li>
+                <li>
+                    <a href="../Frontend/08Helpandsupport2.html">
+                        <i class="glyphicon glyphicon-question-sign"></i>
+                    Help and Support</a>
                 </li>
             </ul>
         </nav>
@@ -126,7 +127,14 @@
                           </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
                               <li>
-                                  <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
+                                <div class="dropdown">
+                                  <span style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
+                                  <div id="notificationDropdown"style="margin-top:40px;" class="dropdown-content">
+                                  </div>
+                                </div>
+                              </li>
+                              <li>
+                                  <img class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
                               </li>
                               <li class="dropdown">
                                   <a href="javascript:void(0)" class="dropbtn">

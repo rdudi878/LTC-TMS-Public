@@ -27,7 +27,8 @@
     <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 </head>
-<body>
+
+<body onload="displayNotifications()">
 
     <div class="wrapper">
         <!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
@@ -91,15 +92,15 @@
                     </a>
                 </li>
                 <li>
+                    <a href="../Frontend/11Feedback2.html">
+                        <i class="glyphicon glyphicon-comment"></i>
+                    Feedback</a>
+                </li>
+                <li>
                     <a href="../Frontend/08Helpandsupport2.html">
                         <i class="glyphicon glyphicon-question-sign"></i>
                         Help and Support
                     </a>
-                </li>
-                <li>
-                    <a href="../Frontend/11Feedback2.html">
-                        <i class="glyphicon glyphicon-comment"></i>
-                    Feedback</a>
                 </li>
             </ul>
         </nav>
@@ -131,7 +132,14 @@
                           </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
                               <li>
-                                  <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
+                                <div class="dropdown">
+                                  <span style="cursor:pointer; top:17px; color:white; margin-right:11px; font-size:21px;" class="glyphicon glyphicon-alert"></span>
+                                  <div id="notificationDropdown" style="margin-top:40px;" class="dropdown-content">
+                                  </div>
+                                </div>
+                              </li>
+                              <li>
+                                  <img class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
                               </li>
                               <li class="dropdown">
                                   <a href="javascript:void(0)" class="dropbtn">
@@ -231,20 +239,18 @@
                     </div> <!--end div class="container" id="data3" style="display:none;"-->
                     <!-- Working schedule tab contents "data4"-->
                     <div class="container" id="data4" style="display:none;overflow:scroll;">
-                      <br>
-                      <button type="button" onclick="AddNewWS()" class="add_button" style="cursor:pointer;">Add New CNA</button>
-                      <br><br>
+
                       <table id='WStable' style="width:100%; border: 1px solid black;">
                           <tr>
-                              <th style="width:11%">CNA</th>
-                              <th style="width:11%">SUN</th>
-                              <th style="width:11%">MON</th>
-                              <th style="width:11%">TUE</th>
-                              <th style="width:11%">WED</th>
-                              <th style="width:11%">THU</th>
-                              <th style="width:11%">FRI</th>
-                              <th style="width:11%">SAT</th>
-                              <th style="width:11%" colspan="1"></th>
+                              <th style="width:10%" colspan="1"></th>
+                              <th style="width:10%">CNA</th>
+                              <th style="width:10%">SUN</th>
+                              <th style="width:10%">MON</th>
+                              <th style="width:10%">TUE</th>
+                              <th style="width:10%">WED</th>
+                              <th style="width:10%">THU</th>
+                              <th style="width:10%">FRI</th>
+                              <th style="width:10%">SAT</th>
                           </tr>
                       </table>
                       <div style="width:100%;" id="workingScheduleInfo"></div>
@@ -463,52 +469,6 @@
         </div>
     </div><!--end div id="editWorkBlock-->
 
-    <div id="newWSBlock">
-        <div class="create_new_center_schedule_form">
-            <h2><center>New CNA Schedule</center></h2>
-            <hr class="schedule_hr">
-            <div style="padding:2%">
-                <table style="border:none; width: 50%;">
-                    <tr>
-                        <td style="border:none">CNA:</td>
-                        <td style="border:none"><input type="text" id="NewCNA" /><br></td>
-                    </tr>
-                    <tr>
-                        <td style="border:none">Sunday</td>
-                        <td style="border:none"><input type="text" id="NewWSSun"><br></td>
-                    </tr>
-                    <tr>
-                        <td style="border:none">Monday</td>
-                        <td style="border:none"><input type="text" id="NewWSMon"><br></td>
-                    </tr>
-                    <tr>
-                        <td style="border:none">Tuesday</td>
-                        <td style="border:none"><input type="text" id="NewWSTue"><br></td>
-                    </tr>
-                    <tr>
-                        <td style="border:none">Wednesday</td>
-                        <td style="border:none"><input type="text" id="NewWSWed"><br></td>
-                    </tr>
-                    <tr>
-                        <td style="border:none">Thursday</td>
-                        <td style="border:none"><input type="text" id="NewWSThu"><br></td>
-                    </tr>
-                    <tr>
-                        <td style="border:none">Friday</td>
-                        <td style="border:none"><input type="text" id="NewWSFri"><br></td>
-                    </tr>
-                    <tr>
-                        <td style="border:none">Saturday</td>
-                        <td style="border:none"><input type="text" id="NewWSSat"><br></td>
-                    </tr>
-                </table>
-                <br>
-
-                <button id="btnSubmitWS" style="cursor:pointer;" onclick="createNewWorkingSchedule()">Submit</button> &nbsp&nbsp
-                <button id="Ecancel" onclick="document.getElementById('newWSBlock').style.display='none';" style="cursor:pointer;">Cancel</button>
-            </div>
-        </div>
-    </div> <!--end div id="newWSBlock-->
 
     <!--</div>-->
 
@@ -518,6 +478,7 @@
     <script type='text/javascript' src='Config.js'></script>
     <script type='text/javascript' src='Schedulejs.js'></script>
     <script type='text/javascript' src='Profile.js'></script>
+    <script type='text/javascript' src='Notifications.js'></script>
     <!-- START COPY FOR SIDEBAR JAVASCRIPT -->
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

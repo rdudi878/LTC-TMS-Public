@@ -22,30 +22,18 @@ import { createStackNavigator, createSwitchNavigator, createAppContainer, create
 import firebase from 'react-native-firebase';
 import DatePicker from 'react-native-datepicker';
 import styles from '../styles/styles';
-import { Text } from 'native-base';
+import { Text, Card, CardItem, Content } from 'native-base';
 import { Button } from 'react-native-elements';
 
-class AiStatusReadScreen extends React.Component {
-  static navigationOptions = {
-    title: 'AI Status Read',
-  };
+class SpecialCareReadScreen extends React.Component {
+
 
   constructor() {
     super();
-
-    var now = new Date();
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-    var day = ("0" + now.getDate()).slice(-2);
-
     this.state = {
       patientList: [],
       patient: '',
-      today: `${now.getFullYear()}-${month}-${day}`,
-      date: `${now.getFullYear()}-${month}-${day}`,
-      fallRecord: '',
-      heartRate: null,
-      location: null,
-      steps: null,
+      record: '',
       userID: '',
       position: '',
     };
@@ -57,7 +45,7 @@ class AiStatusReadScreen extends React.Component {
 
   static navigationOptions=({navigation,screenProps}) => {
   
-    return { title: navigation.getParam('otherParam', 'AI Status Read') ,
+    return { title: navigation.getParam('otherParam', 'Special Care Read') ,
       headerStyle: {
         backgroundColor: '#003b46',
       },
@@ -70,10 +58,16 @@ class AiStatusReadScreen extends React.Component {
   componentDidMount() {
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
-      this.state.userID = data.ID;
+      console.log("hiiihih" + data.ID)
+      //this.state.userID = data.ID;
       this.state.position = data.Position;
+      this.setState({
+        userID: data.ID
+      })
     })
     this._fetchPatients();
+    this._fetchSpecialCare(this.state.position, this.state.userID);
+    
   }
 
   componentWillUnmount() {
@@ -92,89 +86,43 @@ class AiStatusReadScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles2.container}>
           <View>
-            <View>
-              <Text style={styles.item}>Select Date to View AI Status</Text>
+              <Text style ={styles2.headerText}>
+                {(this.state.position == "Patient") ? this.state.userID : this.state.patient}</Text>
+              
+              <Card>
+                <CardItem header bordered>
+                  <Text style={styles2.headerBox}>Special Care Instructions</Text>
+                </CardItem>
+                <CardItem>
+                  <Text style={styles2.textBox}>{this.state.record}</Text>
+                </CardItem>
+              </Card>
+              
             </View>
-          </View>
-          <View style={styles.pickerView}>
-            <DatePicker
-              date={this.state.date}
-              mode="date"
-              placeholder="Select Date"
-              format="YYYY-MM-DD"
-              minDate="2019-1-01"
-              maxDate={this.state.today}
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0
-                },
-                dateInput: {
-                  marginLeft: 36
-                }
-              }}
-              onDateChange={(date) => { this.setState({ date: date }) }}
-            />
-          </View>
-          <View>
-            <Button
-              onPress={this._fetchAiStatus}
-              title="Submit"
-              style={{ padding: 10 }}
-              type="solid"
-              buttonStyle={{
-                backgroundColor:'#3f9fff'}}
-            />
-          </View>
-          <View>
-            <Text>Latest Heart Rate: {this.state.heartRate}</Text>
-            <Text>Steps Taken: {this.state.steps}</Text>
-            <Text>Times fallen: {this.state.fallRecord}</Text>
-          </View>
+          
         </ScrollView>
       </View>
     );
   }
 
-  _fetchAiStatus = () => {
+  _fetchSpecialCare = (position, userID) => {
     patient = ""
     if (this.state.position == "Patient") {
       patient = this.state.userID;
     } else {
       patient = this.state.patient;
     }
-    const patientStatus = [];
-    firebase.database().ref(`Activities/${(this.state.position == "Patient" ? patient : this.props.navigation.getParam('patientID','0'))}/${this.state.date}`).once('value').then((snapshot) => {
+    firebase.database().ref(`Activities/${(this.state.position == "Patient" ? patient : this.props.navigation.getParam('patientID','0'))}/special_care`).once('value').then((snapshot) => {
 
       const data = snapshot.toJSON();
+      var record = data.specialrecord;
+
+      this.setState({
+        record: record,
+        patient: this.props.navigation.getParam('patientID','0')
+      });
+      /*
       
-      if (data && data.AI) {
-        var steps = data.AI.Step.Step;
-        var trueSteps = parseInt(steps.slice(8, steps.lastIndexOf('?')).trim());
-        var falls = '';
-        var heartRate = '';
-        var hourFallen = '';
-        var minuteFallen = '';
-        var secondFallen = '';
-
-        if (data.AI.FallRecord && data.AI.FallRecord.Fell) {
-          console.log(data.AI.FallRecord);
-          hourFallen = data.AI.FallRecord.Fell.slice(0,2).trim();
-          minuteFallen = data.AI.FallRecord.Fell.slice(3,5).trim();
-          secondFallen = data.AI.FallRecord.Fell.slice(6,8).trim(); 
-          falls = hourFallen.toString() + ":" + minuteFallen.toString() + ":" + secondFallen.toString();
-          //falls = parseInt(data.AI.FallRecord.Fell.slice(0, data.AI.FallRecord.Fell.length).trim());
-          console.log(falls);
-          console.log("falls: " + this.state.fallRecord)
-        }
-
-        if (data.AI.HeartRate) {
-          heartRate = Math.round(parseFloat(data.AI.HeartRate.LastestHeartRate.slice(11, data.AI.HeartRate.LastestHeartRate.length).trim()));
-        }
 
         this.setState({
           fallRecord: falls || '',
@@ -189,7 +137,7 @@ class AiStatusReadScreen extends React.Component {
 
 
     }).catch((err) => {
-      console.error(err);
+      console.error(err);*/
     });
     this.forceUpdate();
   }
@@ -228,32 +176,27 @@ const styles2 = StyleSheet.create({
     padding: 20,
     marginTop: 15,
   },
-  item: {
+  textBox: {
+    width: 350,
+    color:'#66a5ad'
+  },
+  headerBox: {
     padding: 4,
-    fontSize: 14,
+    fontSize: 18,
+    textAlign: 'center',
     fontWeight: 'bold',
-    flex: 1
-  },
-  picker: {
-    color: 'black'
-  },
-  announce: {
-    padding: 1,
-    fontSize: 14,
     flex: 1,
-    justifyContent: 'space-evenly'
-  },
-  header: {
-    padding: 10
+    color:'#07575b'
   },
   headerText: {
     textAlign: 'center',
     justifyContent: 'space-evenly',
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#07575b'
   }
 });
 
 
 
-export default AiStatusReadScreen;
+export default SpecialCareReadScreen;
