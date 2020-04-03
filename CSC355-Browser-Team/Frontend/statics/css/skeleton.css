@@ -597,7 +597,7 @@ li.dropdown {
 .dropdown-content {
     display: none;
     position: absolute;
-    width: 10pc;
+    width: 10pc; /* Stop changing this plz, copy this class and change it on the element of w.e is broken */
     background-color: #07575B;
     min-width: 65px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
