@@ -75,3 +75,21 @@ function setWSEditFields(times) {
   document.getElementById('viewMessage').value = times["feedbackText"];
 
 } //end setCSEditFields
+
+function displayFeedbackNotifications() {
+  var feedbackNum = 0;
+  fbFB.once('value',function(snapshot){
+    snapshot.forEach(function(Feed){
+      feedbackNum+=1;
+    });
+    console.log("feedbackNum: ");
+    console.log(feedbackNum);
+    var notificationNum = document.getElementById("notificationNum");
+    // feedbackNum = 0; // testing what it looks like when there are no new notifications
+    if (feedbackNum===0) {
+      notificationNum.style="display:none;"
+    } else {
+      notificationNum.innerHTML = feedbackNum;
+    }
+  });
+}
