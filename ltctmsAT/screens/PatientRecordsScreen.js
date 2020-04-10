@@ -291,7 +291,7 @@ class PortfolioScreen extends React.Component {
               </Picker>
           
         </Card>             
-              <Card style={styles2.card}>
+              <Card style={styles2.card} marginTop={18}>
                 <Picker
                   mode='anchor'
                   style={styles2.picker}
@@ -498,7 +498,7 @@ const styles2 = StyleSheet.create({
     borderColor: 'black'
   },
   picker:{
-    height:150, 
+    height:125, 
     width: 300, 
     alignSelf:'center', 
     borderColor:'#ff5722', 

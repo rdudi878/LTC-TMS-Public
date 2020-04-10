@@ -217,6 +217,7 @@ writeFeedbackData = async (_id, email, content, feedbackType) => {
     feedbackType: (feedbackType ? 'Center' : 'System'),
     feedbackText: content,
     userEmail: email,
+    viewed: "",
     replyText: "",
     replyId: "",
     replyTimestamp: "",

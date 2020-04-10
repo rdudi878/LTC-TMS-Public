@@ -76,15 +76,16 @@ class DailyStatusReadScreen extends React.Component {
         var c = child.key;
         cna.push(c);       
       })
-       this.setState({CNA : cna[0]});
+       this.setState({CNA : cna[0]}, () => {this.state.CNA});
     })
+    console.log(this.state.CNA);
   }
 
   // This pulls the current logged in users data that was saved in asyncstorage into state
   // begin fetching content (patients) before the component actually mounts
   componentDidMount() {
     this._fetchPatients();
-    
+    this._fetchCNA();
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
       this.state.userID = data.ID;
@@ -134,7 +135,7 @@ class DailyStatusReadScreen extends React.Component {
             />
           </View>
           <Button
-                  onPress={this._fetchStatus}
+                  onPress={this._fetchCNA(),this._fetchStatus}
                   title="Submit"
                   style={{ padding: 10 }}
                   type="solid"
@@ -214,9 +215,10 @@ class DailyStatusReadScreen extends React.Component {
 
   _fetchStatus = () => {
     
-  
-    const patientStatus = [];
-    this._fetchCNA();
+  this._fetchCNA();
+   
+    
+    console.log(this.state.CNA);
     firebase.database().ref(`Activities/${(this.state.position == "Patient" ? this.state.userID : this.props.navigation.getParam('patientID','0'))}/${this.state.date}/${this.state.CNA}/daily_status/`).once('value').then((snapshot) => {
       var status = snapshot.toJSON();
       var shower = status.shower;
@@ -231,7 +233,6 @@ class DailyStatusReadScreen extends React.Component {
       var breakfast= status.breakfast;
       var lunch= status.lunch;
       var dinner= status.dinner;
-
       this.setState({
         poop,
         urinate,
@@ -246,9 +247,11 @@ class DailyStatusReadScreen extends React.Component {
         Shave,
         Turnover,
       })
+      
     }).catch((err) => {
-      Alert.alert('Unable to find data for the specified date and patient combination. Please try another one.');
+      Alert.alert('Unable to find data for the sspecified date and patient combination. Please try another one.');
     });
+    
     this.forceUpdate();
   }
     static navigationOptions=({navigation,screenProps}) => {
@@ -271,6 +274,7 @@ class DailyStatusReadScreen extends React.Component {
   // fetch content (patients)
   _fetchPatients() {
     // fetch content
+    
     const patientData = [];
     const patients = firebase.database().ref('Patient');
     patients.once('value').then((snapshot) => {

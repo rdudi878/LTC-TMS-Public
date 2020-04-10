@@ -375,8 +375,7 @@ class TaskScreen extends React.Component {
   createStepimage(text, step) {
     return (
       <View key={text.toString()}>
-        <Image style={{width: 400, height: 200}} source={{uri: text.toString()}}></Image>
-        <Text>{console.log(text.toString())}</Text>
+        <Image style={{width: 400, height: 200, alignSelf:'center'}} source={{uri: text.toString()}}></Image>
       </View>
     );
   }
@@ -387,9 +386,11 @@ class TaskScreen extends React.Component {
     imageArray=[];
     detailedStepsArray = [];
     for (var i = 0; i < item.steps.length; i++) {
-      imageArray.push(this.createStepimage(item.steps[i].pic, [i + 1]));
+      
+      console.log(item.steps[i].pic == " ");
+      console.log(item.steps[i].pic);
+      stepsArray.push(this.createStepimage(item.steps[i].pic, [i + 1]));
       stepsArray.push(this.createStepText(item.steps[i].name, [i + 1]));
-      //Alert.alert(item.steps[i].pic);
       for (var j = 0; j < item.steps[i].detailedSteps.length; j++) {
         stepsArray.push(this.createDetailText(item.steps[i].detailedSteps[j], [j + 1]));
       }
@@ -507,7 +508,7 @@ class TaskScreen extends React.Component {
                 })
               }
             </Picker>
-            </View ></Card></Content> : console.log("hi")} 
+            </View ></Card></Content> : console.log("patient")} 
           <Card style={{padding:10, margin:50, marginLeft:30, marginRight:30}}>
           <FlatList
             style={{ flexGrow: 1 }}
@@ -530,7 +531,7 @@ class TaskScreen extends React.Component {
 
 const styles2 = StyleSheet.create({
   picker: {
-    height:150, 
+    height:125, 
     width: 300, 
     alignSelf:'center', 
     borderColor:'#ff5722', 

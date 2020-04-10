@@ -3,7 +3,7 @@
 /* Last Modified: April 11, 2019                                                             */
 /* Course: CSC 355 Software Engineering                                                         */
 /* Professor Name: Dr. Joo Tan                                                                  */
-/* Filename:   CenterScheduleScreen.js                                                          */
+/* Filename:   WorkingScheduleScreen.js                                                          */
 /* Purpose: */
 /**********************************************************************************************/
 import React, { Component } from 'react';
@@ -36,9 +36,9 @@ import { ListItem, Card, CardItem } from 'native-base';
 
 const{height}=Dimensions.get("window");
 
-class CenterInfo extends React.Component {
+class WorkingSchedule extends React.Component {
   static navigationOptions = {
-    title: 'Center Information',
+    title: 'Working Schedule',
     headerStyle: {
       backgroundColor: '#003b46',
     },
@@ -91,8 +91,9 @@ class CenterInfo extends React.Component {
   /* */
   /*************************************************************************/
   updateWeek = (selectedDate) => {
+    console.log(selectedDate);
     this.setState({ selectedDate: selectedDate })
-    const ref = firebase.database().ref(`/CenterSchedule/${selectedDate}`);
+    const ref = firebase.database().ref(`/CNA/330001/Schedule/${selectedDate}`);
  
     var data = [];
     ref.once('value', (snapshot) => {
@@ -203,7 +204,7 @@ class CenterInfo extends React.Component {
   /*************************************************************************/
   _fetchDates() {
     var date = [];
-    const ref = firebase.database().ref('/CenterSchedule');
+    const ref = firebase.database().ref('/CNA/330001/Schedule');
     ref.once("value", (snapshot) => {
       console.log("snapshot")
       console.log(snapshot)
@@ -229,7 +230,7 @@ class CenterInfo extends React.Component {
   /* */
   /*************************************************************************/
   getItems() {
-    const ref = firebase.database().ref('/CenterSchedule');
+    const ref = firebase.database().ref('/CNA/330001/Schedule');
     var data = [];
     ref.orderByKey().limitToLast(1).once("child_added", (snapshot) => {
       this.setState({selectedDate:snapshot.key})
@@ -319,7 +320,7 @@ class CenterInfo extends React.Component {
         >
         
           
-          <Text style={styles2.headerText}>Hours of Operation</Text>
+          <Text style={styles2.headerText}>Your Working Schedule</Text>
           
           <Card style={styles2.card} marginBottom={17}>
           
@@ -351,41 +352,7 @@ class CenterInfo extends React.Component {
             
           /></Card>
           
-          <View style={{flexDirection: 'column'}}>
-            <View style={{marginTop: 20, marginHorizontal: 50, alignSelf: 'auto', flex: 1, justifyContent: 'space-between', fontSize: '10', width: 210}}>
-              <Button
-              onPress={() => {
-                this.props.navigation.navigate('Feedback')
-              }}
-              title="Submit Feedback"
-              type="solid"
-              buttonStyle={{
-                backgroundColor:'#07575B'}}
-              />
-            </View>
-            <View style={{flexDirection: 'row', marginTop: 10, marginHorizontal: 50, marginRight: 50, alignSelf: 'flex-start', flex: 1, justifyContent: 'space-between', fontSize: '10', width: 100}}>
-              <Button
-                onPress={() => {
-                  Linking.openURL(`mailto:ltctmscenter2018@gmail.com`);
-                }}
-                title="Email Us"
-                type="solid"
-                buttonStyle={{
-                  backgroundColor:'#07575B'}}
-              />
-            </View>
-            <View style={{flexDirection: 'row', marginTop: -40, marginHorizontal: 100, marginRight: 23, alignSelf: 'flex-end', flex: 1, justifyContent: 'space-between', fontSize: '10', width: 100}}>
-              <Button
-                onPress={() => {
-                  Linking.openURL(`tel:+16106834340`);
-                }}
-                title="Call Us"
-                type="solid"
-                buttonStyle={{
-                  backgroundColor:'#07575B', color:'white'}}
-              />
-            </View>
-          </View>
+         
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -485,4 +452,4 @@ const styles2 = StyleSheet.create({
   }
 });
 
-export default CenterInfo;
+export default WorkingSchedule;

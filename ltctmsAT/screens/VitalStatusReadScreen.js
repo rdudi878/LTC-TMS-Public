@@ -97,7 +97,7 @@ class VitalStatusReadScreen extends React.Component {
           </View>
           <View style={styles.pickerView}>
             <DatePicker
-              style={styles.pickerStyle}
+              style={styles2.pickerStyle}
               date={this.state.date}
               mode="date"
               placeholder="Select Date"
@@ -120,9 +120,9 @@ class VitalStatusReadScreen extends React.Component {
               onDateChange={(date) => { this.setState({ date: date }) }}
             />
           </View>
-          <View style={{marginTop: 5, marginHorizontal: 50, alignSelf: 'auto', flex: 1, justifyContent: 'space-between', fontSize: '10'}}>
+          <View style={{justifyContent: 'space-between', fontSize: '10'}}>
             <Button
-              onPress={this._fetchStatus}
+              onPress={this._fetchCNA(),this._fetchStatus}
               title="Submit"
               type="solid"
               buttonStyle={{
@@ -184,27 +184,27 @@ class VitalStatusReadScreen extends React.Component {
     })    
     this._fetchCNA();
     firebase.database().ref(`Activities/${(this.state.position == "Patient" ? this.state.userID : this.props.navigation.getParam('patientID','0'))}/${this.state.date}/${this.state.CNA}/vital_status`).once('value').then((snapshot) => {
-      console.log("snapshot" + snapshot.val());/*
+      console.log("snapshot" + snapshot.val());
       if (snapshot.val() == null) {
         Alert.alert('Unable to find data for the specified date and patient combination. Please try another one.')
       } else {
-        snapshot.forEach(child)
-      }*/
-      snapshot.forEach((childSnapshot) => {
-        if (childSnapshot.val() == null) {
-          Alert.alert("Data not found, try again.");
-        } else {
+        snapshot.forEach((childSnapshot) => {
           this.populateArray(childSnapshot)
-        }
+        })
+        this.setState({
+          header: "Patient Vital Status"
+        })
       }
-      )
+        
     })
-    this.setState({
-      header: "Patient Vital Status"
-    })
+
+     
+    
     this.forceUpdate();
 
   }
+
+
 
   // fetch content (patients)
   _fetchPatients() {
@@ -282,6 +282,10 @@ const styles2 = StyleSheet.create({
     justifyContent: 'space-evenly',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  pickerStyle: {
+    color: 'black',
+    marginBottom: 20
   }
 });
 

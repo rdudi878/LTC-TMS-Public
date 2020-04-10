@@ -18,80 +18,141 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  Picker
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { StackNavigator } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import { Button, ThemeProvider } from 'react-native-elements';
 import styles from '../styles/styles';
-import { Thumbnail } from 'native-base';
+import { Thumbnail,Card,CardItem } from 'native-base';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 class LogoutScreen extends React.Component {
-
- 
 
   constructor(props) {
     super(props);
     this.state = {
       userInfo: '',
-      position: 'sadf',
-      userID: 'afsdaasfd'
+      position: '',
+      userID: '',
+      room: '',
+      patientList:[],
+      patient:'',
+      default:true,
+      loginID:'',
+      loginPosition:''
+     
+
     };
 
   }
 
-
-
-/*************************************************************************/
-  /* */
-  /* Function name: _fetchUserInfo */
-  /* Description: Fetch the user info from database and pass it to userInfo */
-  /* Parameters: none */
-  /* Return Value: none */
-  /* */
-  /*************************************************************************/
   async _fetchUserInfo() {
     const userInfo = await AsyncStorage.getItem("userInfo");
     this.setState({
       userInfo: JSON.parse(userInfo)
     });
-
+    
   }
-/*************************************************************************/
-  /* */
-  /* Function name: componentDidMount */
-  /* Description: call _fetchUserInfo function before render() */
-  /* Parameters: none */
-  /* Return Value: none */
-  /* */
-  /*************************************************************************/
-  async componentDidMount() {
-    await this._fetchUserInfo();
+  _fetchPatients() {
+    var patientListt = [];
+  
+  firebase.database().ref(`Patient`).once('value').then((snapshot5) => {
+    snapshot5.forEach(function (patient) {
+      var pat = patient.key;
+      patientListt.push(pat);
+      console.log(patientListt);
+    })
+    this.setState({patientList: patientListt});
+  }).catch((error) => {
+    console.error(error);
+    return null;
+  });
   }
 
-  componentDidUpdate() {
+  handleChange(e) {
+    if (e == "patient") {
+      Alert.alert("Please Select a Patient")
+      this.setState({default:true})
+    } else {
+      this.setState({
+        patient: e,
+        default:false
+      })
+      this._fetchPatientData(e);
+    }
+  }
+
+  _fetchPatientData(patientID) {
+    
+    firebase.database().ref(`Patient/${patientID}/Portfolio`).once('value').then((snapshot5) => {
+    
+      var data = snapshot5.toJSON();
+      console.log(data.ID);
+      this.setState ({
+        userID : data.ID,
+        position : data.Position,
+        address : data.Address,
+        name : data.Name,
+        room : data.patientRoomNo,
+        nationality : data.Nationality,
+        nationalID : data.NationalID,
+        gender : data.Gender,
+        description : data.BriefDescription,
+        DOB : data.DOB,
+        email : data.Email,
+        admissionReason : data.AdmissionReason,
+        medicalRecord : data.MedicalRecord,
+        profile_Pic : data.pictureurl,
+      });
+      /*
+      snapshot5.forEach(function (patient) {
+        var pat = patient.key;
+        patientListt.push(pat);
+        console.log(patientListt);
+      })*/
+      //this.setState({patientList: patientListt});
+    }).catch((error) => {
+      console.error(error);
+      return null;
+    });
+  }
+  
+ 
+  // This pulls the current logged in users data that was saved in asyncstorage into state
+
+  async UNSAFE_componentWillMount() {
+    this.props.navigation.setParams({navigatePress:this.LogoutButton});
     AsyncStorage.getItem("userInfo").then((value) => {
       const data = JSON.parse(value);
-      this.state.userID = data.ID;
-      this.state.position = data.Position;
-      this.state.address = data.Address;
-      this.state.name = data.Name;
-      this.state.room = data.patientRoomNo;
-      this.state.nationality = data.Nationality;
-      this.state.nationalID = data.NationalID;
-      this.state.gender = data.Gender;
-      this.state.description = data.BriefDescription;
-      this.state.DOB = data.DOB;
-      this.state.email = data.Email;
-      this.state.admissionReason = data.AdmissionReason;
-      this.state.medicalRecord = data.MedicalRecord;
-      this.state.profile_Pic = data.pictureurl;
-      
-      this.forceUpdate();
+      this.setState ({
+        loginID: data.ID,
+        userID : data.ID,
+        loginPosition: data.Position,
+        position : data.Position,
+        address : data.Address,
+        name : data.Name,
+        room : data.patientRoomNo,
+        nationality : data.Nationality,
+        nationalID : data.NationalID,
+        gender : data.Gender,
+        description : data.BriefDescription,
+        DOB : data.DOB,
+        email : data.Email,
+        admissionReason : data.AdmissionReason,
+        medicalRecord : data.MedicalRecord,
+        profile_Pic : data.pictureurl,
+      });
     })
+  this._fetchPatients();
   }
 
+  componentWillUnmount() {
+    if (this._asyncRequest) {
+      this._asyncRequest.cancel();
+    }
+  }
   
   static navigationOptions=({navigation,screenProps}) => {
     const { params ={} }= navigation.state;
@@ -128,31 +189,62 @@ class LogoutScreen extends React.Component {
   headerStyle = function(screenWidth) {
     return {
       height:130,
-      backgroundColor: '#C2CFDB',
+      backgroundColor: '#C4DFE6',
       width: screenWidth,
     }
   }
 
 
-  componentDidMount(){
-    this.props.navigation.setParams({navigatePress:this.LogoutButton});
-  }
   _logout (){
     AsyncStorage.removeItem('userInfo');
     this.props.navigation.navigate('Auth');
   }
-  
- 
-  render() {
-    const user = this.state.userInfo;
+
+  _viewWorkingSchedule() {
     return (
+      <View style={{marginTop: 5, alignSelf: 'center', flex: 1, justifyContent: 'space-between', fontSize: 10, width: 250}}>                       
+            <Button onPress={this._showWorkingSchedule}
+              title="Your Working Schedule" type='solid' 
+              buttonStyle={{backgroundColor:'#07575B'}}/> 
+                    
+            </View>
+    );
+  }
+  
+  _showWorkingSchedule = () => {
+    console.log("this");
+    this.props.navigation.navigate('WorkingSchedule',{patientID:this.state.userID});
+  }
+  render() {
+    
+   
+    return (
+     
       <View style={styles.container}>
+        
          <ScrollView style={styles2.container}>
         <View>
         <View style={this.headerStyle(Math.round(Dimensions.get('window').width))}></View>
         <Thumbnail style={{width:130,height:130,borderRadius:130/2,alignSelf:'center',position: 'absolute',marginTop:50,borderColor: "white",borderWidth: 4}} source={{uri:this.state.profile_Pic}} />
+        {(this.state.loginPosition == "CNA")? 
+        <View>
+        <Card style={styles2.card} marginTop={55}>
+                <Picker
+                  mode='anchor'
+                  style={styles2.picker}
+                  selectedValue={(this.state.default == true) ? 0 : this.state.patient}
+                  onValueChange={(itemValue, itemIndex) => {this.handleChange(itemValue)}}>
+
+                  {<Picker.Item  label = "Select Patient" color="#07575a" value="patient"/>}
+                  {this.state.patientList.map((item, index) => {
+                    return (<Picker.Item label={item} value={item} color="#07575a" key={index}/>)})}
+                </Picker>
+              </Card>
+        </View>: <View style={{marginBottom:50}}></View>}
+
         <View style={styles2.body}>
           <View style={styles2.bodyContent2}></View>
+          <Card style={styles2.card}>
             <Text style={styles2.name}>{this.state.name}</Text>
             <Text style={styles2.info}>User ID: {this.state.userID}</Text>
             <Text style={styles2.info}>Position: {this.state.position}</Text>
@@ -171,21 +263,15 @@ class LogoutScreen extends React.Component {
               buttonStyle={{
               backgroundColor:'#3f9fff'}}/>          
               </View>*/}
+            </Card>
+            {(this.state.loginPosition == "CNA") ? <View>{this._viewWorkingSchedule()}</View>:null}
 
             
-            <View style={{marginTop: 5, alignSelf: 'center', flex: 1, justifyContent: 'space-between', fontSize: 10, width: 250}}>                       
-            <Button 
-            onPress={() => {
-              this.props.navigation.navigate('Schedule')
-              }}
-              title="Your Working Schedule" type='solid' onPress={this._showDailyStatusAdd} 
-              buttonStyle={{
-              backgroundColor:'#3f9fff'}}/>          
-            </View>
         </View>
+        
     </View> 
 
-    </ScrollView>
+    </ScrollView> 
     </View>      
 
         
@@ -194,6 +280,7 @@ class LogoutScreen extends React.Component {
   // handler to clear the locally stored user info (logout) and navigate to the
   // sign in screen
 }
+
 
 
 const styles2 = StyleSheet.create({
@@ -208,6 +295,23 @@ const styles2 = StyleSheet.create({
   },
   body:{
     marginTop:20, 
+  },
+  card: {
+    padding:10, 
+    margin:50, 
+    marginLeft:12, 
+    marginRight:12,
+    marginBottom:10,
+    marginTop:-60
+  },
+  picker:{
+    height:125, 
+    width: 300, 
+    alignSelf:'center', 
+    borderColor:'#ff5722', 
+    marginTop:20,
+    
+    justifyContent:'flex-end'
   },
   bodyContent2: {
     flex: 1,
@@ -228,37 +332,35 @@ const styles2 = StyleSheet.create({
   },
   name:{
     fontSize:25,
-    color: "#696969",
+    color: '#07575b',
     fontWeight: "700",
     alignSelf: "center",
     paddingHorizontal:25,
-    color: 'black'
+    
     
   },
   info:{
     fontSize:16,
-    color: "#00BFFF",
+    color: "#07575b",
     marginTop:10,
     alignSelf:"center",
     paddingHorizontal:25,
   },
   description:{
     fontSize:14,
-    color: "#696969",
+    color: "#66a5ad",
     marginTop:10,
     textAlign: 'left',
     alignItems:'flex-start',
     paddingHorizontal: 25,
-    color: 'black'
   },
   description2:{
     fontSize:14,
-    color: "#696969",
+    color: "#66a5ad",
     marginTop:10,
     textAlign: 'left',
     alignItems:'center',
     paddingHorizontal: 25,
-    color: 'black',
     paddingTop:10
   },
   buttonContainer: {

@@ -177,7 +177,7 @@ class HomeScreen extends React.Component {
   _renderItem = () => {
     return (
    
-      <View style ={styles.basicView} >
+      <View style ={styles.basicView}>
         
           <ImageBackground style={{ flex: 1 }}
           source={{uri: 'https://i.ibb.co/dMgXdR8/DSC-8578.jpg'}}
@@ -189,7 +189,7 @@ class HomeScreen extends React.Component {
               <Left>              
                 <Body>
                 <Text style={{fontWeight: 'bold'}}>
-                <Text style={{fontSize: 30}}>
+                <Text style={{fontSize: 30, color:'#003B46'}}>
                 Announcement Board
                 </Text>
                 </Text>
@@ -201,15 +201,17 @@ class HomeScreen extends React.Component {
               <Swiper
                   autoplay={true}   
                   autoplayTimeout={15}    
-                  height={530}
+                  height={630}
                   horizontal={true}
                   paginationStyle={{bottom: 5}}
+                  activeDotColor='#003b46'
+                  dotColor='#c4dfe6'
                   showsButtons={false} >
                         <View>                         
                         <Image source={{uri: 'https://i.ibb.co/dMgXdR8/DSC-8578.jpg'}} style={styles2.image}/>                             
                           <View style={{marginTop:50}}>             
                                 <Text style={styles2.headertext}>{announcementBuilder[0].ATitleIOS}</Text>                 
-                                <Text style = {{textAlign: 'center'}}>
+                                <Text style = {styles2.description}>
                                 {announcementBuilder[0].AnnouncementIOS}
                                 </Text>
                             </View>                                   
@@ -218,7 +220,7 @@ class HomeScreen extends React.Component {
                           <Image source={{uri: 'https://i.ibb.co/G0hmyZf/DSC-8575.jpg'}} style={styles2.image}/> 
                           <View style={{marginTop:50}}>
                             <Text style={styles2.headertext}>{announcementBuilder[1].ATitleIOS}</Text>                 
-                                <Text style = {{textAlign: 'center'}}>
+                            <Text style = {styles2.description}>
                                 {announcementBuilder[1].AnnouncementIOS}
                                 </Text>
                             </View>                        
@@ -228,7 +230,7 @@ class HomeScreen extends React.Component {
                           <Image source={{uri: 'https://i.ibb.co/T24htTx/DSC-8589.jpg'}} style={styles2.image}/> 
                           <View style={{marginTop:50}}>
                             <Text style={styles2.headertext}>{announcementBuilder[2].ATitleIOS}</Text>                 
-                                <Text style = {{textAlign: 'center'}}>
+                                <Text style = {styles2.description}>
                                 {announcementBuilder[2].AnnouncementIOS}
                                 </Text>
                             </View>                        
@@ -284,7 +286,7 @@ const styles2 = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'space-evenly', 
     fontWeight: "bold",
-    color: 'black',
+    color: '#07575B',
              
   },
   image:{
@@ -297,6 +299,10 @@ const styles2 = StyleSheet.create({
   },
   mb: {
     marginBottom: 15
+  },
+  description: {
+    textAlign: 'center',
+    color: '#07575B'
   }
 })
 

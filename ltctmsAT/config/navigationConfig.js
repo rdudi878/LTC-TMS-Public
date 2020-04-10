@@ -33,9 +33,11 @@ import DailyStatusAddScreen from '../screens/DailyStatusAddScreen';
 import DailyStatusReadScreen from '../screens/DailyStatusReadScreen';
 import VitalStatusReadScreen from '../screens/VitalStatusReadScreen';
 import VitalStatusAddScreen from '../screens/VitalStatusAddScreen';
-import SpecialCareAddScreen from '../screens/SpecialCareAddScreen'
+import SpecialCareAddScreen from '../screens/SpecialCareAddScreen';
+import SpecialCareReadScreen from '../screens/SpecialCareReadScreen';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import LogoutScreen from '../screens/LogoutScreen';
+import WorkingScheduleScreen from '../screens/WorkingScheduleScreen';
 
 import I from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -74,19 +76,22 @@ const AppMiddleStack = createStackNavigator({
   VitalStatusRead: VitalStatusReadScreen,
   VitalStatusAdd: VitalStatusAddScreen,
   SpecialCareAdd: SpecialCareAddScreen,
+  SpecialCareRead: SpecialCareReadScreen,
 }, {
     initialRouteKey: 'Record'
   });
 
 //Changed Task to Library
 const AppTaskStack = createStackNavigator({
-  Tasks: TaskScreen
+  Tasks: TaskScreen,
+
 }, {
     initialRouteKey: 'Tasks'
   });
 
 const AppRightStack = createStackNavigator({
-  Portfolio: LogoutScreen
+  Portfolio: LogoutScreen,
+  WorkingSchedule: WorkingScheduleScreen,
 }, {
     initialRouteKey: 'Portfolio'
   });
@@ -96,12 +101,14 @@ const AppRightStack = createStackNavigator({
 const AppScheduleStack = createStackNavigator({
   CenterInfo: CenterInfoScreen,
   Feedback: FeedbackScreen,
+
 }, {
     initialRouteKey: 'Center Info'
   });
 //Feedback stack
 const FeedbackStack = createStackNavigator({
-  Feedback: FeedbackScreen
+  Feedback: FeedbackScreen,
+  
 },
   {
     initialRouteKey: 'Feedback'
@@ -148,8 +155,8 @@ const AppBottomTabNavigation = createBottomTabNavigator({
     }),
     //change color of the icon when it is clicked
     tabBarOptions: {
-      activeTintColor: '#3f9fff',
-      inactiveTintColor: '#949494',
+      activeTintColor: '#07575B',
+      inactiveTintColor: '#C4DFE6',
       labelStyle: {
         fontSize: 15,
         //fontFamily: ''
