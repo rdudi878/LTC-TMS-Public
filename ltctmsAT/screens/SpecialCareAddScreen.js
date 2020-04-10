@@ -82,7 +82,7 @@ class SpecialCareAddScreen extends React.Component {
                     <Content padder>
                         <Card style={styles.mb}>
                         <CardItem header bordered>
-                            <Text>Special Care Record</Text>
+                        <Text>Special Care Record For Patient ID #{this.props.navigation.state.params.patientID}</Text>
                         </CardItem>
                         <CardItem> 
                         <Form style={{flex:1,flexDirection:"column"}}>
