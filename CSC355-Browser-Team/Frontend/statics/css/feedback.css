@@ -48,7 +48,7 @@ table, th, td {
     display: none;
     position: fixed;
     background-color: #313131;
-    overflow: auto;
+    overflow: scroll;
 }
 #newWSBlock {
     width: 100%;
