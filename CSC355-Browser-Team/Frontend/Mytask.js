@@ -9,7 +9,7 @@ var goodPath = "";
 var num1 = 0; // keep track of table row for check box
 var checkbox_name = []; // used in table for check box
 var i = 0;
-var c = 0; 
+var c = 0;
 
 //for task details
 /* It would be better to use JQuery to generate the HTML for the task steps dynamically rather than generating HTML code in raw strings */
@@ -31,14 +31,14 @@ var defImage = "https://i.imgur.com/d0H6zwB.png";
 firebase.auth().onAuthStateChanged(function (firebaseUser){
   if(firebaseUser){
     var userid = -1;
-          
+
     var fbGet= firebase.database().ref('UID');
     fbGet.once('value',function(snapshot){
       snapshot.forEach(function(newSnap){
         if (newSnap.key == firebaseUser.uid){
           userid = newSnap.val();
           //do queries in here to use userid:
-                  
+
           //MyTaskList query - get from uAccount
           //put task IDs and task names into arrays
           var fbMTL = firebase.database().ref("uAccount/"+userid+"/MyTaskList");
@@ -49,9 +49,9 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
               var tid = snapshotTaskIDs.val();
               taskIDArray.push(tid);
             }); //end snapshotTaskIDs
-                      
+
             // do queries here with tasks from MyTaskList:
-            for (i = taskIDArray.length; i > 0; i--) { 
+            for (i = taskIDArray.length; i > 0; i--) {
               getTaskPath(taskIDArray[i-1], getTaskPathCallback);
             } //end for loop
 
@@ -75,9 +75,9 @@ function getTaskPath(taskID, callback){
 
   fbGet.once('value',function(snapshot){  //Get a snapshot of the data in the TaskInstruction part of the database.
     taskPath = "TaskInstruction";
-    
+
     // Loop through each of the categories
-    snapshot.forEach(function(catSnapshot)  { 
+    snapshot.forEach(function(catSnapshot)  {
       var cat = catSnapshot.key;
       taskPath = "TaskInstruction/" + cat + "/";
 
@@ -91,7 +91,7 @@ function getTaskPath(taskID, callback){
           return;
         } //end if taskIDSnapshot.val()['TaskID'] == taskID
         listOfTasks += "\n" +  task;
-      
+
       }); //end function(taskIDSnapshot)
     }); //end function(catSnapshot)
     taskPath = "";
@@ -116,7 +116,7 @@ function assignTask(taskData){
 /**
  * @function assignTaskCallback
  * @description callback function for the assign task button on the users popup. This is what actually assigns the task to the user in the database.
- * @param {*} assignData 
+ * @param {*} assignData
  */
 function assignTaskCallback(assignData){
   console.log(assignData.data);
@@ -188,18 +188,18 @@ function getTaskPathCallback(task){
   var opt1 = document.createElement("option");
   opt1.text = tName;
   taskName.add(opt1);
-    
+
   num1 = num1 +1;
   var row = assigningTask.insertRow(-1);
   c++;
   tr[c].style.display = "table-row";
-  
+
   var cellCategory = row.insertCell(-1);
   cellCategory.appendChild(document.createTextNode(category));
-  
+
   var cellName = row.insertCell(-1);
   cellName.appendChild(document.createTextNode(tName));
-    
+
   var cellVisibility = row.insertCell(-1);
   cellVisibility.appendChild(document.createTextNode(published));
   var cellPublished = row.insertCell(-1);
@@ -211,14 +211,14 @@ function getTaskPathCallback(task){
   detailButton.innerHTML="Details";
   var cellDetailButton= row.insertCell(-1);
   cellDetailButton.appendChild(detailButton);
-  
+
   var editButton = document.createElement("button");
   editButton.setAttribute("id","editButton_id["+num1+"]");
   editButton.setAttribute("onclick", "directTask("+num1+")");
   editButton.innerHTML="Edit";
   var cellEditButton= row.insertCell(-1);
   cellEditButton.appendChild(editButton);
-  
+
   //Assign Button
   var assignButton = document.createElement("button");
   assignButton.setAttribute.className = "assignButton";
@@ -253,7 +253,7 @@ function getTaskPathCallback(task){
 
 
 function loadUsers(taskID, category, callback){
-  
+
   $(".userTableContainer").html("asdf");
   var table = $('<table>').addClass('userTable');
   var fbGet = firebase.database().ref("Patient");
@@ -270,7 +270,7 @@ function loadUsers(taskID, category, callback){
       var patientIDCell = $('<td>').addClass('userTableCell');
         patientIDCell.html(patientID);
       var assignButtonCell = $('<td>').addClass('userTableCell');
-     
+
       var assignButton = $('<button>').addClass('assignButton');
       var assignData = {};
       assignData.dummy = "dummy";
@@ -290,14 +290,14 @@ function loadUsers(taskID, category, callback){
         assignButton.html("Unassign Task");
         assignButtonCell.append(assignButton);
       }
-     
 
-      //Add Each cell to each row 
+
+      //Add Each cell to each row
       row.append(patientNameCell);
       row.append(patientIDCell);
       row.append(assignButtonCell);
       table.append(row);
-      
+
       console.log(patientName);
     });
     $(".userTableContainer").html(table);
@@ -479,7 +479,7 @@ function sortingTask(n){
    * @function filter_Category
    * @description filters task list in Library > Assign Task according
    *  to the selected task category
-   */ 
+   */
 function filter_Category(){
   var val = document.getElementById("filterCategory").value;
   var table = document.getElementById("assigningTask");
@@ -568,7 +568,7 @@ function display_Detail(num){
   categories=[];
   steps=[];
   goodPath = "";
-  
+
   var table = document.getElementById("assigningTask");
   var tr = table.getElementsByTagName("tr");
   var cat = tr[num].cells[0].innerText;
@@ -584,7 +584,7 @@ function display_Detail(num){
 
   //Start the process of loading the task
   if (goodPath != null) {
-    getTaskFromPath(goodPath, getTaskFromPathCallback); 
+    getTaskFromPath(goodPath, getTaskFromPathCallback);
   }
   document.getElementById('form1').style.display ='block';
 }
@@ -611,7 +611,7 @@ function getTaskFromPath(taskPath, callback){
 
 /**
  * @function getTaskFromPathCallback
- * @param {*} task 
+ * @param {*} task
  */
 function getTaskFromPathCallback(task){
   getCategories(categories, task, populateArray);
@@ -706,7 +706,7 @@ function populateArray(task){
           }
           console.log(stepsData);
           steps[counter-1] = stepsData;
-          steps[counter-1]['detailedSteps'] = detailedSteps;   
+          steps[counter-1]['detailedSteps'] = detailedSteps;
       } else {
           break;
       }
@@ -717,13 +717,13 @@ function populateArray(task){
 
 /**
  * @function getStepImage
- * @description Recursively iterates through each step and gets its image. 
+ * @description Recursively iterates through each step and gets its image.
  * @param {*} task Details about the task original task.
  * @param {*} steps Task step descriptions
  * @param {*} stepNum The step num whose image is to be received from the database.  This controls the recursion's termination as well.
  */
 function getStepImage(task, steps, stepNum){
-    
+
   if (steps[stepNum] == undefined){
       console.log(steps);
       console.log("returning at stepNum" + stepNum);
@@ -747,7 +747,7 @@ function getStepImage(task, steps, stepNum){
       //alert("No image @ " + stepNum);
       var storageRef = firebase.storage().ref();
       var imageRef = storageRef.child(imageLink);
-      //steps[counter-1]["image"] = 
+      //steps[counter-1]["image"] =
 
           imageRef.getDownloadURL().then(function(snapshot){
               console.log(snapshot);
@@ -760,7 +760,7 @@ function getStepImage(task, steps, stepNum){
               console.log(err);
               getStepImage(task,steps,stepNum+1);
           });
-      
+
       //promises.push(getImageURL);
   } else {    //image link is null
       steps["image"] = defImage;
@@ -783,7 +783,7 @@ function injectToDOM(){
 
   //Task name
   htmlInjection += '<div style="text-align:left;"> Task Name: '+taskDetails["name"]+'</div>';
-  
+
   //Task Category
   htmlInjection += '<div style="text-align:left;"> Category: '+taskDetails["category"]+'</div>';
 
@@ -792,18 +792,18 @@ function injectToDOM(){
 
   //Task outline
   htmlInjection += '<div style="text-align:left;"> Task Outline: '+taskDetails["outline"]+'</div>';
-  
+
   //Visibility
   var v = "";
   if(taskDetails["visible"] == true) {v = "Yes";}
   else {v = "No";}
-  htmlInjection += '<div style="text-align:left;"> Visible: '+v+'</div>'; 
+  htmlInjection += '<div style="text-align:left;"> Visible: '+v+'</div>';
 
   //Publication Status
   var p = "";
   if(taskDetails["published"] == true) {p = "Published";}
   else {p = "Draft";}
-  htmlInjection += '<div style="text-align:left;"> Publication Status: '+p+'</div>';  
+  htmlInjection += '<div style="text-align:left;"> Publication Status: '+p+'</div>';
 
   htmlInjection += '<div style="text-align:left;"> Click <button onClick = "showDetails()" type="button">HERE</button> for more details.</div>';
 
@@ -827,7 +827,7 @@ function injectToDOM(){
       htmlInjection += "<div>Step Description: "+ steps[i].description +"</div>";
       htmlInjection += '<div class = "stepImageContainer">';
       //Add in image upload button and image preview
-      
+
       if(steps[i]["image"] != "https://i.imgur.com/d0H6zwB.png") {
         htmlInjection += '<img class="picPreview" name="stepImage' + i + '" src="' + steps[i]["image"] + '"/>';
   }
@@ -841,7 +841,7 @@ function injectToDOM(){
       htmlInjection += '</div>';   // close taskStep div
   }   //End loop
 
-  
+
   $("#taskFooter").html(htmlInjection); //Insert the HTML for the tasks into the DOM
 }   // end injectToDom
 
@@ -876,8 +876,8 @@ function showDetails() {
 /**
  * @function getDetailedStepHTML
  * @description return the HTML to render detailed steps to teh DOM
- * @param {*} steps 
- * @param {*} stepNum 
+ * @param {*} steps
+ * @param {*} stepNum
  */
 function getDetailedStepHTML(steps, stepNum){
     var i = parseInt(stepNum);
@@ -885,7 +885,7 @@ function getDetailedStepHTML(steps, stepNum){
     detailHTML += '<div class = "detailedStepContainer">';
     for (var j = 0; j < steps[i]["detailedSteps"].length; j++){ //Loop through the detailed steps, insert them into the page
         detailHTML += '<div class = "detailedStep">';
-            
+
             //Right side of detailed step
             detailHTML += '<div class="detailedStepRightContainer" id= "' + i + '">';
             temp = j+1;
@@ -893,7 +893,7 @@ function getDetailedStepHTML(steps, stepNum){
             detailHTML += '</div>';
 
             detailHTML += '</div>'
-    }   
+    }
     detailHTML += '</div>'  // End detailed steps
     return detailHTML;
 }
@@ -969,15 +969,15 @@ function createNewTask(){
 
   postRef.transaction(function(data) {
     //console.log("Transaction");
-    
+
     if (data != null){
         console.log("LAST TID: "+data)
         return (data+1); //If everything is succesful, reinsert the data to the database
     } else {
-        return 0; 
+        return 0;
     }
   }, function(error, commited, snapshot){
-   
+
       var TID = snapshot.val();
       createBlankTask(TID);
       //Stuff to do after the transaction is done
@@ -999,7 +999,7 @@ function createNewTask(){
  * @param {*} TID new generated task ID
  */
 function createBlankTask(TID){
-  
+
   var userid = $("#displayProfileid").html();
   var taskDef = {};
   taskDef["Info"] = {};
@@ -1020,10 +1020,10 @@ function createBlankTask(TID){
   console.log(insertToDB);
 
   if (firebase.database().ref().update(insertToDB)){
-     
+
       taskPath = "TaskInstruction/Basic/"+TID;
       localStorage.setItem("taskPath", taskPath);
-      
+
       //Put the task into the user's task list
       console.log(userid);
       var fbGet= firebase.database().ref("uAccount/"+userid);
@@ -1036,7 +1036,7 @@ function createBlankTask(TID){
           uAccount["MyTaskList"] = {};
           uAccount["MyTaskList"]["MyListTID1"] = TID;
           uAccount["MyTaskIndex"]={};
-          uAccount["MyTaskIndex"]["Number"]=1;   
+          uAccount["MyTaskIndex"]["Number"]=1;
           console.log(uAccount);
 
           //Insert task to my task list.
@@ -1050,7 +1050,7 @@ function createBlankTask(TID){
           console.log(Object.keys(uAccount["MyTaskList"]).length);
           var num = uAccount["MyTaskIndex"]["Number"] + 1;
           uAccount["MyTaskIndex"]["Number"] = num;
-          console.log("NUM"+num); 
+          console.log("NUM"+num);
           uAccount["MyTaskList"]["MyListTID" + num] = TID;
           console.log(uAccount);
           firebase.database().ref('uAccount/'+userid).update(uAccount);
@@ -1058,7 +1058,7 @@ function createBlankTask(TID){
           localStorage.setItem("taskPath", taskPath);
           location.href ="./06Taskeditor2.html";
 
-        } 
+        }
       });
 
 
@@ -1066,6 +1066,5 @@ function createBlankTask(TID){
   } else {
       alert("Task failed to save");
   }
-  
-}
 
+}

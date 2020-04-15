@@ -21,71 +21,30 @@ function aboutus_submit(){
 
 }
 
-var fbCI = firebase.database().ref("CenterInformation/KUContactInfo");
+var fbCI = firebase.database().ref("CenterInformation/ContactInfo/Aboutus");
 fbCI.once("value")
 .then(function(snapshot){
-    console.log(snapshot.key);
-    if(snapshot.key == "KUContactInfo"){
-        snapshot.forEach(function(childSnapshot1){
-            console.log(childSnapshot1.key);
-            if(childSnapshot1.key =="Name"){
-                document.getElementById("Name").innerHTML = childSnapshot1.val();
-                document.getElementById("Name1").innerHTML = childSnapshot1.val();
-
-            }
-            if(childSnapshot1.key =="Contact No"){
-                document.getElementById("Contact_No").innerHTML = childSnapshot1.val();
-                document.getElementById("Contact_No1").innerHTML = childSnapshot1.val();
-
-            }
-            if(childSnapshot1.key =="Email"){
-                document.getElementById("Email_Address").innerHTML = childSnapshot1.val();
-                document.getElementById("Email_Address1").innerHTML = childSnapshot1.val();
-
-            }
-            if(childSnapshot1.key =="Address"){
-                document.getElementById("Address").innerHTML = childSnapshot1.val();
-                document.getElementById("Address1").innerHTML = childSnapshot1.val();
-
-            }
-       })
-    }
+  document.getElementById("centerinfo_text").innerHTML = snapshot.val();
 })
 
-function CI_edit(){
-    document.getElementById("CI_button").style.display = "block";
-    document.getElementById("Name1").style.display = "block";
-    document.getElementById("Contact_No1").style.display = "block";
-    document.getElementById("Email_Address1").style.display = "block";
-    document.getElementById("Address1").style.display = "block";
 
+function centerinfo_edit(){
+  document.getElementById("centerinfo_text").disabled = false;
+  document.getElementById("CI_button").style.display = "block";
 }
+
 function CI_submit(){
-    var name = $("#Name1").val();
-    var contact_no = $("#Contact_No1").val();
-    var email_address = $("#Email_Address1").val();
-    var address = $("#Address1").val();
+  var text = $("#centerinfo_text").val();
+  document.getElementById("centerinfo_text").disabled = true;
+  document.getElementById("CI_button").style.display = "none";
 
-    if(name == "" || contact_no == "" || email_address == "" || address == ""){
-      alert ("Please enter all information")
-    }
-    else {
-    firebase.database().ref("CenterInformation/KUContactInfo/Name").set(name);
-    firebase.database().ref("CenterInformation/KUContactInfo/Contact No").set(contact_no);
-    firebase.database().ref("CenterInformation/KUContactInfo/Email").set(email_address);
-    firebase.database().ref("CenterInformation/KUContactInfo/Address").set(address);
+  firebase.database().ref("CenterInformation/ContactInfo/Aboutus").set(text);
+  firebase.database().ref("CenterInformation/ContactInfo/AboutusAndroid").set(text+"(end)");
+  alert("Succesfully entered");
 
-
-    document.getElementById("aboutus_text").disabled = true;
-    document.getElementById("CI_button").style.display = "none";
-    document.getElementById("Name1").style.display = "none";
-    document.getElementById("Contact_No1").style.display = "none";
-    document.getElementById("Email_Address1").style.display = "none";
-    document.getElementById("Address1").style.display = "none";
-    alert ("Succesfully entered")
-    location.reload();
-  }
 }
+
+
 
 function upload(){
     var text = $("#url_text").val();
