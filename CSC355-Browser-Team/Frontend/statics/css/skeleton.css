@@ -563,6 +563,7 @@ li a, .dropbtn {
     color: white;
     text-align: center;
     text-decoration: none;
+
 }
 
     li a:hover, .dropdown:hover .dropbtn {
@@ -571,6 +572,7 @@ li a, .dropbtn {
 
 li.dropdown {
     display: inline-block;
+    padding-right:75px;
 }
 .sidebarButton {
   background-color: #003B46;
@@ -584,9 +586,11 @@ li.dropdown {
 
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
   color:white;
+
 }
 .navbar-inverse .navbar-nav>li>a {
   color:white;
+
 }
 
 .profile-image {
