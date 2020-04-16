@@ -406,6 +406,8 @@ $(document).ready(function(){
   });
 });
 
+
+
 $(document).ready(function(){
   $("#searchKeyword").on("keyup", function() {
     var value = $(this).val().toLowerCase();

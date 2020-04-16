@@ -34,7 +34,7 @@ function injectToDOM(weeks){
       reply = days.val();
 
       htmlInjection += '<td style="width:25%;">'+reply["userEmail"]+'</td>';
-      htmlInjection += '<td style="width:15%">'+reply["userID"]+'</td>';
+      htmlInjection += '<td style="width:15%">'+reply["userId"]+'</td>';
       htmlInjection += '<td style="width:20%">'+reply["feedbackType"]+'</td>';
       htmlInjection += '<td style="width:20%">'+reply["timestamp"]+'</td>';
       htmlInjection += '<td style="width:10%"><button id="reply'+days.key+'" onclick="replyToFeedback(\''+days.key+'\')" style="cursor:pointer;">Reply</button></td>';
