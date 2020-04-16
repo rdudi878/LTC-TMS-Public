@@ -220,7 +220,7 @@
 
                     <div id="viewABlock">
                         <div class="viewFeedback">
-                            <h2><center><br>Viewing Announcement</center></h2>
+                            <h2><center><br>Viewing Feedback</center></h2>
                             <textarea class="schedule_textarea" id="viewMessage" type=text rows="4" cols="30" placeholder="Text Here..."></textarea>
                             <center>
                                 <button id="Ecancel" onclick="document.getElementById('viewABlock').style.display='none';" style="cursor:pointer;">Back</button>
@@ -228,6 +228,25 @@
                         </div>
                     </div>
 
+                    <div id="replyView">
+                        <div class="replyFeedback">
+                            <h2><center><br>Reply to Feedback</center></h2>
+                            <table style="border:none; width: 40%;">
+                                <tr>
+                                    <td style="border:none">User:</td>
+                                    <td style="border:none" id = IDReply></td>
+                                </tr>
+                                <tr>
+                                    <td style="display:none" id = IDCode></td>
+                                </tr>
+                            </table>
+                            <textarea class="schedule_textarea" id="replyMessage" type=text rows="4" cols="30" placeholder="Text Here..."></textarea>
+                            <center>
+                                <button id="Ecancel" onclick="document.getElementById('replyView').style.display='none';" style="cursor:pointer;">Back</button>
+                                <button id="sendReply" onclick="replyFeedback()" style="cursor:pointer;">Send</button>
+                            </center>
+                        </div>
+                    </div>
 
 
 

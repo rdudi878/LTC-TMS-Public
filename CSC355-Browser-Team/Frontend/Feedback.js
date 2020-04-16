@@ -65,13 +65,38 @@ function ViewFeedback(date) {
   });
 } //end editCenterSchedule
 
-/**
- * @function setWSEditFields
- * @description updates edit center schedule form with values for selected week
- * @param {*} weekOf week selected
- * @param {*} times array of times for 7 days of the selected week
- */
+
 function setWSEditFields(times) {
   document.getElementById('viewMessage').value = times["feedbackText"];
 
 } //end setCSEditFields
+
+function replyToFeedback(date) {
+  document.getElementById('replyView').style.display ='block';
+  console.log(date);
+  var temp = firebase.database().ref('Feedback/'+date+'/');
+  temp.on('value', function(WSsnapshot){
+    var times = [];
+    times = WSsnapshot.val();
+    setReplyFields(times, date);
+});
+}
+
+function setReplyFields(times, date) {
+  document.getElementById('IDReply').innerHTML = times["userId"];
+  document.getElementById('IDCode').innerHTML = date;
+} //end setCSEditFields
+
+
+
+
+function replyFeedback(){
+  var iD = document.getElementById('IDCode').innerHTML;
+  var ReplyData = $("#replyMessage").val();
+
+      firebase.database().ref('Feedback/'+ iD).update({
+        replyText : ReplyData
+      });
+      document.getElementById('replyView').style.display ='none';
+      location.href ="./11Feedback2.html";
+} //end function submitEditCenterSchedule
