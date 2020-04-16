@@ -10,6 +10,18 @@ function addNewPortfolio(){
 function staffPortfolio(){
   document.getElementById('newStaffPortfolio').style.display = 'block';
   document.getElementById('newPortfolioSeletion').style.display ='none';
+  document.getElementById("passtable").style.display= "block";
+  var db = firebase.database().ref('CNA');
+  db.limitToLast(1).on('value', function(snapshot) {
+    snapshot.forEach(function(childSnapshot){
+      var previousid = childSnapshot.key;
+      var newid = parseInt(previousid) + 1;
+      document.getElementById('StaffID').innerHTML = newid;
+      document.getElementById('staffEmail').value = "";
+      document.getElementById('staffName').value = "";
+      document.getElementById('staffPassword').value = "";
+    });
+  });
 } //end staffPortfolio
 
 function patientPortfolio(){

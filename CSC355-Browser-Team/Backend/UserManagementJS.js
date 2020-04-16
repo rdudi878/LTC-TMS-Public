@@ -124,7 +124,11 @@ else if(email.includes(".com") ==false){
 
 function areYouSure(){
   var yes = confirm('Are you sure?');
-  return yes;
+  if(confirm===true) {
+    return yes;
+  } else {
+    location.reload();
+  }
 }
 
 /**
@@ -173,6 +177,8 @@ console.log(password);
           location.reload();
         }
       });
+  } else {
+    location.reload();
   }
 }
 

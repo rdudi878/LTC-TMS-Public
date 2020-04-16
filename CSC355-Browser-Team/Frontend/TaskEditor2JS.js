@@ -484,7 +484,7 @@ function copyTextOver(speech) {
 }
 
 function textToSpeech(btn) {
-  console.log(btn.id);
+  // console.log(btn.id);
   var selector = "";
   if (btn.id == "outlineBtn") {
     selector = '[name="text"]';
@@ -895,6 +895,14 @@ function newDetailedStepButtonHandler(steps){
  * @param {*} taskData Contains the data fields for the task
  */
 function saveTask(steps, goodPath, taskData){
+  console.log("IS THIS THING ON");
+
+  console.log("steps");
+  console.log(steps);
+  console.log("goodPath");
+  console.log(goodPath);
+  console.log("taskData");
+  console.log(taskData);
 
     insertToDatabase = {};
 
@@ -915,8 +923,11 @@ function saveTask(steps, goodPath, taskData){
     insertToDatabase["Info"]["Owner"] = taskDetails["owner"];
     //Generate the structure of the individual steps to insert into the database
     const promises = [];
-    for (var i = 0; i < steps.length; i++){
+    for (var i = 0; i < steps.length; i++){  // loop over number of steps in current edit
+      //figure out how to access number of steps in DB here and add if statement
+
         var tempArray = {};
+        //steps name and description being added to JS object here, these are edited in DB, but do not remove extra steps that may remain in db
         insertToDatabase["Step"+(parseInt(i)+1)] = {};
         insertToDatabase["Step"+(parseInt(i)+1)]["MDescriptionIOS"] = steps[i]["description"];
         insertToDatabase["Step"+(parseInt(i)+1)]["MtitleIOS"] = steps[i]["name"];
@@ -971,10 +982,48 @@ function saveTask(steps, goodPath, taskData){
         var updates = {};
         //updates[goodPath] = insertToDatabase;
         updates[taskDetails["taskID"]] = insertToDatabase;
-        console.log(updates);
         var tempRef = "TaskInstruction/"+taskDetails["category"]+"/"+taskDetails["taskID"];
+        var rootRef = firebase.database().ref();
+        var taskIdRef = rootRef.child("TaskInstruction/"+taskDetails["category"]+"/"+taskDetails["taskID"]);
+        var dbStepNums = 0;
+        taskIdRef.once('value', function(taskSnap){
+              taskSnap.forEach(function(stepSnap){
+                  if (stepSnap.key!=="Info" && stepSnap.key!=="TaskID") {
+                    dbStepNums+=1;
+                  }
+                });
+                // if step nums in browser not equal to step nums in DB, remove extra steps
+                if (dbStepNums!==steps.length) {
+                  console.log("steps not equal");
+                  var removeRef = rootRef.child("TaskInstruction/"+taskDetails["category"]+"/"+taskDetails["taskID"]);
+                  removeRef.once('value', function(removeSteps) {
+                    removeSteps.forEach(function(removeSteps2) {
+                      if (removeSteps2.key!=="Info" && removeSteps2.key!=="TaskID") {
+                        var dbStepString = removeSteps2.key;
+                        thenum = dbStepString.match(/\d+/)[0];
+                        if (thenum<=steps.length) {
+                          console.log("thenum " + thenum + ". Total browser steps: " + steps.length);
+                        } else {
+                          console.log("removeRef.child(dbStepString): ");
+                          console.log(removeRef.child(dbStepString));
+                          removeRef.child(dbStepString).remove();
+                        }
+                        // split this string to get the step number
+                        // if it's less than or equal to steps.length, don't remove it
+                      }
+                    });
+                  });
+
+                } else {
+                  console.log("steps equal");
+                }
+            });
+
+
         if (firebase.database().ref(tempRef).update(insertToDatabase)){   //Actually uploads the task to the database
             localStorage.setItem("taskPath", "TaskInstruction/"+taskDetails["category"]+"/"+taskDetails["taskID"]);
+            console.log("taskDetails: ");
+            console.log(taskDetails);
             if (taskDetails["newTask"]){
                 addTaskToLibrary();
             }
@@ -1006,6 +1055,8 @@ function saveTask(steps, goodPath, taskData){
         }
 
     });
+    console.log("insertToDatabase: ");
+    console.log(insertToDatabase);
 }
 
 function addTaskToLibrary(){

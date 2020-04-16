@@ -406,6 +406,8 @@ $(document).ready(function(){
   });
 });
 
+
+
 $(document).ready(function(){
   $("#searchKeyword").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -928,34 +930,40 @@ function removeTaskMyList(num) {
   var table = document.getElementById("assigningTask");
   var tr = table.getElementsByTagName("tr");
   var taskID = tr[num].cells[8].innerText; //taskID to be removed
+  var confirmation = confirm("Are you sure you want to remove this task?");
+  if (confirmation===true) {
+    //get userid
+    firebase.auth().onAuthStateChanged(function (firebaseUser){
+      if(firebaseUser){
+        var userid = -1;
+        var refUID= firebase.database().ref('UID');
+        refUID.once('value',function(snapshotUID){
+          snapshotUID.forEach(function(snapshotInsideUID){
+            if (snapshotInsideUID.key == firebaseUser.uid){
+              userid = snapshotInsideUID.val();
+              //MyTaskList query - get from uAccount
+              var fbMTL = firebase.database().ref("uAccount/"+userid+"/MyTaskList");
+              fbMTL.once("value").then(function(snapshotMTL){
+                snapshotMTL.forEach(function(snapshotTaskIDs) {
+                  var tidMTL = snapshotTaskIDs.val();
+                  if(tidMTL == taskID){
+                    MyListTID = snapshotTaskIDs.key;
+                    var taskReference = firebase.database().ref("uAccount/"+userid+"/MyTaskList/"+MyListTID);
+                    taskReference.remove();
+                    window.location.href ="../Frontend/10Mytask2.html";
+                  } //end if tidMTL == taskID
+                }); //end function(snapshotTaskIDs)
+              }); //end function(snapshotMTL)
+            } //end if snapshotInsideUID.key == firebaseUser.uid
+          }); //end function(snapshotInsideUID)
+        }); //end function(snapshotUID)
+      } //end if firebaseUser
+    }); //end function(firebaseUser)
+  } else {
+    location.reload();
+  }
 
-  //get userid
-  firebase.auth().onAuthStateChanged(function (firebaseUser){
-    if(firebaseUser){
-      var userid = -1;
-      var refUID= firebase.database().ref('UID');
-      refUID.once('value',function(snapshotUID){
-        snapshotUID.forEach(function(snapshotInsideUID){
-          if (snapshotInsideUID.key == firebaseUser.uid){
-            userid = snapshotInsideUID.val();
-            //MyTaskList query - get from uAccount
-            var fbMTL = firebase.database().ref("uAccount/"+userid+"/MyTaskList");
-            fbMTL.once("value").then(function(snapshotMTL){
-              snapshotMTL.forEach(function(snapshotTaskIDs) {
-              var tidMTL = snapshotTaskIDs.val();
-                if(tidMTL == taskID){
-                  MyListTID = snapshotTaskIDs.key;
-                  var taskReference = firebase.database().ref("uAccount/"+userid+"/MyTaskList/"+MyListTID);
-                  taskReference.remove();
-                  window.location.href ="../Frontend/10Mytask2.html";
-                } //end if tidMTL == taskID
-              }); //end function(snapshotTaskIDs)
-            }); //end function(snapshotMTL)
-          } //end if snapshotInsideUID.key == firebaseUser.uid
-        }); //end function(snapshotInsideUID)
-      }); //end function(snapshotUID)
-    } //end if firebaseUser
-  }); //end function(firebaseUser)
+
 } //end removeTaskMyList
 
 

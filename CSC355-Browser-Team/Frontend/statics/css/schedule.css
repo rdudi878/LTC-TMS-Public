@@ -24,6 +24,7 @@ table, th, td {
     position: fixed;
     background-color: #313131;
     overflow: auto;
+
 }
 #editABlock {
     width: 100%;
@@ -105,9 +106,9 @@ table, th, td {
     font-family: raleway;
     background-color: #fff;
     position: absolute;
-    left: 500px;
+    left: 35%;
     top: 200px;
-    width: 500px;
+    width: 50%;
     height: 390px;
 }
 .viewForm_edit_announcement {
@@ -118,9 +119,9 @@ table, th, td {
     font-family: raleway;
     background-color: #fff;
     position: absolute;
-    left: 500px;
+    left: 35%;
     top: 200px;
-    width: 500px;
+    width: 50%;
     height: 450px;
 }
 .create_new_center_schedule_form {
