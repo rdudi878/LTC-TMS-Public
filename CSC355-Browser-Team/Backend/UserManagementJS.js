@@ -173,6 +173,8 @@ console.log(password);
           location.reload();
         }
       });
+  } else {
+    location.reload();
   }
 }
 
