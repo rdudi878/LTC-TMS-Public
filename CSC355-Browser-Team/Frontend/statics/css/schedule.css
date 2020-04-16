@@ -24,6 +24,7 @@ table, th, td {
     position: fixed;
     background-color: #313131;
     overflow: auto;
+
 }
 #editABlock {
     width: 100%;
