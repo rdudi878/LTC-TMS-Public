@@ -33,28 +33,36 @@ function injectToDOM(weeks){
       reply = [];
       reply = days.val();
 
-      htmlInjection += '<td style="width:25%;">'+reply["userEmail"]+'</td>';
-      htmlInjection += '<td style="width:15%">'+reply["userId"]+'</td>';
-      htmlInjection += '<td style="width:20%">'+reply["feedbackType"]+'</td>';
-      date = reply["timestamp"];
-      var myDate = new Date(date);
-      myDate = myDate.toLocaleString();
-      htmlInjection += '<td style="width:20%">'+myDate+'</td>';
-      htmlInjection += '<td style="width:10%"><button id="reply'+days.key+'" onclick="replyToFeedback(\''+days.key+'\')" style="cursor:pointer;">Reply</button></td>';
-      htmlInjection += '<td style="width:10%"><button id="reply'+days.key+'" onclick="ViewFeedback(\''+days.key+'\')" style="cursor:pointer;">View</button></td>';
-      htmlInjection += '</tr>';
+      var cnaID = reply["userId"];
+      var cnaName = "";
+      var cnaRef = firebase.database().ref("CNA/"+cnaID+"/Portfolio");
+      cnaRef.once("value")
+      .then(function(cnaSnap) {
+        cnaSnap.forEach(function(name) {
+          if (name.key==="Name") {
+            cnaName = name.val();
+          }
+        });
 
-      if(count = weeks.length) //if reached the end of the list of weeks
-      {
-        $("#FeedbackTable").html(htmlInjection); //Insert the HTML for the tasks into the DOM
-      } //end if
+        htmlInjection += '<td style="width:25%;">'+cnaName+'</td>';
+        htmlInjection += '<td style="width:15%">'+reply["userId"]+'</td>';
+        htmlInjection += '<td style="width:20%">'+reply["feedbackType"]+'</td>';
+        date = reply["timestamp"];
+        var myDate = new Date(date);
+        myDate = myDate.toLocaleString();
+        htmlInjection += '<td style="width:20%">'+myDate+'</td>';
+        htmlInjection += '<td style="width:10%"><button id="reply'+days.key+'" onclick="replyToFeedback(\''+days.key+'\')" style="cursor:pointer;">Reply</button></td>';
+        htmlInjection += '<td style="width:10%"><button id="reply'+days.key+'" onclick="ViewFeedback(\''+days.key+'\')" style="cursor:pointer;">View</button></td>';
+        htmlInjection += '</tr>';
+
+        if(count = weeks.length) //if reached the end of the list of weeks
+        {
+          $("#FeedbackTable").html(htmlInjection); //Insert the HTML for the tasks into the DOM
+        } //end if
+      });
     }); //end weekSched.once('value',function(days){
   } //end for
 } //end injectToDOM
-
-
-
-
 
 
 function ViewFeedback(date) {
