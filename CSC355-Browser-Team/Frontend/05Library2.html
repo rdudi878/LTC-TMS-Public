@@ -28,8 +28,22 @@
     <script type='text/javascript' src='Library.js'></script>
     <script type='text/javascript' src='Profile.js'></script>
     <script type='text/javascript' src='Notifications.js'></script>
+    <script type='text/javascript' src='Feedback.js'></script>
 </head>
 <style>
+    .numberCircle {
+    border-radius: 50%;
+    width: 21px;
+    height: 21px;
+    padding: 5px;
+
+    background: red;
+    border: 1px solid red;
+    color: white;
+    text-align: center;
+
+    font: 10px Arial, sans-serif;
+  }
     table, th, td {
         padding: 5px;
         border: 1px solid black;
@@ -150,7 +164,7 @@
         }
     }
 </style>
-<body onload="displayNotifications()">
+<body onload="displayNotifications(); displayFeedbackNotifications();">
     <div class="wrapper">
         <!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
         <nav id="sidebar">
@@ -212,9 +226,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="../Frontend/11Feedback2.html">
-                        <i class="glyphicon glyphicon-comment"></i>
-                    Feedback</a>
+                  <a style="display: inline-block; margin-left: 4.4pc;" href="../Frontend/11Feedback2.html">
+                      <i class="glyphicon glyphicon-comment"></i>
+                  Feedback</a><div id="notificationNum" class="numberCircle" style="display: inline-block"></div>
                 </li>
                 <li>
                     <a href="../Frontend/08Helpandsupport2.html">
