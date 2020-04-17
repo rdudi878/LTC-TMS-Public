@@ -52,13 +52,18 @@ function injectToDOM(weeks){
   } //end for
 } //end injectToDOM
 
-function ViewFeedback(date) {
+function ViewFeedback(feedbackID) {
   document.getElementById('viewABlock').style.display ='block';
-  console.log(date);
-  var fbB= firebase.database().ref('Feedback/'+date+'/');
-  fbB.on('value', function(WSsnapshot){
+  console.log(feedbackID);
+  var fbB= firebase.database().ref('Feedback/'+feedbackID+'/');
+  fbB.on('value', function(feedSnap){
+    feedSnap.forEach(function(deeper) {
+      if (deeper.key==="viewed") {
+        fbB.update({ viewed: "true" });
+      }
+    });
     var times = [];
-    times = WSsnapshot.val();
+    times = feedSnap.val();
     setWSEditFields(times);
   });
 } //end editCenterSchedule
@@ -97,11 +102,18 @@ function replyFeedback(){
 } //end function submitEditCenterSchedule
 
 function displayFeedbackNotifications() {
-  console.log("is this loading?");
   var feedbackNum = 0;
   fbFB.once('value',function(snapshot){
     snapshot.forEach(function(Feed){
-      feedbackNum+=1;
+      // if the notification is viewed, don't increment.
+      feedbackNum+=1; // increment number to display in sidebar
+      Feed.forEach(function(viewed) {
+        if (viewed.key==="viewed") {
+          if (viewed.val()==="true") {
+            feedbackNum-=1;
+          }
+        }
+      });
     });
     console.log("feedbackNum: ");
     console.log(feedbackNum);
