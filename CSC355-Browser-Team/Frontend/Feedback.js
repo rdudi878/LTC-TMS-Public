@@ -74,6 +74,7 @@ function setWSEditFields(times) {
 
 } //end setCSEditFields
 
+
 function replyToFeedback(date) {
   document.getElementById('replyView').style.display ='block';
   console.log(date);
@@ -103,3 +104,21 @@ function replyFeedback(){
       document.getElementById('replyView').style.display ='none';
       location.href ="./11Feedback2.html";
 } //end function submitEditCenterSchedule
+
+function displayFeedbackNotifications() {
+  var feedbackNum = 0;
+  fbFB.once('value',function(snapshot){
+    snapshot.forEach(function(Feed){
+      feedbackNum+=1;
+    });
+    console.log("feedbackNum: ");
+    console.log(feedbackNum);
+    var notificationNum = document.getElementById("notificationNum");
+    // feedbackNum = 0; // testing what it looks like when there are no new notifications
+    if (feedbackNum===0) {
+      notificationNum.style="display:none;"
+    } else {
+      notificationNum.innerHTML = feedbackNum;
+    }
+  });
+}
