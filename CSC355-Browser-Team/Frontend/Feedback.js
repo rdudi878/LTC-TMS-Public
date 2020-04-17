@@ -74,7 +74,7 @@ function setWSEditFields(times) {
 
 } //end setCSEditFields
 
-<<<<<<< HEAD
+
 function replyToFeedback(date) {
   document.getElementById('replyView').style.display ='block';
   console.log(date);
@@ -104,7 +104,7 @@ function replyFeedback(){
       document.getElementById('replyView').style.display ='none';
       location.href ="./11Feedback2.html";
 } //end function submitEditCenterSchedule
-=======
+
 function displayFeedbackNotifications() {
   var feedbackNum = 0;
   fbFB.once('value',function(snapshot){
@@ -122,4 +122,3 @@ function displayFeedbackNotifications() {
     }
   });
 }
->>>>>>> feedback notification number implemented for about us page nav bar. need to make dissapear when notifcation has been viewed
