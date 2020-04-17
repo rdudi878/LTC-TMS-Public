@@ -52,11 +52,6 @@ function injectToDOM(weeks){
   } //end for
 } //end injectToDOM
 
-
-
-
-
-
 function ViewFeedback(date) {
   document.getElementById('viewABlock').style.display ='block';
   console.log(date);
@@ -74,7 +69,6 @@ function setWSEditFields(times) {
 
 } //end setCSEditFields
 
-
 function replyToFeedback(date) {
   document.getElementById('replyView').style.display ='block';
   console.log(date);
@@ -91,9 +85,6 @@ function setReplyFields(times, date) {
   document.getElementById('IDCode').innerHTML = date;
 } //end setCSEditFields
 
-
-
-
 function replyFeedback(){
   var iD = document.getElementById('IDCode').innerHTML;
   var ReplyData = $("#replyMessage").val();
@@ -106,6 +97,7 @@ function replyFeedback(){
 } //end function submitEditCenterSchedule
 
 function displayFeedbackNotifications() {
+  console.log("is this loading?");
   var feedbackNum = 0;
   fbFB.once('value',function(snapshot){
     snapshot.forEach(function(Feed){
