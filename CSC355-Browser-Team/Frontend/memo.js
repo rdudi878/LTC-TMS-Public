@@ -1,4 +1,4 @@
-    
+
 function popup_form(){
     document.getElementById("memo_text").value = "";
     document.getElementById("selected_date").value = year+"-"+mm+"-"+dd;
@@ -10,7 +10,7 @@ function close_form(){
 
 function start(){
     var userID = document.getElementById("displayProfileid").innerHTML;
-    
+
     firebase.auth().onAuthStateChanged(function (firebaseUser){
         if(firebaseUser){
             var userid = -1;
@@ -41,36 +41,35 @@ function viewTable() {
             date = dates.key;
             if(date != "MemoIndex"){
                 dateArray.push(date);
+                var htmlInjection = "";
+                count = 0;
+
+                //htmlInjection = '<table style="width:100%; border: 1px solid black;">';
+                for(var i=0; i<dateArray.length; i++) {
+                  var fbMemo = firebase.database().ref('MEMO/'+userID+'/'+dateArray[i]);
+                  fbMemo.once('value',function(snapshot){
+                    numMemos = snapshot.numChildren();
+                    var temp = [];
+                    temp = snapshot.val();
+
+                    for (key in temp){
+                      htmlInjection += '<tr>';
+                      htmlInjection += '<td style="width:15%;">'+snapshot.key+'</td>';
+                      htmlInjection += '<td style="width:55%;">'+temp[key]+'</td>';
+                      htmlInjection += '<td style="width:15%"><button id="edit'+key+'" onclick="editMemo(\''+ snapshot.key+'\', \''+key +'\')" style="cursor:pointer;">Edit</button></td>';
+                      htmlInjection += '<td style="width:15%"><button id="delete'+key+'" onclick="deleteMemo(\''+ snapshot.key+'\', \''+key +'\')" style="cursor:pointer;">Delete</button></td></tr>';
+
+                    }
+                    $("#table_data").html(htmlInjection); //Insert the HTML for the tasks into the DOM
+                  });
+                }
             }
-            //console.log(dateArray);
         });
         injectToDOM(dateArray,userID);
     });
 }
 
 function injectToDOM(dateArray,userID){
-    var htmlInjection = "";
-    count = 0;
-  
-    //htmlInjection = '<table style="width:100%; border: 1px solid black;">';
-    for(var i=0; i<dateArray.length; i++) {
-        var fbMemo = firebase.database().ref('MEMO/'+userID+'/'+dateArray[i]);
-        fbMemo.once('value',function(snapshot){
-            numMemos = snapshot.numChildren();
-            var temp = [];
-            temp = snapshot.val();
-            
-            for (key in temp){
-                htmlInjection += '<tr>';
-                htmlInjection += '<td style="width:15%;">'+snapshot.key+'</td>';
-                htmlInjection += '<td style="width:55%;">'+temp[key]+'</td>';
-                htmlInjection += '<td style="width:15%"><button id="edit'+key+'" onclick="editMemo(\''+ snapshot.key+'\', \''+key +'\')" style="cursor:pointer;">Edit</button></td>';
-                htmlInjection += '<td style="width:15%"><button id="delete'+key+'" onclick="deleteMemo(\''+ snapshot.key+'\', \''+key +'\')" style="cursor:pointer;">Delete</button></td></tr>';
-
-            }
-            $("#table_data").html(htmlInjection); //Insert the HTML for the tasks into the DOM
-        }); 
-    }
 } //end injectToDOM
 
 function todayMemo(userID) {
@@ -114,7 +113,7 @@ function submit(){
     if(ymd == "" || memo_text == "" ) {
         alert ("Please enter the following data:\n"+fields);
     }
-    
+
     else {
         var fbGet= firebase.database().ref("MEMO/"+userID);
         fbGet.once("value",function(snapshot){
@@ -130,7 +129,7 @@ function submit(){
                 console.log(MEMO);
                 result = firebase.database().ref('MEMO/'+userID).update(MEMO);
                 if(result) {location.href ="./03Memo2.html";}
-            } 
+            }
             else {  //user has memos
                 console.log("NO");
                 var num = MEMO["MemoIndex"] + 1;
@@ -140,13 +139,13 @@ function submit(){
                     MEMO[ymd]["Memo" + num] = memo_text;
                 }
                 else {
-                    MEMO[ymd]["Memo" + num] = memo_text; 
+                    MEMO[ymd]["Memo" + num] = memo_text;
                 }
-                
+
                 console.log(MEMO);
                 result = firebase.database().ref('MEMO/'+userID).update(MEMO);
                 if(result) {location.href ="./03Memo2.html";}
-            } 
+            }
         });
     }
 } //end function submit
@@ -175,7 +174,7 @@ function editMemo(date, key) {
  function submitEdit(date, key){
     var userID = document.getElementById("displayProfileid").innerHTML;
     var text = $("#memoedited").val();
-    
+
     if(text == ""){
         alert ("Please enter data");
     }
@@ -191,7 +190,7 @@ function editMemo(date, key) {
                     close_form();
                     location.href ="./03Memo2.html";
                 }
-            });   
+            });
         }
     }
 }
@@ -276,4 +275,3 @@ function greeting(){
       document.getElementById("time123").innerHTML = "Good Evening &nbsp ";
     }
 }
-  
