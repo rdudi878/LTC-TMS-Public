@@ -8,6 +8,9 @@ function addNewPortfolio(){
 } //end addNewPortfolio
 
 function staffPortfolio(){
+  var staffPosition = document.getElementById('staffPosition').value;
+  console.log("staffPosition");
+  console.log(staffPosition);
   document.getElementById('newStaffPortfolio').style.display = 'block';
   document.getElementById('newPortfolioSeletion').style.display ='none';
   document.getElementById("passtable").style.display= "block";
@@ -108,6 +111,10 @@ function handleuploadfileSubmit(e) {
   if(staffPosition == 'CNA'){
     var StaffID = document.getElementById('StaffID').innerHTML;
   }
+  console.log("staffPosition");
+  console.log(staffPosition);
+  console.log("StaffID");
+  console.log(StaffID);
 
   firebase.storage().ref('Staff/'+StaffID).child(file1.name).put(file1); //photo
   firebase.storage().ref('Staff/'+StaffID).child(file3.name).put(file3); //cv
