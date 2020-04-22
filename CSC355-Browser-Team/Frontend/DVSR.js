@@ -240,12 +240,20 @@ fbPAT.once("value")
                 legibleValue = legibleValue.replace(/\?/g, '');
                 legibleValue = legibleValue.replace(/→/g, ' ');
                 legibleValue = legibleValue.replace(/steps/g, ' steps');
+                console.log("child.key");
                 console.log(child.key);
                 if (child.key == 'Fell') {
                   legibleValue = "Fell at " + legibleValue.substr(0,legibleValue.indexOf(' '));
                 }
                 if (child.key == 'Step') {
                   legibleValue = legibleValue.substr(legibleValue.indexOf(' ')+1);
+                }
+                if (child.key == 'LastestHeartRate') {
+                  var bpm = legibleValue.substr(legibleValue.indexOf(' ')+1) + " BPM";
+                  var time ="Time: " + legibleValue.substr(0,legibleValue.indexOf(' ')) + " - "; // "72"
+                  legibleValue = time  + bpm;
+                  console.log("time: ");
+                  console.log(time);
                 }
                 cellMeasurementValue.appendChild(document.createTextNode(legibleValue));
               });
@@ -255,6 +263,8 @@ fbPAT.once("value")
               cellMeasurementType.appendChild(document.createTextNode("Fall Record"));
             } else if (child.key == "Step") {
               cellMeasurementType.appendChild(document.createTextNode("Step Count"));
+            } else if (child.key == "HeartRate") {
+              cellMeasurementType.appendChild(document.createTextNode("Heart Rate"));
             } else {
               cellMeasurementType.appendChild(document.createTextNode(child.key));
             }
