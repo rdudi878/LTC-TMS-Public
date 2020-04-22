@@ -1046,7 +1046,7 @@ function createTaskCopy(){
     copyTask(checked, 0, counter);
   }
   else {
-      window.alert('There is no checked checkbox');
+      window.alert('There is no selected checkbox');
   }
 }
 
