@@ -1,6 +1,5 @@
 <!--
-  @file 025Schedule2.html
-  @author  MCU
+  @file 14EmergencyNotifications.html
   @author  Kutztown University
   @license
 -->
@@ -9,36 +8,70 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LTC-TMS</title>
     <link rel="icon" type="image/jpg" href="image\logo.jpg">
     <link rel="stylesheet" type="text/css" href="statics/css/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="statics/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="statics/css/schedule.css" />
     <!-- IMPORTING BOOTSTRAP!!-->
     <!-- Importing BOOTSTRAP!!! -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-    <!-- Our Custom SIDE/TOP Bar CSS -->
+    <!-- Our Custom SIDE/TOP BAR CSS -->
     <link rel="stylesheet" href="statics/css/skeleton.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script type='text/javascript' src='../Frontend/Feedback.js'></script>
+    <script type='text/javascript' src='Config.js'></script>
+    <script type='text/javascript' src='AboutusKU.js'></script>
+    <script type='text/javascript' src='Profile.js'></script>
+    <script type='text/javascript' src='Notifications.js'></script>
+    <script type='text/javascript' src='Feedback.js'></script>
+    <script type='text/javascript' src='EmergencyNotifications.js'></script>
 
 </head>
-<body onload="displayNotifications(); displayFeedbackNotifications();">
+	<style>
+        span.hidden{
+        display: none;
+    }
+    .numberCircle {
+      border-radius: 50%;
+      width: 21px;
+      height: 21px;
+      padding: 5px;
 
-    <div class="wrapper">
-        <!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
-        <nav id="sidebar">
-            <!-- SIDEBAR -->
+      background: red;
+      border: 1px solid red;
+      color: white;
+      text-align: center;
+
+      font: 10px Arial, sans-serif;
+    }
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+<body onload="displayNotifications(), displayFeedbackNotifications()">
+    <div class="wrapper"><!-- Contain EVERYTHING THING IN WRAPPER CLASS -->
+        <nav id="sidebar"><!-- SIDEBAR -->
             <ul class="list-unstyled components">
                 <li>
                     <a href="../Frontend/01Aboutus2.html">
-                      <!-- glyphicon is custom image on side of nav bar -->
                         <i class="glyphicon glyphicon-info-sign"></i>
                         About Us
                     </a>
@@ -46,10 +79,9 @@
                 <li>
                     <a href="../Frontend/02Schedule2.html">
                         <i class="glyphicon glyphicon-calendar"></i>
-                        Schedule
-                    </a>
+                    Schedule</a>
                 </li>
-                <li class="current">
+                <li>
                     <a href="../Frontend/12Events.html">
                         <i class="glyphicon glyphicon-folder-close"></i>
                         Events
@@ -58,16 +90,13 @@
                 <li>
                     <a href="../Frontend/03Memo2.html">
                         <i class="glyphicon glyphicon-folder-close"></i>
-                        Memo
-                    </a>
+                    Memo</a>
                 </li>
                 <li>
                     <a href="../Frontend/04Statusrecord2.html">
                         <i class="glyphicon glyphicon-heart-empty"></i>
-                        Status Record
-                    </a>
+                    Status Record</a>
                 </li>
-
                 <li>
                     <a href="../Frontend/Reports.html">
                         <i class="glyphicon glyphicon-file"></i>
@@ -77,8 +106,7 @@
                 <li>
                     <a href="../Frontend/05Library2.html">
                         <i class="glyphicon glyphicon-book"></i>
-                        Library
-                    </a>
+                    Library</a>
                 </li>
                 <li>
                     <a href="../Frontend/10Mytask2.html">
@@ -89,38 +117,34 @@
                 <li>
                     <a href="../Frontend/07E-portfolio2.html">
                         <i class="glyphicon glyphicon-user"></i>
-                        E-Portfolio
-                    </a>
+                    E-Portfolio</a>
                 </li>
                 <li>
-                    <a href="../Frontend/11Feedback2.html">
+                    <a style="display: inline-block; margin-left: 4.4pc;" href="../Frontend/11Feedback2.html">
                         <i class="glyphicon glyphicon-comment"></i>
-                    Feedback</a>
+                    Feedback</a><div id="notificationNum" class="numberCircle" style="display: inline-block"></div>
                 </li>
                 <li>
                     <a href="../Frontend/13Video.html">
                         <i class="glyphicon glyphicon-facetime-video"></i>
                     Video</a>
                 </li>
-                <li>
-                    <a style="display: inline-block; margin-left: 3.4pc;" href="../Frontend/14EmergencyNotifications.html">
+                <li class="current">
+                    <a href="../Frontend/14EmergencyNotifications.html">
                         <i class="glyphicon glyphicon-alert"></i>
-                    Notifications</a><div id="emergencyNum" class="numberCircle" style="display: inline-block"></div>
+                    Notifications</a><div id="emergencyNum" class="numberCircle" style="display: none"></div>
                 </li>
                 <li>
                     <a href="../Frontend/08Helpandsupport2.html">
                         <i class="glyphicon glyphicon-question-sign"></i>
-                        Help and Support
-                    </a>
+                    Help and Support</a>
                 </li>
             </ul>
         </nav>
-        <!-- End of sidebar !-->
+    <!-- End of sidebar !-->
 
-        <div id="content">
-            <!-- Place everything except the sidebar in content class -->
-            <div class="header">
-                <!-- DIV CONTAINER OF OUR HEADER-->
+        <div id="content"> <!-- Place everything except the sidebar in content class -->
+            <div class="header"> <!-- DIV CONTAINER OF OUR HEADER-->
 
                 <div class="bar"><!-- PlaceHolder for top bar -->
 
@@ -143,7 +167,7 @@
                           </ul>
                             <ul class="nav navbar-nav navbar-right" style="margin-right:3px">
                               <li>
-                                  <img title="Edit Profile Picture" class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
+                                  <img class="profile-image img-circle" id="Profilepic" style="white-space:nowrap;overflow: hidden;" />
                               </li>
                               <li class="dropdown">
                                   <a href="javascript:void(0)" class="dropbtn">
@@ -162,52 +186,56 @@
                         </div>
                     </nav>
                 </div>
-                <!--end div class="bar"-->
                 <!-- TOP BAR ENDS-->
                 <!-- Place Holder for header-->
                 <div class="user-info">
                     <!--BACKGROUND PANEL IMAGE-->
                     <div class="container-fluid" style="display:none;">
+
                         <img class="panelimg img-responsive" style="background-color: #fff5ee" />
+
                         <div class="container" style="transform:translateY(-8.5ex)">
-                        <!-- CIRCLE IMAGE THING-->
+                            <!-- CIRCLE IMAGE THING-->
                             <div class="user-headface" onmouseover="imgBlur(this)" onmouseout="imgOrg(this)" style="background-color:white; white-space:nowrap;overflow: hidden;">
                                 <img src="statics/images/edit.png" id="photoword"
-                                    style="position:relative;left:20px; text-align:center;
-                                    display:none;width:40px;height:40px; white-space:nowrap;overflow: hidden;" onclick="document.getElementById('newPic').click();">
+                                     style="position:relative;left:20px; text-align:center;
+                                display:none;width:40px;height:40px; white-space:nowrap;overflow: hidden;" onclick="document.getElementById('newPic').click();">
                                 <img id="Profilepic" onclick="document.getElementById('newPic').click();" style="cursor:pointer; white-space:nowrap;overflow: hidden;" />
                                 <input id="newPic" type='file' accept="image/*" onchange="uploadPicProfile()" required style="display:none; white-space:nowrap;overflow: hidden;" />
-                            </div> <!--end div class="user-headface"-->
+                            </div>
 
                             <!-- TEXT NEXT TO THE CIRCLE IMAGE THING-->
                             <div class="user-account">
                                 <p class="tip" id="time123"></p><!-- DISPLAYS GOOD MORNING/AFTERNOON/EVENING MSG -->
+                                <p></p>
                                 <p class="account" style="position:relative; top:8px;">
-
-                                <span style = "font-size: 20pt;" word-wrap: break-word;>Name : <span style = "font-size: 20pt;" id="displayProfilename"></span></span>
-                                <span class="hidden" style = "font-size: 20pt">UserID : <span style = "font-size: 20pt;" id="displayProfileid"></span></span>
-                                <span style = "font-size: 20pt;" word-wrap: break-word;> Role : <span style = "font-size: 20pt;" id="displayProfileposition"></span></span>
+					<span style = "font-size: 20pt">Name : <span style = "font-size: 20pt;" id="displayProfilename"></span></span>
+                    <span class="hidden" style = "font-size: 20pt">UserID : <span style = "font-size: 20pt;" id="displayProfileid"></span></span>
+				    <span style = "font-size: 20pt"> Role : <span style = "font-size: 20pt;" id="displayProfileposition"></span></span>
                                 </p>
-                            </div> <!--end div class="user-account"-->
-                        </div> <!--end div class="container" -->
-                    </div> <!--end div class="container-fluid"-->
-                </div> <!--end div class="user-info"-->
-            </div> <!-- END OF THE TWO HEADER!! --> <!--end div class="header"-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- END OF THE TWO HEADER!! -->
 
             <div class="main container-fluid wrapper">
-                <!-- START OF MIDDLE CONTENT-->
-                <div class="right" style="width:800ex; transform:translateY(-8ex)">
-                  <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23c4dfe6&amp;ctz=America%2FNew_York&amp;src=Y25vdGVzdDEyM0BnbWFpbC5jb20&amp;color=%23c5c5c5&amp;showNav=1" style="border:solid 1px #777" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
-                </div> <!--end div class="right" style="width:800ex; transform:translateY(-13ex)"-->
+                <!-- START OF MIDDLE CONTENT -->
+                <table>
+                  <tr>
+                    <th>Date and Time</th>
+                    <th>Patient ID</th>
+                    <th>Status</th>
+                  </tr>
+                  <tbody id="emergencyTable">
+                      <tr></tr>
+                  </tbody>
+                </table>
 
-            </div> <!--end div class="main container-fluid wrapper"-->
-        </div><!-- END OF MAIN DIV CONTAINER CLASS!!! --> <!--end div id="content"-->
-    </div><!--End OF WRAPPER CLASS!!--> <!--end div class="wrapper"-->
 
-    <script type='text/javascript' src='Config.js'></script>
-    <script type='text/javascript' src='Schedulejs.js'></script>
-    <script type='text/javascript' src='Profile.js'></script>
-    <script type='text/javascript' src='Notifications.js'></script>
+
+        </div><!-- END OF MAIN DIV CONTAINER CLASS!!! -->
+    </div><!--End OF WRAPPER CLASS!!
 
     <!-- START COPY FOR SIDEBAR JAVASCRIPT -->
     <!-- jQuery CDN - Slim version (=without AJAX) -->
@@ -219,27 +247,33 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <script type="text/javascript">
+        /*
+        This is the javascript required for the sidebar to work.
+        */
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
-
+            /*
+            This is the javascript for the sidebar to change.
+            */
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar, #content').toggleClass('active');
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-                if (document.getElementById("toggleSide").innerHTML == "Hide sidebar") {
+                if(document.getElementById("toggleSide").innerHTML=="Hide sidebar"){
                     document.getElementById("toggleSide").innerHTML = "Show sidebar";
-
-
                 } else if (document.getElementById("toggleSide").innerHTML == "Show sidebar") {
                     document.getElementById("toggleSide").innerHTML = "Hide sidebar";
-
-
                 }
             });
         });
-
+        /*************************************************************************/
+        /* Function name: imgBlur */
+        /* Description: Blur the image when the mouse is over the icon image. */
+        /* Parameters: obj - the image  */
+        /* Return Value: none */
+        /*************************************************************************/
         function imgBlur(obj) {
             var photoword = document.getElementById("photoword");
             var Profilepic = document.getElementById("Profilepic");
@@ -247,10 +281,17 @@
             photoword.style.position = "absolute";
             photoword.style.transform = "translate(2ex,2ex)";
             photoword.style.zIndex = "2000";
+
             Profilepic.style.filter = "blur(3px)";
             Profilepic.style.display = "inline";
         }
 
+        /*************************************************************************/
+        /* Function name: imgOrg */
+        /* Description: Fix the image post mouse over. */
+        /* Parameters: obj - the image  */
+        /* Return Value: none */
+        /*************************************************************************/
         function imgOrg(obj) {
             var photoword = document.getElementById("photoword");
             var Profilepic = document.getElementById("Profilepic");
