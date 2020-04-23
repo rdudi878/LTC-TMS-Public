@@ -30,6 +30,7 @@
     <script type='text/javascript' src='Profile.js'></script>
     <script type='text/javascript' src='Notifications.js'></script>
     <script type='text/javascript' src='Feedback.js'></script>
+    <script type='text/javascript' src='Video.js'></script>
 
 </head>
 	<style>
@@ -209,13 +210,16 @@
                 <!-- START OF MIDDLE CONTENT-->
                 <div class="right"  style="width:800ex; transform:translateY(-9ex);">
                     <div class="tap">
-                        <span id="introductionspan" onclick="showintroductionKU()" style="opacity:1;cursor:pointer;">Video</span>
+                        <span id="introductionspan" onclick="showintroductionKU()" style="opacity:1;cursor:pointer;">Live Stream</span>
                     </div>
                     <div class="container" id="data1" style="position:relative;top:0%; left:0%;">
                         <table style="height:100%;width:100%;border-style:hidden;">
                             <tr>
                                 <!-- //put video here -->
-                                <td style="border-style:hidden;"><video style="width:47pc;" src="ltctms.ddns.net:8081" controls></video></td>
+                                <!-- <td style="border-style:hidden;"><video style="width:47pc;" src="http://ltctms.ddns.net:8081/stream.mjpg" controls></video></td> -->
+                                <td id="liveStream" style="border-style:hidden;"><img src="http://ltctms.ddns.net:8081/stream.mjpg" controls></td>
+                                <td id="streamIsDown" style="border-style:hidden; display:none;"><span style="color:red;font-size:20px;">The stream is currently not running</span></td>
+                                <td id="loadingVid" style="border-style:hidden;"><span style="color:red;font-size:20px;">Loading Live Stream</span></td>
                             </tr>
                             <button style="display:none; position:absolute; top:88%;left:88%;width:8%; height:8%;cursor:pointer;" id="aboutus_button" onclick="aboutus_submit()">OK</button>
                         </table>
