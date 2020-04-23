@@ -25,6 +25,7 @@ from firebase import firebase
 import serial, time
 import time
 import Adafruit_ADS1x15
+import pyrebase
 
 
 #**********************************************************************#
@@ -39,7 +40,29 @@ import Adafruit_ADS1x15
 #                                                                      #
 #**********************************************************************#
 
-def infiniteloop1():    
+def infiniteloop1():
+
+    #variable for setup the fireBase app for sending notifications
+    config = {
+      "apiKey": "AIzaSyDTQfbN-Ag-GN1z0pI-kIRnc4LtUB83NPw",
+      "authDomain": "csc354-a604d.firebaseapp.com",
+      "databaseURL": "https://csc354-a604d.firebaseio.com",
+      "projectId": "csc354-a604d",
+      "storageBucket": "csc354-a604d.appspot.com",
+      "messagingSenderId": "786974548917",
+      "appId": "1:786974548917:web:504b52b9ef22062c9daffc",
+      "measurementId": "G-8KLJLYJMS2"
+    };
+    #configuration
+    fireBase = pyrebase.initialize_app(config)
+    dbref = fireBase.database()
+    
+    #set variable ftime for 1 st time patient falls
+    ftime = 1
+    
+    #prompt the user for associated patient ID and room number
+    _patient_ID = input("enter patient ID: ")
+    _room_num = input("enter room number: ")
     while True: 
     
         #create a variable called port that will contain the port we are connecting to used to connect our computer to the micro:bit
@@ -51,59 +74,84 @@ def infiniteloop1():
         s.baudrate = baud
 
         #our firebase url
-        url = "https://share-b7589.firebaseio.com/"
-        fb = firebase.FirebaseApplication(url, None)
+        #url = "https://share-b7589.firebaseio.com/"
 
-        #6 variables for time
-        tm = str(time.strftime("%H~%M"))
-        ltm = str(time.strftime("%H:%M"))# hours, Minutes
-        tms = str(time.strftime("%H~%M~%S"))#hours, minutes, seconds
-        dt = str(time.strftime("%Y-%-m-%-d"))#Year, month, day
-        onlyh = str(time.strftime("%H"))#hours
-        onlym = str(time.strftime("%M"))#minutes
+        #browser firebase instance
+        url = "https://csc354-a604d.firebaseio.com/"
+        fb = firebase.FirebaseApplication(url, None)
 
         #read the lines of data being sent via the serial connection and saving it as variable data
         data = s.readline()
 
-        #print(data)#b'205,550001,32,0
+        data = str(data.strip())# convert data to a string
+        print(data)###
+        sptdata = data.strip("'").split(',')# splits the data with a comma with removing the last ' for fall data
+        
+        #sending data when there are step count and fall data available
+        if (len(sptdata) ==4):
+            #step count is at index 2    
+            stepdata = sptdata[2]  
+            
+            #7 variables for time after reading received data
+            tm = str(time.strftime("%H~%M"))
+            ltm = str(time.strftime("%H:%M"))# hours, Minutes
+            tms = str(time.strftime("%H~%M~%S"))#hours, minutes, seconds
+            dt = str(time.strftime("%Y-%m-%d"))#Year, month, day
+            onlyh = str(time.strftime("%H"))#hours
+            onlym = str(time.strftime("%M"))#minutes
+            falltime = str(datetime.datetime.now()) #the datetime for notifications if needed
 
-        data = str(data[0:24])# convert data to a string
-        sptdata = data.split(',')# splits the data with a comma
-
-        #print("Data:" + data) #Data:b'205,550001,32,0 
-  
-        #assign room number to variable 
-        sptdata[0] = "Location"
-        locationdata = "205"
-        
-        #assign patient id to variable
-        sptdata[1] = "550001"
-        patientiddata = sptdata[1]
-
-        #step count is at index 2    
-        stepdata = sptdata[2]
-
-        #fall detection is at index 3
-        falldata = sptdata[3]    #KU changed
-    
-    
-       #variables for different time formats?
-        x = tm + "?" + "→"+ "?" + stepdata + "?" + "steps"
-        y = "Time:" + tm
-        f = tms + "?" + "→" + "?"+ falldata  
-        
-        #send step count to Firebase
-        fb.put("/Activities"+"/"+sptdata[1]+"/"+ dt +"/AI"+"/Step", "Step/", x)
-        
-        #send location to Firebase
-        fb.put("/Activities"+"/"+sptdata[1]+"/"+ dt +"/AI" +"/"+sptdata[0]+"/"+locationdata, onlyh + "/", onlym)
-        
-        #send fall detection value to Firebase
-        fb.put("/Activities"+"/"+sptdata[1]+"/"+ dt +"/AI" +"/FallRecord", "Fell/", f)  #KU changed
-        
-        #print to the screen
-        print("Patient ID:" +patientiddata + "," + '\n'+"Time and Step Count:" + x + '\n' + "Room" + locationdata + "," + y + '\n')
-        time.sleep(10)
+            #variables for different time formats? sending to database
+            x = tm + "?" + "→"+ "?" + stepdata + "?" + "steps"
+            y = "Time:" + tm
+            
+            #fall detection is at index 3
+            falldata = sptdata[3]
+            if (falldata == '1'):
+                f = tms + "?" + "→" + "?"+ falldata 
+                #send fall detection value to Firebase
+                fb.put("/Activities"+"/"+_patient_ID+"/"+ dt +"/AI" +"/FallRecord", "Fell"+ str(ftime) +"/", f)
+            
+                post_ref = dbref.child('Notifications')      #setup a post variable for sending data to specific branch in DB
+                
+                #send notifications to database as fall detection, and put a caution on screen
+                post_key_ref = post_ref.push({
+                    'Patient ID': _patient_ID,
+                    'Datetime': falltime,
+                    'Status': 'Fell for the ' + str(ftime) + " time in that day" + ", in Room " + str(_room_num)
+                })
+                #send notifications to CNA also
+                all_CNA = dbref.child("CNA").get() # get all CNA IDs
+                notID = list(post_key_ref.values())[0]
+                for cna in all_CNA.each():
+                    loc = str(cna.key())
+                    CNA_post = dbref.child('CNA').child(loc).child('Notifications')
+                    CNA_post.update({
+                        notID:{
+                        'Viewed': 'False'}
+                    })
+                #send notifications to CNO/Director also
+                all_AC = dbref.child("uAccount").get() # get all uAccount IDs
+                for account in all_AC.each():
+                    ac_loc = str(account.key())
+                    AC_post = dbref.child('uAccount').child(ac_loc).child('Notifications')
+                    AC_post.update({
+                        notID:{
+                        'Viewed': 'False'}
+                    })
+                #increment the fell time by 1
+                ftime = ftime + 1
+                print("Fell dectected.")
+            
+            #send step count to Firebase
+            fb.put("/Activities/"+ _patient_ID +"/"+ dt +"/AI"+"/Step", "Step/", x)
+            
+            #send location to Firebase
+            fb.put("/Activities/"+ _patient_ID +"/"+ dt +"/AI/" +"Location/"+ _room_num, onlyh + "/", onlym)
+            
+            #print to the screen
+            print("Patient ID:" + _patient_ID + "," + '\n'+"Time and Step Count:" + x + '\n' + "Room" + _room_num + "," + y + '\n')
+            time.sleep(10)
 
         #if the time is 00:00 goodmoring will be printed to the screen
         if ltm == "00:00":
@@ -115,5 +163,6 @@ def infiniteloop1():
 #creating threads that process the function infiniteloop1
 thread1 = threading.Thread(target=infiniteloop1)
 thread1.start()
+
 
 
