@@ -16,9 +16,7 @@ $(document).ready(function(){
         } else {
           document.getElementById("liveStream").style.display = 'none';
           document.getElementById("streamIsDown").style.display = 'block';
-          setTimeout(function () {
-            document.getElementById("loadingVid").style.display = 'none';
-          }, 5000);
+          document.getElementById("loadingVid").style.display = 'none';
         }
       }
     });
