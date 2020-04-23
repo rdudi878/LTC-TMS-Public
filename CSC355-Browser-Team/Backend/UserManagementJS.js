@@ -124,7 +124,7 @@ else if(email.includes(".com") ==false){
 
 function areYouSure(){
   var yes = confirm('Are you sure?');
-  if(confirm===true) {
+  if(yes ==true) {
     return yes;
   } else {
     location.reload();
@@ -144,17 +144,17 @@ function deleteUserAccount(i){
   var fbABCD = firebase.database().ref('No_Portfolio/'+position).child(sid);
   var currPassword = firebase.database().ref('uAccount/' + sid + '/' + 'Password');
   var currEmail = firebase.database().ref('uAccount/' + sid + '/' + 'Email');
-  var email = "test@email.com"
-  var password = "321cba"
+  var email = "test@email.com";
+  var password = "321cba";
   currPassword.once('value').then(function(snapshot){
     oldPass = snapshot.val();
     sendOldPass = oldPass;
-})
+});
 
 currEmail.once('value').then(function(snapshot){
   oldEmail = snapshot.val();
   sendOldEmail = oldEmail;
-})
+
 // The vars need to be called before they can be removed. So instead of printing them, I'm displaying them in the console
 console.log(sendOldEmail);
 console.log(sendOldPass);
@@ -180,6 +180,8 @@ console.log(password);
   } else {
     location.reload();
   }
+  location.reload();
+  });
 }
 
 /**
