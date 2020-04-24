@@ -56,6 +56,8 @@ fbPAT.once("value")
         }
         recreated_search = arr[0]+"-"+arr[1]+"-"+arr[2];
         var selected_id = document.getElementById("selectPAT").value;// get the patient's ID
+        console.log("selected_id");
+        console.log(selected_id);
         var fbPAT_CNA= firebase.database().ref("Activities/"+selected_id+"/"+recreated_search);
         //grab the Patient's ID from database and put into the selected box
         fbPAT_CNA.once("value")
@@ -107,32 +109,36 @@ fbPAT.once("value")
       var cnaRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate);
       cnaRef.once('value', function(cnaSnap){
         cnaSnap.forEach(function(cnaChild) {
-// Pulling out the CNA ID so that it can be dynamically referenced for getting daily statuses
-          cnaKey = cnaChild.key;
-          var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/"+cnaKey+"/daily_status/");
-          console.log("cnaKey");
-          console.log(cnaKey);
-          statusRef.once("value")
-          .then(function(statusSnapshot) {
-            console.log("noData");
-            console.log(noData);
-            if(!statusSnapshot.exists()) {
-              // console.log("no data to display");
-              noData.style.display = "block";
-            }
-            statusSnapshot.forEach(function(dsChild) {
-              console.log("dsChild");
-              console.log(dsChild);
-              if (dsChild.key!=="submittedBy"
-              && dsChild.key!=="timestamp"
-              && dsChild.key!=="date") {
-                var dsStatRow = dsStatInfo.insertRow(dsRowIndex);
-                dsStatRow.setAttribute("class","table-list-row");
-                var cellCompletedTasks = dsStatRow.insertCell(0)
-                cellCompletedTasks.appendChild(document.createTextNode(dsChild.key));
-              }
+          if (cnaChild.key!=="AI") {
+            // Pulling out the CNA ID so that it can be dynamically referenced for getting daily statuses
+            cnaKey = cnaChild.key;
+            console.log("cnaKey");
+            console.log(cnaKey);
+            var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/"+cnaKey+"/daily_status/");
+            statusRef.once("value")
+            .then(function(statusSnapshot) {
+              // console.log("statusSnapshot");
+              // console.log(statusSnapshot);
+              // if(!statusSnapshot.exists()) {
+              //   // console.log("no data to display");
+              //   noData.style.display = "block";
+              // }
+              statusSnapshot.forEach(function(dsChild) {
+                // console.log("dsChild");
+                // console.log(dsChild.key);
+                if (dsChild.key!=="submittedBy"
+                && dsChild.key!=="timestamp"
+                && dsChild.key!=="date") {
+                  var dsStatRow = dsStatInfo.insertRow(dsRowIndex);
+                  dsStatRow.setAttribute("class","table-list-row");
+                  var cellCompletedTasks = dsStatRow.insertCell(0)
+                  cellCompletedTasks.appendChild(document.createTextNode(dsChild.key));
+                } else if (!dsChild.exists()) {
+                  noData.style.display = "block";
+                }
+              });
             });
-          });
+          }
         });
       });
     }
@@ -163,10 +169,6 @@ fbPAT.once("value")
           cnaKey = cnaChild.key;
           var statusRef = rootRef.child("Activities/"+selectedPatient+"/"+selectedDate+"/"+cnaKey+"/vital_status/");
           statusRef.once("value", function(snapshot) {
-            if(!snapshot.exists()) {
-              // console.log("no data to display");
-              noData.style.display = "block";
-            }
             snapshot.forEach(function(child) {
               if (child.key!=="specialrecord") {
                 var vsStatRow = vsStatInfo.insertRow(vsRowIndex);
@@ -185,7 +187,7 @@ fbPAT.once("value")
                 // Clean up how temperature and blood pressure values display
                 var value = child.val();
                 if (splitArray[0]!=="Blood Pressure") {
-                  value = child.val()+"°F";
+                  value = child.val()+"°C";
                 } else {
                   value = value.replace("~", "/");
                 }
@@ -194,6 +196,8 @@ fbPAT.once("value")
                 cellMeasurementTime.appendChild(document.createTextNode(splitArray[1]));
                 cellMeasurementType.appendChild(document.createTextNode(splitArray[0]));
                 cellMeasurementValue.appendChild(document.createTextNode(value));
+              } else if (!child.exists()) {
+                noData.style.display = "block";
               }
             });
           });
