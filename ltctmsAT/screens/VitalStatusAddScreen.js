@@ -120,23 +120,7 @@ class VitalStatusAddScreen extends React.Component {
                             value={this.state.temperature}/>
                         }/>
                     </View>
-                    <View style={{paddingTop:20}}>
-                    <Content padder>
-                        <Card style={styles.mb}>
-                        <CardItem header bordered>
-                            <Text>Special Case Record</Text>
-                        </CardItem>
-                        <CardItem> 
-                        <Form style={{flex:1,flexDirection:"column"}}>
-                                <Textarea rowSpan={10} bordered placeholder="Desciption of Ailment(Ex. Patient today’s poor breath) " onChangeText={(specialrecord) => this.setState({ specialrecord })} 
-                                value={this.state.specialrecorde}/>
-                            </Form>       
-                                            
-                        </CardItem>
-                        </Card>
-                  </Content>
-
-                    </View>
+                 
                     <View style={{marginTop: 20, alignSelf: 'center', flex: 1, fontSize: 10, width: 250}}>
                         <Button
                             onPress={this._submitStatus}
@@ -190,7 +174,7 @@ class VitalStatusAddScreen extends React.Component {
             specialrecord:specialrecord
         });
         this._showPatientRecords();
-        Alert.alert('Vital Status Add', 'Successful!');
+        Alert.alert('Vital Status Add', 'The record is added by CNA#' + CNA + ' successful!');
     }
     }
 

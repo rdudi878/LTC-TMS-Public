@@ -23,6 +23,7 @@ export default class Feedback extends Component {
     this.state = {
       userInfo: '',
       Content: '',
+      position:'',
       feedbackTypeSwitch: false
     };
 
@@ -60,7 +61,11 @@ export default class Feedback extends Component {
     this.setState({
       userInfo: JSON.parse(userInfo)
     });
-
+    var data = JSON.parse(userInfo);
+    this.setState({
+      position: data.Position
+    })
+    console.log(this.state.position);
   }
 
   async componentDidMount() {
@@ -81,11 +86,11 @@ export default class Feedback extends Component {
   /* Return Value: none */
   /* */
   /*************************************************************************/
-  postMsg = async (ID, Email, feedbackType, Content, ContentClear) => {
+  postMsg = async (ID, Position, Email, feedbackType, Content, ContentClear) => {
     if (this.state.Content != null) {
 
       //call writeFeedbackData function to push data to database
-      await writeFeedbackData(ID, Email, Content, feedbackType);
+      await writeFeedbackData(ID, Position, Email, Content, feedbackType);
       if (this.state.Content != null) {
         this.refs[ContentClear].setNativeProps({ text: '' });
         this.setState({
@@ -186,7 +191,7 @@ export default class Feedback extends Component {
                   <Left>
                   </Left>
                   <Body>
-                    <Button success onPress={() => this.postMsg(user.ID, user.Email, this.state.feedbackTypeSwitch, this.state.Content, 'ContentClear')}>
+                    <Button success onPress={() => this.postMsg(user.ID, user.Position, user.Email, this.state.feedbackTypeSwitch, this.state.Content, 'ContentClear')}>
                       <Text>SUBMIT</Text>
                     </Button>
                   </Body>
@@ -211,12 +216,13 @@ export default class Feedback extends Component {
 /* Return Value: none */
 /* */
 /*************************************************************************/
-writeFeedbackData = async (_id, email, content, feedbackType) => {
+writeFeedbackData = async (_id, position, email, content, feedbackType) => {
   await firebase.database().ref('Feedback/').push({
     userId: _id,
     feedbackType: (feedbackType ? 'Center' : 'System'),
     feedbackText: content,
     userEmail: email,
+    userPosition: position,
     viewed: "",
     replyText: "",
     replyId: "",

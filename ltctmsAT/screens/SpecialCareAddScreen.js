@@ -82,11 +82,11 @@ class SpecialCareAddScreen extends React.Component {
                     <Content padder>
                         <Card style={styles.mb}>
                         <CardItem header bordered>
-                        <Text>Special Care Record For Patient ID #{this.props.navigation.state.params.patientID}</Text>
+                        <Text style={styles2.text}>Special Care Record For Patient ID #{this.props.navigation.state.params.patientID}</Text>
                         </CardItem>
                         <CardItem> 
                         <Form style={{flex:1,flexDirection:"column"}}>
-                                <Textarea rowSpan={10} bordered placeholder="Desciption of Ailment(Ex. Patient today’s poor breath) " onChangeText={(specialrecord) => this.setState({ specialrecord })} 
+                                <Textarea color='#66a5ad' rowSpan={10} bordered placeholder="Desciption of Ailment(Ex. Patient today’s poor breath) " onChangeText={(specialrecord) => this.setState({ specialrecord })} 
                                 value={this.state.specialrecorde}/>
                             </Form>       
                                             
@@ -95,13 +95,13 @@ class SpecialCareAddScreen extends React.Component {
                   </Content>
 
                     </View>
-                    <View style={{marginTop: 20, alignSelf: 'center', flex: 1, fontSize: 10, width: 250}}>
+                    <View style={{marginTop: 20, alignSelf: 'center', flex: 1, fontSize: 10, width: 300}}>
                         <Button
                             onPress={this._submitStatus}
                             title="Submit"
                             type="solid"
                             buttonStyle={{
-                             backgroundColor:'#3f9fff'}}
+                             backgroundColor:'#07575b'}}
                         />
                     </View>
 
@@ -131,7 +131,7 @@ class SpecialCareAddScreen extends React.Component {
             specialrecord:specialrecord
         });
         this._showPatientRecords();
-        Alert.alert('Special Care Add', 'Successful!');
+        Alert.alert('Special Care Add', ' The record is added by CNA#' +this.state.userInfo.ID + ' successful!');
     
     }
 
@@ -200,6 +200,9 @@ const styles2 = StyleSheet.create({
       mb: {
         marginBottom: 20
       },
+      text: {
+          color:'#07575b'
+      }
 });
 
 

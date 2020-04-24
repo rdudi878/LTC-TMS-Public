@@ -78,7 +78,7 @@ class DailyStatusReadScreen extends React.Component {
       })
        this.setState({CNA : cna[0]}, () => {this.state.CNA});
     })
-    console.log(this.state.CNA);
+    
   }
 
   // This pulls the current logged in users data that was saved in asyncstorage into state
@@ -218,7 +218,7 @@ class DailyStatusReadScreen extends React.Component {
   this._fetchCNA();
    
     
-    console.log(this.state.CNA);
+    
     firebase.database().ref(`Activities/${(this.state.position == "Patient" ? this.state.userID : this.props.navigation.getParam('patientID','0'))}/${this.state.date}/${this.state.CNA}/daily_status/`).once('value').then((snapshot) => {
       var status = snapshot.toJSON();
       var shower = status.shower;
@@ -283,8 +283,7 @@ class DailyStatusReadScreen extends React.Component {
           id: childSnapshot.key,
         })
       })
-      console.log("patientData.id")
-      console.log(patientData)
+      
       this.setState({
         patientList: patientData,
         patient: patientData.id
