@@ -341,7 +341,7 @@ class CenterInfo extends React.Component {
             </Picker></View>
           
           </Card>
-          <Card height={275} justifyContent='space-between'> 
+          <Card height={290} justifyContent='space-between'> 
           <FlatList
           marginTop={5}
             data={this.state.centerSchedule}
@@ -430,7 +430,7 @@ const styles2 = StyleSheet.create({
     marginTop: 1,
   }, 
   card: {
-    height:200,
+    height:190,
     width:370,
     
     

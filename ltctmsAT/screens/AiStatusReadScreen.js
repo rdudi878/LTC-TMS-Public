@@ -22,7 +22,7 @@ import { createStackNavigator, createSwitchNavigator, createAppContainer, create
 import firebase from 'react-native-firebase';
 import DatePicker from 'react-native-datepicker';
 import styles from '../styles/styles';
-import { Text } from 'native-base';
+import { Text, Card, CardItem } from 'native-base';
 import { Button } from 'react-native-elements';
 
 class AiStatusReadScreen extends React.Component {
@@ -91,12 +91,15 @@ class AiStatusReadScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles2.container}>
+          
+           <Card width={350}>
+           <CardItem header bordered>
           <View>
-            <View>
-              <Text style={styles.item}>Select Date to View AI Status</Text>
-            </View>
+            <Text style={styles.headerText}>Select Date to View AI Status</Text>
           </View>
-          <View style={styles.pickerView}>
+          </CardItem>
+       
+          <View style={styles.pickerView} paddingTop={20} paddingBottom={20} >
             <DatePicker
               date={this.state.date}
               mode="date"
@@ -120,6 +123,7 @@ class AiStatusReadScreen extends React.Component {
               onDateChange={(date) => { this.setState({ date: date }) }}
             />
           </View>
+          </Card>
           <View>
             <Button
               onPress={this._fetchAiStatus}
@@ -127,14 +131,16 @@ class AiStatusReadScreen extends React.Component {
               style={{ padding: 10 }}
               type="solid"
               buttonStyle={{
-                backgroundColor:'#3f9fff'}}
+                backgroundColor:'#07575b'}}
             />
           </View>
+          <Card height={100} justifyContent='space-evenly' paddingLeft={20}>
           <View>
-            <Text>Latest Heart Rate: {this.state.heartRate}</Text>
-            <Text>Steps Taken: {this.state.steps}</Text>
-            <Text>Times fallen: {this.state.fallRecord}</Text>
+            <Text style={styles2.text}>Latest Heart Rate: {this.state.heartRate}</Text>
+            <Text style={styles2.text}>Steps Taken: {this.state.steps}</Text>
+            <Text style={styles2.text}>Times fallen: {this.state.fallRecord}</Text>
           </View>
+          </Card>
         </ScrollView>
       </View>
     );
@@ -251,6 +257,11 @@ const styles2 = StyleSheet.create({
     justifyContent: 'space-evenly',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  text: {
+    fontSize:18,
+    padding:4,
+    color:'#66a5ad'
   }
 });
 

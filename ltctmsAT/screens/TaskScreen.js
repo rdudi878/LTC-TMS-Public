@@ -424,11 +424,11 @@ class TaskScreen extends React.Component {
                   {item.collapsedStep ?
                     <View /> :
                     <View>
-                        <Image 
+                        {/*<Image 
                         style={{width:400,height:200,alignSelf: 'center'}}
                         //source={{uri:'https://firebasestorage.googleapis.com/v0/b/share-b7589.appspot.com/o/Patient%2Fyen.jpg?alt=media&token=76df78e6-20a1-4f96-bd56-eb3c3b7d994c'}}
                         source={{uri: item.pic}}
-                        />
+                        />*/}
                       {stepsArray}
                     </View>}
                   </View>}

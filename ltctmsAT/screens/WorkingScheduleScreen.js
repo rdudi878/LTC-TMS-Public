@@ -73,6 +73,7 @@ class WorkingSchedule extends React.Component {
   /*************************************************************************/
   componentDidMount() {
     this.getItems();
+    this.updateWeek();
     this._fetchDates();
   }
 
@@ -93,7 +94,7 @@ class WorkingSchedule extends React.Component {
   updateWeek = (selectedDate) => {
     console.log(selectedDate);
     this.setState({ selectedDate: selectedDate })
-    const ref = firebase.database().ref(`/CNA/330001/Schedule/${selectedDate}`);
+    const ref = firebase.database().ref(`/CNA/330001/Schedule/`);
  
     var data = [];
     ref.once('value', (snapshot) => {
@@ -322,7 +323,7 @@ class WorkingSchedule extends React.Component {
           
           <Text style={styles2.headerText}>Your Working Schedule</Text>
           
-          <Card style={styles2.card} marginBottom={17}>
+         {/* <Card style={styles2.card} marginBottom={17}>
           
             <CardItem header bordered>
               <Text style={styles2.text}>Select Week</Text>
@@ -341,7 +342,7 @@ class WorkingSchedule extends React.Component {
               })}
             </Picker></View>
           
-          </Card>
+            </Card>*/}
           <Card height={275} justifyContent='space-between'> 
           <FlatList
           marginTop={5}

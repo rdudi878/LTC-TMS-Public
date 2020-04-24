@@ -22,7 +22,7 @@ import { createStackNavigator, createSwitchNavigator, createAppContainer, create
 import firebase from 'react-native-firebase';
 import DatePicker from 'react-native-datepicker';
 import styles from '../styles/styles';
-import { Text } from 'native-base';
+import { Text, Card, CardItem } from 'native-base';
 import { Button } from 'react-native-elements';
 
 class VitalStatusReadScreen extends React.Component {
@@ -92,10 +92,13 @@ class VitalStatusReadScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles2.container}>
+          <Card>
+            <CardItem header bordered>
           <View>
-            <Text style={styles.item}>Select Date/CNA ID to view Vital Status</Text>
+            <Text style={styles.headerText}>Select Date to View Vital Status</Text>
           </View>
-          <View style={styles.pickerView}>
+          </CardItem>
+          <View style={styles.pickerView} paddingTop={20}>
             <DatePicker
               style={styles2.pickerStyle}
               date={this.state.date}
@@ -120,19 +123,22 @@ class VitalStatusReadScreen extends React.Component {
               onDateChange={(date) => { this.setState({ date: date }) }}
             />
           </View>
-          <View style={{justifyContent: 'space-between', fontSize: '10'}}>
+          </Card>
+          <View style={{justifyContent: 'space-between', fontSize: '10', margin:10}}>
             <Button
               onPress={this._fetchCNA(),this._fetchStatus}
               title="Submit"
               type="solid"
               buttonStyle={{
-                backgroundColor:'#3f9fff'}}
+                backgroundColor:'#07575B'}}
             />
           </View>
+          <Card>
           <View style={styles.container}>
-            <Text style={style={fontSize: 20, fontWeight: 'bold', marginTop: 20, marginBottom: 5}}>{this.state.header}</Text>
-            <Text style={styles.itemPortfolio}>{this.state.status}</Text>
+            <Text style={style={fontSize: 22, fontWeight: 'bold', marginTop: 20, marginBottom: 5, color:'#07575b'}}>{this.state.header}</Text>
+            <Text style={styles2.status}>{this.state.status}</Text>
           </View>
+          </Card>
         </ScrollView>
       </View>
 
@@ -286,6 +292,10 @@ const styles2 = StyleSheet.create({
   pickerStyle: {
     color: 'black',
     marginBottom: 20
+  },
+  status: {
+    color:'#66a5ad',
+    fontSize:18
   }
 });
 

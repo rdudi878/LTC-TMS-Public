@@ -478,7 +478,7 @@ class DailyStatusAddScreen extends React.Component {
     });
 
     this._showPatientRecords();
-    Alert.alert('Daily Status Add', 'Successful!');
+    Alert.alert('Daily Status Add', 'The record is added by CNA#' + this.state.userInfo.ID +' successful!');
   }
 
   _showPatientRecords() {

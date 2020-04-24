@@ -28,11 +28,12 @@ import { Button } from 'react-native-elements';
 class SpecialCareReadScreen extends React.Component {
 
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    var patientID = props.navigation.state.params.patientID;
     this.state = {
       patientList: [],
-      patient: '',
+      patient: patientID,
       record: '',
       userID: '',
       position: '',
@@ -64,9 +65,10 @@ class SpecialCareReadScreen extends React.Component {
       this.setState({
         userID: data.ID
       })
+      this._fetchSpecialCare(this.state.position, data.ID);
     })
-    this._fetchPatients();
-    this._fetchSpecialCare(this.state.position, this.state.userID);
+    
+    //this._fetchSpecialCare(this.state.position, data.ID);
     
   }
 
@@ -86,12 +88,11 @@ class SpecialCareReadScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles2.container}>
           <View>
-              <Text style ={styles2.headerText}>
-                {(this.state.position == "Patient") ? this.state.userID : this.state.patient}</Text>
+              
               
               <Card>
                 <CardItem header bordered>
-                  <Text style={styles2.headerBox}>Special Care Instructions</Text>
+                  <Text style={styles2.headerBox}>Special Care Instructions # {(this.state.position == "Patient") ? this.state.userID : this.state.patient}</Text>
                 </CardItem>
                 <CardItem>
                   <Text style={styles2.textBox}>{this.state.record}</Text>
@@ -112,6 +113,7 @@ class SpecialCareReadScreen extends React.Component {
     } else {
       patient = this.state.patient;
     }
+    console.log("dddd"+ userID + position);
     firebase.database().ref(`Activities/${(this.state.position == "Patient" ? patient : this.props.navigation.getParam('patientID','0'))}/special_care`).once('value').then((snapshot) => {
 
       const data = snapshot.toJSON();
