@@ -28,12 +28,14 @@ firebase.auth().onAuthStateChanged(function (firebaseUser){
                   if (position == "Director") {
                     if(document.getElementById("sponsoredspan") != null){
                       document.getElementById("sponsoredspan").style.visibility = "visible";
+                      //document.getElementById("feed").style.visibility = "visible";
                       console.log("YEE YEE");
                     }
                   }
                 });
 
           document.getElementById('displayProfileid').innerHTML=userid;
+          document.getElementById("feed").style.display = "inline";
         }
 
       });
