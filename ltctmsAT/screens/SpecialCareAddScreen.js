@@ -27,7 +27,7 @@ import Moment from 'moment';
 
 class SpecialCareAddScreen extends React.Component {
     static navigationOptions = {
-        title: 'Add Special Care',
+        title: 'Special Care Add',
     };
 
     constructor(props) {
@@ -63,7 +63,7 @@ class SpecialCareAddScreen extends React.Component {
     // This pulls the current logged in users data that was saved in asyncstorage into state
     // begin fetching content (patients) before the component actually mounts
     componentDidMount() {
-        this._fetchPatients();
+        //this._fetchPatients();
         this._fetchUserInfo();
     }
 
@@ -86,7 +86,7 @@ class SpecialCareAddScreen extends React.Component {
                         </CardItem>
                         <CardItem> 
                         <Form style={{flex:1,flexDirection:"column"}}>
-                                <Textarea color='#66a5ad' rowSpan={10} bordered placeholder="Desciption of Ailment(Ex. Patient today’s poor breath) " onChangeText={(specialrecord) => this.setState({ specialrecord })} 
+                                <Textarea rowSpan={10} bordered placeholder="Desciption of Ailment(Ex. Patient today’s poor breath) " onChangeText={(specialrecord) => this.setState({ specialrecord })} 
                                 value={this.state.specialrecorde}/>
                             </Form>       
                                             
